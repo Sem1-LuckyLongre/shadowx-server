@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+  }
+
+  .dark {
+    --background: 15 23 42;
+    --foreground: 255 255 255;
+  }
+
+  body {
+    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))] transition-colors duration-200;
+  }
+}
+
+/* Smooth transition for theme changes */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Dark mode styles for common elements */
+.dark input,
+.dark textarea,
+.dark select {
+  @apply bg-gray-800 border-gray-700 text-white placeholder-gray-400;
+}
+
+.dark button:not(.bg-blue-600):not(.bg-red-600) {
+  @apply bg-gray-800 text-white hover:bg-gray-700;
+}
+
+.dark .card {
+  @apply bg-gray-800 border-gray-700 shadow-xl;
+}
+
+/* Common element styles */
+input, textarea, select {
+  @apply bg-white border-gray-200 text-gray-900 placeholder-gray-500;
+}
+
+.card {
+  @apply bg-white border border-gray-200 shadow-md rounded-lg;
+}
+
+/* Navigation styles */
+.nav-link {
+  @apply text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded-lg transition-colors duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+}
+
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: auto !important;
+  /*Settextcolortowhite*/background-color: transperent !important;
+  /*Bluebackground*/transition: background-color 5000s ease-in-out 0s !important;
+  -webkit-transition: background-color 5000s ease-in-out 0s !important;
+  -moz-transition: background-color 5000s ease-in-out 0s !important;
+  -ms-transition: background-color 5000s ease-in-out 0s !important;
+  -o-transition: background-color 5000s ease-in-out 0s !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
