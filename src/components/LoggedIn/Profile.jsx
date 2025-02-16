@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaCamera, FaExclamationCircle } from "react-icons/fa";
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../Loader";
 import { AiOutlineClose } from "react-icons/ai";
@@ -130,9 +130,12 @@ export const Profile = () => {
                 field.value && ( // Only render the field if value exists
                   <div
                     key={index}
-                    className="bg-gray-100 dark:bg-gray-900/50 p-4 rounded-lg flex items-center border border-gray-200 dark:border-gray-700"
+                    className="bg-gray-100 dark:bg-gray-900/50 p-4 rounded-lg flex flex-col border border-gray-200 dark:border-gray-700"
                   >
-                    <p className="text-gray-900 dark:text-white font-semibold">
+                    <p className="text-gray-500 dark:text-gray-300 text-sm font-medium">
+                      {field.label} {/* Yeh label show karega */}
+                    </p>
+                    <p className="text-gray-900 dark:text-white font-semibold flex items-center">
                       {field.label === "Pass Key" ? (
                         <span className="flex items-center">
                           <span className="mr-2">{field.value}</span>
@@ -163,6 +166,7 @@ export const Profile = () => {
                 )
             )}
           </div>
+
           {!userData.passkey && (
             <button
               id="ediNow"

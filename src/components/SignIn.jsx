@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaEnvelope,
   FaLock,
@@ -8,10 +8,20 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const Registrtion = localStorage.getItem("Registration");
+    if (!Registrtion) {
+      navigate("/SignUp");
+      return;
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -96,14 +106,14 @@ export const SignIn = () => {
     setPasswordVisibility(!passwordVisibility);
   };
 
-  const socialLoginHandlers = [
+  const socialRegistrtionHandlers = [
     {
       name: "Google",
       icon: FaGoogle,
       color: "text-red-500",
       handler: () => {
         // Implement Google OAuth
-        alert("Google Login Coming Soon!");
+        alert("Google Registrtion Coming Soon!");
       },
     },
     {
@@ -112,7 +122,7 @@ export const SignIn = () => {
       color: "text-gray-800",
       handler: () => {
         // Implement GitHub OAuth
-        alert("GitHub Login Coming Soon!");
+        alert("GitHub Registrtion Coming Soon!");
       },
     },
   ];
@@ -124,7 +134,9 @@ export const SignIn = () => {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-blue-500 dark:to-purple-600">
             Welcome Back
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">Sign in to continue</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">
+            Sign in to continue
+          </p>
         </div>
 
         {/* Loading Indicator */}
@@ -138,7 +150,7 @@ export const SignIn = () => {
         {isSubmitted && (
           <div className="bg-green-600/80 text-white p-4 rounded-lg flex items-center justify-center mb-4">
             <FaCheckCircle className="mr-2" />
-            Login Successful!
+            Registrtion Successful!
           </div>
         )}
 
@@ -202,10 +214,10 @@ export const SignIn = () => {
             Sign In
           </button>
           <h1 className="text-center my-5">Or</h1>
-          {/* Social Login */}
+          {/* Social Registrtion */}
           <div className="mt-6">
             <div className="flex items-center justify-center space-x-4">
-              {socialLoginHandlers.map((social) => (
+              {socialRegistrtionHandlers.map((social) => (
                 <button
                   key={social.name}
                   type="button"

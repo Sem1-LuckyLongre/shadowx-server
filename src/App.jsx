@@ -9,6 +9,13 @@ import AppLayout from "./components/AppLayout";
 import { Contact } from "./components/Contact";
 import { ForgotPassword } from "./components/ForgotPassword";
 import { ThemeProvider } from "./context/ThemeContext";
+import Explore from "./components/LoggedIn/Explore";
+import SelectSubjects from "./components/LoggedIn/Activities/SelectSubjects";
+import Activites from "./components/LoggedIn/Activities/Activities";
+import AddAssignment from "./components/LoggedIn/Activities/Assignmets/AddAssignments";
+import ShowAssignments from "./components/LoggedIn/Activities/Assignmets/ShowAssignments";
+import AddPracticals from "./components/LoggedIn/Activities/Practicals/AddPracticals";
+import ShowPracticals from "./components/LoggedIn/Activities/Practicals/ShowPracticals";
 
 const App = () => {
   const Registration = localStorage.getItem("Registration");
@@ -26,7 +33,11 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: CheckLogin() ? <Profile /> : <Welcome Registration={Registration} />,
+          element: CheckLogin() ? (
+            <Profile />
+          ) : (
+            <Welcome Registration={Registration} />
+          ),
         },
         {
           path: "/SignUp",
@@ -51,6 +62,34 @@ const App = () => {
         {
           path: "/forgot-password",
           element: <ForgotPassword />,
+        },
+        {
+          path: "/Explore",
+          element: <Explore />,
+        },
+        {
+          path: "/activities",
+          element: <Activites />,
+        },
+        {
+          path: "/addAssignments",
+          element: <AddAssignment />,
+        },
+        {
+          path: "/showAssignments",
+          element: <ShowAssignments />,
+        },
+        {
+          path: "/addPracticals",
+          element: <AddPracticals />,
+        },
+        {
+          path: "/showPracticals",
+          element: <ShowPracticals />,
+        },
+        {
+          path: "/SelectSubs",
+          element: <SelectSubjects />,
         },
       ],
     },

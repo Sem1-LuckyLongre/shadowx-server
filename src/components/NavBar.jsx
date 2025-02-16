@@ -45,7 +45,7 @@ export const NavBar = ({ Registration, Login }) => {
     },
     {
       name: "Explore",
-      path: "/About",
+      path: "/Explore",
       icon: MdExplore,
       alwaysVisible: Login,
     },
