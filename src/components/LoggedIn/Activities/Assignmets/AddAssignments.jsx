@@ -52,7 +52,12 @@ const AddAssignment = () => {
   };
 
   const handleSubmit = () => {
-    if (!formData.subject || !formData.date || !formData.deadline || !formData.topic) {
+    if (
+      !formData.subject ||
+      !formData.date ||
+      !formData.deadline ||
+      !formData.topic
+    ) {
       alert("Please fill all the fields!");
       return;
     }
@@ -196,10 +201,12 @@ const AddAssignment = () => {
       </div>
 
       {/* Modal for Subject Selection Alert */}
-      <Modal
-        isOpen={modalOpen}
-        message="Please select your subjects first before adding assignments."
-      />
+      <NavLink to="/SelectSubs">
+        <Modal
+          isOpen={modalOpen}
+          message="Please select your subjects first before adding assignments."
+        />
+      </NavLink>
     </div>
   );
 };
