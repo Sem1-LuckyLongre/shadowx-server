@@ -2,7 +2,8 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Typed from "typed.js";
-import { FaRocket, FaSignInAlt, FaArrowRight } from "react-icons/fa";
+import { FaSignInAlt, FaArrowRight } from "react-icons/fa";
+// FaRocket
 import { motion } from "framer-motion";
 
 export const Welcome = ({ Registration }) => {
@@ -101,8 +102,8 @@ export const Welcome = ({ Registration }) => {
                 </>
               ) : (
                 <>
-                  ShadowX&apos;s Projects
-                  <FaRocket className="ml-2" />
+                  Projects
+                  {/* <FaRocket className="ml-2" /> */}
                 </>
               )}
               <FaArrowRight className="ml-2 opacity-0 group-hover:opacity-100 transition-all" />
