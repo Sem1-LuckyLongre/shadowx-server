@@ -101,7 +101,7 @@ export const Welcome = ({ Registration }) => {
                 </>
               ) : (
                 <>
-                  My Projects
+                  ShadowX&apos;s Projects
                   <FaRocket className="ml-2" />
                 </>
               )}
