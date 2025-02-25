@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   AiOutlineClose,
   AiOutlineHome,
@@ -8,10 +8,11 @@ import {
 import { FaBars, FaCog } from "react-icons/fa";
 import { MdExplore } from 'react-icons/md';
 import { Link, useLocation } from "react-router-dom";
-import ThemeToggle from "../components/common/ThemeToggle";
+import ThemeToggle from "./common/ThemeToggle";
 import NavLink from './NavLink';
 import SettingsDropdown from './SettingsDropdown';
 import MobileMenu from './MobileMenu';
+import { GoProjectSymlink } from "react-icons/go";
 
 export const NavBar = ({ Registration, Login }) => {
   const [toggle, setToggle] = useState(false);
@@ -41,6 +42,12 @@ export const NavBar = ({ Registration, Login }) => {
       name: "Contact",
       path: "/Contact",
       icon: AiOutlineContacts,
+      alwaysVisible: true,
+    },
+    {
+      name: "Projects",
+      path: "/projects",
+      icon: GoProjectSymlink ,
       alwaysVisible: true,
     },
     {

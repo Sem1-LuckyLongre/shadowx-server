@@ -16,6 +16,7 @@ import AddAssignment from "./components/LoggedIn/Activities/Assignmets/AddAssign
 import ShowAssignments from "./components/LoggedIn/Activities/Assignmets/ShowAssignments";
 import AddPracticals from "./components/LoggedIn/Activities/Practicals/AddPracticals";
 import ShowPracticals from "./components/LoggedIn/Activities/Practicals/ShowPracticals";
+import { Projects } from "./components/Projects";
 
 const App = () => {
   const Registration = localStorage.getItem("Registration");
@@ -46,6 +47,10 @@ const App = () => {
         {
           path: "/SignIn",
           element: <SignIn />,
+        },
+        {
+          path:"/projects",
+          element: <Projects />
         },
         {
           path: "/Contact",

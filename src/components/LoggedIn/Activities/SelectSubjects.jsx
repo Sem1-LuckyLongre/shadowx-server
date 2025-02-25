@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader } from "../../Loader";
 import { NavLink, useNavigate } from "react-router-dom";
-import semesterSubjects from "./SemesterSubjects"; // ✅ Importing subject data
+import semesterSubjects from "./SemesterSubjects.json"; // ✅ Importing subject data
 
 const SubjectSelection = () => {
   const navigate = useNavigate();

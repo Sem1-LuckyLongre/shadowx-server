@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Typed from "typed.js";
 import { FaRocket, FaSignInAlt, FaArrowRight } from "react-icons/fa";
@@ -25,33 +26,33 @@ export const Welcome = ({ Registration }) => {
     <div className="min-h-screen bg-[rgb(var(--background))] dark:bg-gradient-to-br dark:from-black dark:via-gray-900 dark:to-blue-900 flex items-center justify-center overflow-hidden relative">
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-blue-100 dark:from-black dark:via-gray-900 dark:to-blue-900 opacity-70 pointer-events-none"></div>
-      
+
       {/* Floating Particles */}
       {[...Array(50)].map((_, index) => (
         <motion.div
           key={index}
-          initial={{ 
-            x: Math.random() * window.innerWidth, 
+          initial={{
+            x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            opacity: 0
+            opacity: 0,
           }}
-          animate={{ 
-            x: Math.random() * window.innerWidth, 
+          animate={{
+            x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
             opacity: [0, 0.7, 0],
-            scale: [1, 2, 1]
+            scale: [1, 2, 1],
           }}
           transition={{
             duration: Math.random() * 10 + 5,
             repeat: Infinity,
-            repeatType: "loop"
+            repeatType: "loop",
           }}
           className="absolute w-2 h-2 bg-blue-600/70 dark:bg-blue-500/50 rounded-full"
         />
       ))}
 
       {/* Main Content */}
-      <motion.div 
+      <motion.div
         className="relative z-10 text-center max-w-2xl p-8 bg-white/80 dark:bg-gray-800/60 rounded-3xl shadow-2xl backdrop-blur-lg border border-gray-200 dark:border-gray-700"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -61,21 +62,21 @@ export const Welcome = ({ Registration }) => {
         <div className="mb-10">
           <div className="flex flex-col justify-center items-center gap-4">
             <h1 className="text-3xl md:text-5xl flex flex-col md:flex-row font-bold text-gray-900 dark:text-white">
-              Welcome to 
+              Welcome to
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 ml-3">
                 <span ref={el} />
               </span>
             </h1>
-            
+
             <p className="text-gray-600 dark:text-gray-300 max-w-xl text-lg mt-4">
-              Embark on a journey of innovation, creativity, and endless possibilities.
+            I’m a Passionate Web Developer, Dedicated to Building Sleek, Efficient, and user-friendly Digital Experiences Using Modern Technologies.
             </p>
           </div>
         </div>
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <Link to={`/${Registration ? "SignIn" : "SignUp"}`} className="group">
+          <Link to={`/${Registration ? "SignIn" : "projects"}`} className="group">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -95,12 +96,12 @@ export const Welcome = ({ Registration }) => {
             >
               {Registration ? (
                 <>
-                <FaSignInAlt className="mr-2" />
-                Go to Login
+                  <FaSignInAlt className="mr-2" />
+                  Go to Login
                 </>
               ) : (
                 <>
-                  Get Started
+                  See My Projects
                   <FaRocket className="ml-2" />
                 </>
               )}

@@ -1,0 +1,485 @@
+[
+  {
+    "id": 1,
+    "category": [
+      "CSS"
+    ],
+    "title": "Navbar Hover Effect On Links",
+    "liveLink": "https://luckylongre12.github.io/NavBar-CSS/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/mZvknbS2/image.png",
+    "description": "Navigation bar implementing CSS pseudo-elements and transition properties for animated underline hover effects.",
+    "betterUI": "In PC",
+    "sourceCode":"https://github.com/LuckyLongre12/NavBar-CSS"
+  },
+  {
+    "id": 2,
+    "category": [
+      "CSS"
+    ],
+    "title": "Shake Me Effect with CSS",
+    "liveLink": "https://luckylongre12.github.io/Button-ShakeMe/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/BbQp9T3H/image.png",
+    "description": "Interactive button animation combining CSS transform: translate() with cubic-bezier timing functions.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Button-ShakeMe"
+  },
+  {
+    "id": 3,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Calculator",
+    "liveLink": "https://luckylongre12.github.io/LuckyLongre12/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/9fYymDJp/image.png",
+    "description": "Arithmetic operations calculator with keyboard support and error handling using vanilla JavaScript.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/LuckyLongre12"
+  },
+  {
+    "id": 4,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Login Form with OTP Generator",
+    "liveLink": "https://luckylongre12.github.io/Response-java/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/wx7w6dsm/image.png",
+    "description": "Two-factor authentication system with email validation and OTP encryption logic.",
+    "betterUI": "In Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Response-java"
+  },
+  {
+    "id": 5,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Show Password",
+    "liveLink": "https://luckylongre12.github.io/Show-Password-/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/FF8Dznjn/image.png",
+    "description": "Dynamic input type toggling with DOM manipulation for password visibility control.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Show-Password-"
+  },
+  {
+    "id": 6,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Timer",
+    "liveLink": "https://luckylongre12.github.io/Timer-JavaScript/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/HkCz4cvw/image.png",
+    "description": "Countdown mechanism with setInterval control and user input validation system.",
+    "betterUI": "In Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Timer-JavaScript"
+  },
+  {
+    "id": 7,
+    "category": [
+      "React JS"
+    ],
+    "title": "Responsive Navbar Using React",
+    "liveLink": "https://responsive-navbar-react-shadowx.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/PJwb1TmV/image.png",
+    "description": "Mobile-first navigation component with dynamic menu transitions using React state management.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/Navbar-react"
+  },
+  {
+    "id": 8,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Table Generator",
+    "liveLink": "https://luckylongre12.github.io/Table-Generator-/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/3J2CRrrd/image.png",
+    "description": "Dynamic table builder with row/column management and real-time cell content editing.",
+    "betterUI": "In Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Table-Generator-"
+  },
+  {
+    "id": 9,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Login System Using Local Storage",
+    "liveLink": "https://luckylongre12.github.io/Login-Form/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/k5gxfxQb/image.png",
+    "description": "Client-side authentication system with browser storage encryption and session management.",
+    "betterUI": "In PC",
+    "sourceCode":"https://github.com/LuckyLongre12/Login-Form"
+  },
+  {
+    "id": 10,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Random User API",
+    "liveLink": "https://sem1-luckylongre.github.io/RandomUserApiShadowX/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/D0PZ9NFy/image.png",
+    "description": "RandomUser.me API implementation with dynamic card population and data refresh functionality.",
+    "betterUI": "In Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/RandomUserApiShadowX"
+  },
+  {
+    "id": 11,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Currency Convertor (Expired)",
+    "liveLink": "https://sem1-luckylongre.github.io/ExchangeRateByShadowX/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/QdttzSzh/image.png",
+    "description": "Multi-currency conversion system with historical rates API integration (deprecated endpoints).",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/ExchangeRateByShadowX"
+  },
+  {
+    "id": 12,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "JavaScript Road Map For Starting React JS",
+    "liveLink": "https://sem1-luckylongre.github.io/Roadmap_JS_to_ReactJs/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/DwMZ3LVs/image.png",
+    "description": "Interactive learning path visualization for core JS concepts essential to React development.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/ExchangeRateByShadowX"
+  },
+  {
+    "id": 13,
+    "category": [
+      "JavaScript",
+      "ShadowXVs"
+    ],
+    "title": "First Version Of ShadowX",
+    "liveLink": "https://luckylongre12.github.io/erp.lucky.longre.com/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/pXyMb7PG/image.png",
+    "description": "Initial portfolio iteration featuring core web technologies and responsive layout fundamentals.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/erp.lucky.longre.com"
+  },
+  {
+    "id": 14,
+    "category": [
+      "JavaScript",
+      "ShadowXVs"
+    ],
+    "title": "Version 2 Of ShadowX",
+    "liveLink": "https://sem1-luckylongre.github.io/ShadowXCheckVersion1/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/NMQZNCNx/image.png",
+    "description": "Enhanced portfolio with dark mode toggle and CSS custom properties implementation.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/ShadowXCheckVersion1"
+  },
+  {
+    "id": 15,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 1 Of ShadowX",
+    "liveLink": "https://shadowxtest1.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/D0Rcimage.png",
+    "description": "React-based portfolio showcasing component-driven architecture and dynamic content rendering.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 16,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 2 Of ShadowX",
+    "liveLink": "https://shadowxtest2.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/ZKyHkFyt/image.png",
+    "description": "Portfolio iteration with React Router for seamless navigation and animated page transitions.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 17,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 3 Of ShadowX",
+    "liveLink": "https://shadowxtest3.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/1zyrNk7s/image.png",
+    "description": "Advanced version utilizing code splitting and lazy loading for improved performance and user experience.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 18,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 4 Of ShadowX",
+    "liveLink": "https://shadowxtest4.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/fyScNDyj/image.png",
+    "description": "TypeScript integration for enhanced type safety and improved developer experience in React components.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 19,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 5 Of ShadowX",
+    "liveLink": "https://shadowxtest5.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/TPkN22dZ/image.png",
+    "description": "Next.js implementation featuring server-side rendering for optimized SEO and performance.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 20,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 6 Of ShadowX",
+    "liveLink": "https://shadowxtest6.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/vT5vnGy8/image.png",
+    "description": "Microfrontend architecture experiment using Webpack Module Federation for scalable component sharing.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 21,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 7 Of ShadowX",
+    "liveLink": "https://shadowxtest7.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/d3xXVsJW/image.png",
+    "description": "Integration of Jest testing suite with React Testing Library for comprehensive component testing.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 22,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 8 Of ShadowX",
+    "liveLink": "https://shadowxtest8.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/d3xXVsJW/image.png",
+    "description": "Progressive Web App features including service workers for offline capabilities and enhanced user engagement.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 23,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 9 Of ShadowX",
+    "liveLink": "https://shadowxtest9.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
+    "description": "Design system implementation with Storybook for component documentation and visual testing.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 24,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 10 Of ShadowX",
+    "liveLink": "https://shadowxtext10.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
+    "description": "Internationalization support with i18next for multi-language capabilities and user accessibility.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 25,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 11 Of ShadowX",
+    "liveLink": "https://shadowx-v11.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
+    "description": "Advanced state management using Redux Toolkit for efficient data handling and application scalability.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 26,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Version 12 Of ShadowX",
+    "liveLink": "https://shadowx-v11-1.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
+    "description": "Component performance optimization through memoization and virtualized lists for handling large datasets.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 27,
+    "category": [
+      "React JS",
+      "ShadowXVs"
+    ],
+    "title": "Current Version Of ShadowX",
+    "liveLink": "https://shadowx-v12.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
+    "description": "Latest iteration of the ShadowX web app featuring full-stack capabilities with Next.js API routes and Supabase integration.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"NO"
+  },
+  {
+    "id": 28,
+    "category": [
+      "CSS"
+    ],
+    "title": "Neon Loader",
+    "liveLink": "https://luckylongre12.github.io/Neon-Loader/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/RV1SbwFX/image.png",
+    "description": "Pulsating neon animation using CSS box-shadow and filter properties with alternating color keyframes.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Neon-Loader"
+  },
+  {
+    "id": 29,
+    "category": [
+      "CSS"
+    ],
+    "title": "Floating Text",
+    "liveLink": "https://luckylongre12.github.io/Floating-Text/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/nh7zxN0Y/image.png",
+    "description": "CSS-powered text animation using @keyframes with smooth opacity transitions and vertical movement effects.",
+    "betterUI": "In PC",
+    "sourceCode":"https://github.com/LuckyLongre12/Floating-Text"
+  },
+  {
+    "id": 30,
+    "category": [
+      "CSS"
+    ],
+    "title": "Newton Cradle",
+    "liveLink": "https://luckylongre12.github.io/Newton-Credle/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/bN5TWSBS/image.png",
+    "description": "CSS physics simulation implementing transform-origin and timing functions for pendulum motion effects.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/LuckyLongre12/Newton-Credle"
+  },
+  {
+    "id": 31,
+    "category": [
+      "JavaScript"
+    ],
+    "title": "Guessing Game",
+    "liveLink": "https://sem1-luckylongre.github.io/GuessingGameByShadowX/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/zGXbrqym/image.png",
+    "description": "Random number generation game with attempt tracking and progressive difficulty system.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/GuessingGameByShadowX"
+  },
+  {
+    "id": 32,
+    "category": [
+      "React JS"
+    ],
+    "title": "Todo App",
+    "liveLink": "https://todo-app-shadowx.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/6312qnRd/image.png",
+    "description": "CRUD operations task manager with local storage persistence and priority categorization features.",
+    "betterUI": "In PC",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/Todo-App"
+  },
+  {
+    "id": 33,
+    "category": [
+      "React JS"
+    ],
+    "title": "Unlimited Movies App",
+    "liveLink": "https://unlimited-movies-app-shadowx.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/Fz7SVDmW/image.png",
+    "description": "TMDB API-powered movie database with infinite scroll and dynamic content loading using Axios.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/unlimited-movies"
+  },
+  {
+    "id": 34,
+    "category": [
+      "React JS"
+    ],
+    "title": "Pokemon App PC",
+    "liveLink": "https://shadowxpokemonapp.netlify.app/",
+    "responsive": "NO",
+    "imageURL": "https://i.postimg.cc/52wCgHdV/Screenshot-2025-02-23-130152.png",
+    "description": "PokeAPI integration with type-based filtering and detailed stats visualization for Pokémon data.",
+    "betterUI": "In PC",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/pokemon-PC"
+  },
+  {
+    "id": 35,
+    "category": [
+      "React JS"
+    ],
+    "title": "Pokemon App Mobile",
+    "liveLink": "https://shadowxpokemonsapp.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/52wCgHdV/Screenshot-2025-02-23-130152.png",
+    "description": "PokeAPI integration with type-based filtering and detailed stats visualization for Pokémon data.",
+    "betterUI": "In Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/pokemon-PC"
+  },
+  {
+    "id": 36,
+    "category": [
+      "React JS"
+    ],
+    "title": "All Countries App",
+    "liveLink": "https://all-countries-shadowx.netlify.app/",
+    "responsive": "YES",
+    "imageURL": "https://i.postimg.cc/V65WLj58/image.png",
+    "description": "REST Countries API integration with regional filters and demographic data visualization.",
+    "betterUI": "In PC and Mobile",
+    "sourceCode":"https://github.com/Sem1-LuckyLongre/all-countries"
+  }
+]
