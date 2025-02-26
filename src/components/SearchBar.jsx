@@ -10,7 +10,6 @@ export const SearchBar = ({
   filter,
   setFilter,
   setProjects,
-  theme,
 }) => {
   const { isDarkMode } = useTheme();
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State to manage filter section visibility
@@ -49,7 +48,10 @@ export const SearchBar = ({
           <motion.input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              e.preventDefault();
+              setSearch(e.target.value);
+            }}
             placeholder="Search My Projects..."
             className={`w-full p-3 pl-12 pr-4 rounded-full shadow-md border outline-none transition-all duration-300 
               ${
@@ -116,7 +118,7 @@ export const SearchBar = ({
         >
           {/* Filters Heading */}
           <h2
-            className={`text-xl text-center font-semibold w-full text-left ${
+            className={`text-xl text-center font-semibold w-full ${
               isDarkMode ? "text-green-300" : "text-gray-900"
             } sm:text-center`}
           >
@@ -126,7 +128,10 @@ export const SearchBar = ({
           {/* Sorting Buttons */}
           <div className="flex gap-4 w-full sm:justify-center">
             <button
-              onClick={() => handleSort("newest")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSort("newest");
+              }}
               className={`px-4 py-2 rounded-lg shadow-md font-semibold transition-all duration-300 
                 ${
                   isDarkMode
