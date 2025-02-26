@@ -1,6 +1,5 @@
-# Hello i'm ShadowX. 
-## This is My Portfolio Project...
-=======
+# Welcome to ShadowX. 
+
 
 ## Project Overview
 This project is a personal portfolio website built using **React** and **Vite**, designed for fast performance and efficient development. The portfolio showcases projects, skills, and other professional details. It includes features such as **Hot Module Replacement (HMR)** for seamless updates during development and **ESLint** for maintaining code quality.
