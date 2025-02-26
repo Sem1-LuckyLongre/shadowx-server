@@ -358,7 +358,7 @@
       "ShadowXVs"
     ],
     "title": "Current Version Of ShadowX",
-    "liveLink": "https://shadowx-v12.netlify.app/",
+    "liveLink": "https://shadowx-alpha.vercel.app/",
     "responsive": "YES",
     "imageURL": "https://i.postimg.cc/3J0fZH8T/image.png",
     "description": "Latest iteration of the ShadowX web app featuring full-stack capabilities with Next.js API routes and Supabase integration.",
