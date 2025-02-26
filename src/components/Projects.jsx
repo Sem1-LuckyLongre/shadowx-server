@@ -141,7 +141,7 @@ export const Projects = () => {
                         : "bg-gray-200 text-gray-800"
                     }`}
                   >
-                    ID: {project.id}
+                    {/* ID: {project.id} */}
                   </div>
 
                   {project.imageURL && (
