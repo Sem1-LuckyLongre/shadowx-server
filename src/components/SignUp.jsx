@@ -92,7 +92,7 @@ export const SignUp = () => {
             break;
           case "password":
             newErrors[field.name] =
-              "Password must be strong (uppercase, lowercase, number, special char)";
+              "Password must be 8 character long strong (uppercase, lowercase, number, special char)";
             break;
           case "confirmPassword":
             newErrors[field.name] = "Passwords do not match";

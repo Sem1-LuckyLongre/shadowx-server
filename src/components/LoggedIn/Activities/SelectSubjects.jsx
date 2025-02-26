@@ -30,8 +30,8 @@ const SubjectSelection = () => {
     }
   }, []);
 
-  const handleSemesterChange = (event) => {
-    const selectedSemester = event.target.value;
+  const handleSemesterChange = (e) => {
+    const selectedSemester = e.target.value;
     setSemester(selectedSemester);
     setSubjectsData(semesterSubjects[selectedSemester] || {});
     setSelectedSubjects({ AEC: "", VAC: "", SEC: "", GE: "" });
@@ -99,11 +99,12 @@ const SubjectSelection = () => {
               <option value="" disabled>
                 ---Select Semester---
               </option>
-              {Object.keys(semesterSubjects).map((sem, index) => (
+              {/* {Object.keys(semesterSubjects).map((sem, index) => (
                 <option key={index} value={sem}>
                   {sem}
                 </option>
-              ))}
+              ))} */}
+              <option value="Semester_2">Semester 2</option>
             </select>
           </div>
 
