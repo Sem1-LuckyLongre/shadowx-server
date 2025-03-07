@@ -6,15 +6,12 @@ const connectDB = async () => {
       throw new Error("❌ MONGODB_URI is missing in environment variables!");
     }
 
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI); // No need for deprecated options
 
     console.log("✅ MongoDB connected successfully.");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
-    process.exit(1); // Stop the process if the connection fails
+    process.exit(1);
   }
 };
 
