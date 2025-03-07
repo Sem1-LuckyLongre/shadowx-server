@@ -8,7 +8,7 @@ import NotFound from "./components/NotFound";
 import AppLayout from "./components/AppLayout";
 import { Contact } from "./components/Contact";
 import { ForgotPassword } from "./components/ForgotPassword";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Explore from "./components/LoggedIn/Explore";
 import SelectSubjects from "./components/LoggedIn/Activities/SelectSubjects";
 import Activites from "./components/LoggedIn/Activities/Activities";
@@ -17,28 +17,31 @@ import ShowAssignments from "./components/LoggedIn/Activities/Assignmets/ShowAss
 import AddPracticals from "./components/LoggedIn/Activities/Practicals/AddPracticals";
 import ShowPracticals from "./components/LoggedIn/Activities/Practicals/ShowPracticals";
 import { Projects } from "./components/Projects";
+import { AdminLayout } from "./components/layouts/AdminLayout";
+import { AdminUsers } from "./components/AdminUsers";
+import { AdminWelcome } from "./components/AdminWelcome";
+import { AdminMessages } from "./components/AdminMessages";
+import { AdminUpdateUser } from "./components/AdminUpdateUser";
+import { AdminProjects } from "./components/AdminProjects";
 
 const App = () => {
-  const Registration = localStorage.getItem("Registration");
-  const Login = localStorage.getItem("LoggedIn");
+  // const Registration = localStorage.getItem("Registration");
+  // const Login = localStorage.getItem("LoggedIn");
+  const { isLoggedIn } = useTheme();
 
   const CheckLogin = () => {
-    return !!Login;
+    return !!isLoggedIn;
   };
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AppLayout Registration={Registration} Login={Login} />,
+      element: <AppLayout Login={isLoggedIn} />,
       errorElement: <NotFound />,
       children: [
         {
           path: "/",
-          element: CheckLogin() ? (
-            <Profile />
-          ) : (
-            <Welcome Registration={Registration} />
-          ),
+          element: CheckLogin() ? <Profile /> : <Welcome />,
         },
         {
           path: "/SignUp",
@@ -49,8 +52,8 @@ const App = () => {
           element: <SignIn />,
         },
         {
-          path:"/projects",
-          element: <Projects />
+          path: "/projects",
+          element: <Projects />,
         },
         {
           path: "/Contact",
@@ -95,6 +98,32 @@ const App = () => {
         {
           path: "/SelectSubs",
           element: <SelectSubjects />,
+        },
+        {
+          path: "/admin",
+          element: <AdminLayout />,
+          children: [
+            {
+              path: "desk",
+              element: <AdminWelcome />,
+            },
+            {
+              path: "users",
+              element: <AdminUsers />,
+            },
+            {
+              path: "users/:id/edit",
+              element: <AdminUpdateUser />,
+            },
+            {
+              path: "messages",
+              element: <AdminMessages />,
+            },
+            {
+              path: "projects",
+              element: <AdminProjects />,
+            },
+          ],
         },
       ],
     },

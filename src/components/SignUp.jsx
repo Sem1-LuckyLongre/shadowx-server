@@ -1,19 +1,23 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   FaUser,
   FaEnvelope,
   FaLock,
   FaGraduationCap,
-  FaCheckCircle,
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
 import { Loader } from "./Loader";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const SignUp = () => {
-  if(localStorage.getItem("Registration")){
-    window.location.assign("/")
+  if (localStorage.getItem("Registration")) {
+    window.location.assign("/");
   }
+
   const [formData, setFormData] = useState({
     name: "",
     course: "",
@@ -22,15 +26,14 @@ export const SignUp = () => {
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
     confirmPassword: false,
   });
 
-  const formRef = useRef(null);
+  const { storeTokenIntoLocalStorage } = useTheme();
+  const navigate = useNavigate();
 
   const inputFields = [
     {
@@ -39,20 +42,23 @@ export const SignUp = () => {
       name: "name",
       icon: FaUser,
       validation: (value) => value.length >= 4,
+      errorMessage: "Name must be at least 4 characters",
     },
-    {
-      label: "Course",
-      type: "text",
-      name: "course",
-      icon: FaGraduationCap,
-      validation: (value) => value.length >= 3,
-    },
+    // {
+    //   label: "Course",
+    //   type: "text",
+    //   name: "course",
+    //   icon: FaGraduationCap,
+    //   validation: (value) => value.length >= 3,
+    //   errorMessage: "Course must be at least 3 characters",
+    // },
     {
       label: "Email Address",
       type: "email",
       name: "email",
       icon: FaEnvelope,
       validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+      errorMessage: "Invalid email format",
     },
     {
       label: "Password",
@@ -63,6 +69,8 @@ export const SignUp = () => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
           value
         ),
+      errorMessage:
+        "Password must be 8 characters long and contain uppercase, lowercase, number, and special character",
     },
     {
       label: "Confirm Password",
@@ -70,41 +78,21 @@ export const SignUp = () => {
       name: "confirmPassword",
       icon: FaLock,
       validation: (value) => value === formData.password,
+      errorMessage: "Passwords do not match",
     },
   ];
 
   const validateForm = () => {
-    const newErrors = {};
-
-    inputFields.forEach((field) => {
+    for (let field of inputFields) {
       if (!formData[field.name]) {
-        newErrors[field.name] = `${field.label} is required`;
+        toast.error(`${field.label} is required`);
+        return false;
       } else if (!field.validation(formData[field.name])) {
-        switch (field.name) {
-          case "name":
-            newErrors[field.name] = "Name must be at least 4 characters";
-            break;
-          case "course":
-            newErrors[field.name] = "Course must be at least 3 characters";
-            break;
-          case "email":
-            newErrors[field.name] = "Invalid email format";
-            break;
-          case "password":
-            newErrors[field.name] =
-              "Password must be 8 character long strong (uppercase, lowercase, number, special char)";
-            break;
-          case "confirmPassword":
-            newErrors[field.name] = "Passwords do not match";
-            break;
-          default:
-            break;
-        }
+        toast.error(field.errorMessage);
+        return false;
       }
-    });
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    }
+    return true;
   };
 
   const handleInputChange = (e) => {
@@ -122,25 +110,47 @@ export const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const { URI } = useTheme();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
+      const { confirmPassword, ...dataToSend } = formData;
 
-      setTimeout(() => {
+      try {
+        const response = await fetch(`${URI}/api/auth/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        });
+
+        if (response.ok) {
+          setIsLoading(false);
+          const res_data = await response.json();
+
+          if (res_data.msg === "Registraction Succesfull") {
+            storeTokenIntoLocalStorage(res_data.token);
+            toast.success("Registration Successful!");
+
+            setTimeout(() => {
+              navigate("/SignIn");
+            }, 1000);
+          }
+        } else {
+          setIsLoading(false);
+          const res_data = await response.json();
+          if (res_data.msg === "User already exists!") {
+            toast.error("User Already Exists...");
+          }
+        }
+      } catch (error) {
         setIsLoading(false);
-        setIsSubmitted(true);
-
-        // Store user data
-        localStorage.setItem("Registration", "true");
-        localStorage.setItem("User_Data", JSON.stringify(formData));
-
-        // Reset and redirect
-        setTimeout(() => {
-          setIsSubmitted(false);
-          window.location.assign("/");
-        }, 2000);
-      }, 2000);
+        console.error("register " + error);
+        toast.error("Something went wrong! Please try again.");
+      }
     }
   };
 
@@ -151,25 +161,18 @@ export const SignUp = () => {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-blue-500 dark:to-purple-600">
             Create Account
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">Join our community today!</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">
+            Join our community today!
+          </p>
         </div>
 
-        {/* Loading Indicator */}
         {isLoading && (
           <div className="flex justify-center mb-4">
             <Loader />
           </div>
         )}
 
-        {/* Success Message */}
-        {isSubmitted && (
-          <div className="bg-green-600/80 text-white p-4 rounded-lg flex items-center justify-center mb-4">
-            <FaCheckCircle className="mr-2" />
-            Registration Successful!
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} ref={formRef}>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             {inputFields.map((field) => (
               <div key={field.name} className="relative">
@@ -178,29 +181,33 @@ export const SignUp = () => {
                     <field.icon />
                   </div>
                   <input
-  type={field.type === "password" ? (passwordVisibility[field.name] ? "text" : "password") : field.type}
-  name={field.name}
-  placeholder={field.label}
-  value={formData[field.name]}
-  onChange={handleInputChange}
-  className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none autofill:bg-blue-500 autofill:text-white"
-/>
-
+                    type={
+                      field.type === "password"
+                        ? passwordVisibility[field.name]
+                          ? "text"
+                          : "password"
+                        : field.type
+                    }
+                    name={field.name}
+                    placeholder={field.label}
+                    value={formData[field.name]}
+                    onChange={handleInputChange}
+                    className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none autofill:bg-blue-500 autofill:text-white"
+                  />
                   {field.type === "password" && (
                     <button
                       type="button"
                       onClick={() => togglePasswordVisibility(field.name)}
                       className="pr-4 hover:bg-black text-gray-500 dark:text-gray-400"
                     >
-                      {passwordVisibility[field.name] ? <FaEye /> : <FaEyeSlash />}
+                      {passwordVisibility[field.name] ? (
+                        <FaEye />
+                      ) : (
+                        <FaEyeSlash />
+                      )}
                     </button>
                   )}
                 </div>
-                {errors[field.name] && (
-                  <p className="text-red-500 dark:text-red-400 text-sm mt-1 pl-4">
-                    {errors[field.name]}
-                  </p>
-                )}
               </div>
             ))}
           </div>
@@ -211,6 +218,17 @@ export const SignUp = () => {
           >
             Sign Up
           </button>
+          <div className="text-center mt-6">
+            <p className="text-gray-600 dark:text-gray-400">
+              Already have an account?{" "}
+              <NavLink
+                to="/SignIn"
+                className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-purple-400 transition duration-300 underline-offset-4 hover:underline"
+              >
+                Login
+              </NavLink>
+            </p>
+          </div>
         </form>
       </div>
     </div>

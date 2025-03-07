@@ -1,37 +1,26 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
   FaEnvelope,
   FaLock,
   FaGoogle,
   FaGithub,
-  FaCheckCircle,
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Loader } from "./Loader";
+import { useTheme } from "../context/ThemeContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// toast.configure();
 
 export const SignIn = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const Registrtion = localStorage.getItem("Registration");
-    if (!Registrtion) {
-      navigate("/SignUp");
-      return;
-    }
-  }, []);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [error, setError] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
+  const { storeTokenIntoLocalStorage } = useTheme();
   const formRef = useRef(null);
 
   const inputFields = [
@@ -51,55 +40,43 @@ export const SignIn = () => {
     },
   ];
 
-  const validateForm = () => {
-    const storedUserData = JSON.parse(localStorage.getItem("User_Data"));
+  const { URI } = useTheme();
 
-    if (!storedUserData) {
-      setError("No registered user found. Please sign up first.");
-      return false;
-    }
+  const handleSubmit = (formData) => {
+    setIsLoading(true);
+    console.log("login..");
 
-    if (
-      formData.email !== storedUserData.email ||
-      formData.password !== storedUserData.password
-    ) {
-      setError("Invalid email or password");
-      setTimeout(() => {
-        setError("");
-      }, 4000);
-      return false;
-    }
+    setTimeout(async () => {
+      const formUserData = Object.fromEntries(formData.entries());
+      try {
+        const response = await fetch(`${URI}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formUserData),
+        });
+        const res_data = await response.json();
+        console.log(res_data);
 
-    setError("");
-    return true;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setError("");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setIsLoading(true); // Start loading
-
-    setTimeout(() => {
-      setIsLoading(false);
-      if (validateForm()) {
-        setIsSubmitted(true);
-        localStorage.setItem("LoggedIn", "true");
-
-        setTimeout(() => {
-          setIsSubmitted(false);
-          window.location.assign("/");
-        }, 2000);
+        if (response.ok) {
+          if (res_data.msg === "Login Succesfull") {
+            setIsLoading(false);
+            storeTokenIntoLocalStorage(res_data.token);
+            toast.success("Login Successful!");
+            setTimeout(() => window.location.assign("/"), 2000);
+          }
+        } else {
+          setIsLoading(false);
+          // setError("Invalid email or password");
+          toast.error(res_data.msg);
+        }
+      } catch (error) {
+        console.error("login " + error);
+        setIsLoading(false);
+        toast.error("An error occurred. Please try again.");
       }
-    }, 2000);
+    }, 0);
   };
 
   const togglePasswordVisibility = () => {
@@ -111,19 +88,13 @@ export const SignIn = () => {
       name: "Google",
       icon: FaGoogle,
       color: "text-red-500",
-      handler: () => {
-        // Implement Google OAuth
-        alert("Google Registrtion Coming Soon!");
-      },
+      handler: () => alert("Google Registration Coming Soon!"),
     },
     {
       name: "GitHub",
       icon: FaGithub,
       color: "text-gray-800",
-      handler: () => {
-        // Implement GitHub OAuth
-        alert("GitHub Registrtion Coming Soon!");
-      },
+      handler: () => alert("GitHub Registration Coming Soon!"),
     },
   ];
 
@@ -139,29 +110,13 @@ export const SignIn = () => {
           </p>
         </div>
 
-        {/* Loading Indicator */}
         {isLoading && (
           <div className="flex justify-center mb-4">
             <Loader />
           </div>
         )}
 
-        {/* Success Message */}
-        {isSubmitted && (
-          <div className="bg-green-600/80 text-white p-4 rounded-lg flex items-center justify-center mb-4">
-            <FaCheckCircle className="mr-2" />
-            Registrtion Successful!
-          </div>
-        )}
-
-        {/* Error Message */}
-        {error && (
-          <div className="bg-red-600/80 text-white p-4 rounded-lg text-center mb-4">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} ref={formRef}>
+        <form action={handleSubmit} ref={formRef}>
           <div className="space-y-4">
             {inputFields.map((field) => (
               <div key={field.name} className="relative">
@@ -179,8 +134,6 @@ export const SignIn = () => {
                     }
                     name={field.name}
                     placeholder={field.label}
-                    value={formData[field.name]}
-                    onChange={handleInputChange}
                     className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none"
                   />
                   {field.type === "password" && (
@@ -197,7 +150,6 @@ export const SignIn = () => {
             ))}
           </div>
 
-          {/* Forgot Password Link */}
           <div className="text-right mt-2">
             <Link
               to="/forgot-password"
@@ -214,7 +166,6 @@ export const SignIn = () => {
             Sign In
           </button>
           <h1 className="text-center my-5">Or</h1>
-          {/* Social Registrtion */}
           <div className="mt-6">
             <div className="flex items-center justify-center space-x-4">
               {socialRegistrtionHandlers.map((social) => (

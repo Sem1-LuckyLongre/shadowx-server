@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { FaSignOutAlt, FaTrash } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { AiOutlineEdit } from "react-icons/ai";
+import { FaSignOutAlt, FaTrash } from "react-icons/fa";
 
 const SettingsDropdown = ({ handleLogoutEvent, handleDeleteEvent }) => {
   return (

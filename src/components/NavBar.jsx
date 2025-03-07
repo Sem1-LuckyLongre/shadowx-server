@@ -1,34 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AiOutlineClose,
   AiOutlineHome,
   AiOutlineContacts,
   AiOutlineLogin,
 } from "react-icons/ai";
-import { FaBars, FaCog } from "react-icons/fa";
-import { MdExplore } from 'react-icons/md';
+import { FaBars, FaCog, FaUserPlus } from "react-icons/fa";
+import { MdExplore } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./common/ThemeToggle";
-import NavLink from './NavLink';
-import SettingsDropdown from './SettingsDropdown';
-import MobileMenu from './MobileMenu';
+import NavLink from "./NavLink";
+import SettingsDropdown from "./SettingsDropdown";
+import MobileMenu from "./MobileMenu";
 import { GoProjectSymlink } from "react-icons/go";
+import { useTheme } from "../context/ThemeContext";
+import Modal from "./common/Modal";
+import { FiShield } from "react-icons/fi";
+// import { div } from "framer-motion/client";
 
-export const NavBar = ({ Registration, Login }) => {
+export const NavBar = ({ Login }) => {
   const [toggle, setToggle] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const location = useLocation();
 
-  const handleLogoutEvent = () => {
-    localStorage.removeItem("LoggedIn");
-    window.location.reload();
-  };
+  // const handleLogoutEvent = () => {
+  //   localStorage.removeItem("LoggedIn");
+  //   window.location.reload();
+  // };
+  const { handleLogoutEvent, user } = useTheme();
+  const [IsAdmin, setIsAdmin] = useState(false);
 
-  const handleDeleteEvent = () => {
-    if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-      localStorage.clear();
-      window.location.assign("/");
+  // if(user.userData.isAdmin){
+  //   const IsAdmin = true
+  // }
+  useEffect(() => {
+    if (user) {
+      setIsAdmin(user.userData.isAdmin);
     }
+  }, [user]);
+  const handleDeleteEvent = () => {
+    // if (
+    //   window.confirm(
+    //     "Are you sure you want to delete your account? This action cannot be undone."
+    //   )
+    // ) {
+    //   localStorage.clear();
+    //   window.location.assign("/");
+    // }
+    // alert("jj")
+    setDeleteModalOpen(true);
   };
 
   const navLinks = [
@@ -47,14 +68,20 @@ export const NavBar = ({ Registration, Login }) => {
     {
       name: "Projects",
       path: "/projects",
-      icon: GoProjectSymlink ,
-      alwaysVisible: true,
+      icon: GoProjectSymlink,
+      alwaysVisible: Login,
     },
     {
       name: "Explore",
       path: "/Explore",
       icon: MdExplore,
       alwaysVisible: Login,
+    },
+    {
+      name: "Admin Desk",
+      path: "/admin/desk",
+      icon: FiShield,
+      alwaysVisible: IsAdmin,
     },
   ];
 
@@ -95,9 +122,9 @@ export const NavBar = ({ Registration, Login }) => {
                   )}
                 </button>
                 {isSettingsOpen && (
-                  <SettingsDropdown 
-                    handleLogoutEvent={handleLogoutEvent} 
-                    handleDeleteEvent={handleDeleteEvent} 
+                  <SettingsDropdown
+                    handleLogoutEvent={handleLogoutEvent}
+                    handleDeleteEvent={handleDeleteEvent}
                   />
                 )}
               </div>
@@ -107,25 +134,32 @@ export const NavBar = ({ Registration, Login }) => {
               className="text-gray-700 dark:text-white focus:outline-none"
             >
               {toggle ? (
-                <AiOutlineClose size={30} className="text-red-600 bg-black dark:text-red-400" />
+                <AiOutlineClose
+                  size={30}
+                  className="text-red-600 bg-black dark:text-red-400"
+                />
               ) : (
-                <FaBars size={30} className="text-blue-600 dark:text-blue-400" />
+                <FaBars
+                  size={30}
+                  className="text-blue-600 dark:text-blue-400"
+                />
               )}
             </button>
           </div>
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-6 items-center">
-            {navLinks.map((link, index) => 
-              (link.alwaysVisible || (link.name === "Explore" && Login)) && (
-                <NavLink 
-                  key={index} 
-                  to={link.path} 
-                  icon={link.icon} 
-                  name={link.name} 
-                  isActive={isActiveLink(link.path)} 
-                />
-              )
+            {navLinks.map(
+              (link, index) =>
+                (link.alwaysVisible || (link.name === "Explore" && Login)) && (
+                  <NavLink
+                    key={index}
+                    to={link.path}
+                    icon={link.icon}
+                    name={link.name}
+                    isActive={isActiveLink(link.path)}
+                  />
+                )
             )}
           </ul>
 
@@ -147,32 +181,49 @@ export const NavBar = ({ Registration, Login }) => {
                   )}
                 </button>
                 {isSettingsOpen && (
-                  <SettingsDropdown 
-                    handleLogoutEvent={handleLogoutEvent} 
-                    handleDeleteEvent={handleDeleteEvent} 
+                  <SettingsDropdown
+                    handleLogoutEvent={handleLogoutEvent}
+                    handleDeleteEvent={handleDeleteEvent}
                   />
                 )}
               </div>
             ) : (
-              <Link
-                to={Registration ? "/SignIn" : "/SignUp"}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
-              >
-                <AiOutlineLogin />
-                <span>{Registration ? "Sign In" : "Sign Up"}</span>
-              </Link>
+              <div className="flex gap-4">
+                <Link
+                  to={"/SignUp"}
+                  className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition w-auto"
+                >
+                  <FaUserPlus />
+                  <span>Sign Up</span>
+                </Link>
+                <Link
+                  to={"/SignIn"}
+                  className="flex items-center space-x-2 px-4 py-2 bg-blue-800 text-white rounded-full hover:bg-blue-900 transition w-auto"
+                >
+                  <AiOutlineLogin />
+                  <span>Sign In</span>
+                </Link>
+              </div>
             )}
           </div>
         </div>
 
         {/* Mobile Menu */}
         {toggle && (
-          <MobileMenu 
-            navLinks={navLinks} 
-            Login={Login} 
-            toggle={toggle} 
-            setToggle={setToggle} 
-            isActiveLink={isActiveLink} 
+          <MobileMenu
+            navLinks={navLinks}
+            Login={Login}
+            toggle={toggle}
+            setToggle={setToggle}
+            isActiveLink={isActiveLink}
+          />
+        )}
+
+        {isDeleteModalOpen && (
+          <Modal
+            isOpen={true}
+            message="This feature is coming soon! To delete your account, please contact the developer for assistance."
+            onClose={() => setDeleteModalOpen(false)}
           />
         )}
       </nav>

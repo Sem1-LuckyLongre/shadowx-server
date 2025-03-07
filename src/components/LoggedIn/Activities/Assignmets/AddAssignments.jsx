@@ -207,6 +207,7 @@ const AddAssignment = () => {
           message="Please select your subjects first before adding assignments."
         />
       </NavLink>
+     
     </div>
   );
 };

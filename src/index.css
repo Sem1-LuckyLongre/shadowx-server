@@ -30,9 +30,9 @@
   @apply bg-gray-800 border-gray-700 text-white placeholder-gray-400;
 }
 
-.dark button:not(.bg-blue-600):not(.bg-red-600) {
+/* .dark button:not(.bg-blue-600):not(.bg-red-600) {
   @apply bg-gray-800 text-white hover:bg-gray-700;
-}
+} */
 
 .dark .card {
   @apply bg-gray-800 border-gray-700 shadow-xl;

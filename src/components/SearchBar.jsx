@@ -1,6 +1,6 @@
 import { FaSearch, FaFilter } from "react-icons/fa";
 import { motion } from "framer-motion";
-import Myprojects from "../components/Myprojects.json";
+// import Myprojects from "../components/Myprojects.json";
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
@@ -10,6 +10,7 @@ export const SearchBar = ({
   filter,
   setFilter,
   setProjects,
+  projects,
 }) => {
   const { isDarkMode } = useTheme();
   const [isFilterOpen, setIsFilterOpen] = useState(false); // State to manage filter section visibility
@@ -23,7 +24,7 @@ export const SearchBar = ({
   };
 
   const handleSort = (order) => {
-    const sortedProjects = [...Myprojects].sort((a, b) => {
+    const sortedProjects = [...projects].sort((a, b) => {
       return order === "newest" ? b.id - a.id : a.id - b.id;
     });
     setProjects(sortedProjects);
@@ -140,7 +141,7 @@ export const SearchBar = ({
                 }
               `}
             >
-              Best
+              Newely
             </button>
             <button
               onClick={() => handleSort("oldest")}
@@ -152,7 +153,7 @@ export const SearchBar = ({
                 }
               `}
             >
-              Normal
+              Older
             </button>
           </div>
 

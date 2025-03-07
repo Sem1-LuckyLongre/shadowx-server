@@ -2,10 +2,10 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Typed from "typed.js";
-import { FaRocket, FaSignInAlt, FaArrowRight } from "react-icons/fa";
+import { FaRocket, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-export const Welcome = ({ Registration }) => {
+export const Welcome = () => {
   const el = useRef(null);
 
   useEffect(() => {
@@ -69,14 +69,16 @@ export const Welcome = ({ Registration }) => {
             </h1>
 
             <p className="text-gray-600 dark:text-gray-300 max-w-xl text-lg mt-4">
-            I’m a Passionate Web Developer, Dedicated to Building Sleek, Efficient, and user-friendly Digital Experiences Using Modern Technologies.
+              I’m a Passionate Web Developer, Dedicated to Building Sleek,
+              Efficient, and user-friendly Digital Experiences Using Modern
+              Technologies.
             </p>
           </div>
         </div>
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <Link to={`/${Registration ? "SignIn" : "projects"}`} className="group">
+          <Link to="/signUp" className="group">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -94,17 +96,8 @@ export const Welcome = ({ Registration }) => {
                 group-hover:ring-blue-500/50
               "
             >
-              {Registration ? (
-                <>
-                  <FaSignInAlt className="mr-2" />
-                  Go to Login
-                </>
-              ) : (
-                <>
-                  My Projects
-                  <FaRocket className="ml-2" />
-                </>
-              )}
+              Get Started
+              <FaRocket className="ml-2" />
               <FaArrowRight className="ml-2 opacity-0 group-hover:opacity-100 transition-all" />
             </motion.button>
           </Link>
