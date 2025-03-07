@@ -41,8 +41,10 @@ export const AdminProjects = () => {
         headers: { Authorization: autherizedToken },
       });
       const data = await response.json();
-      if (response.ok) setProjects(data);
-      else {
+      if (response.ok) {
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
+        setProjects(sortedProjects);
+      } else {
         setProjects([]);
         toast.error("Failed to fetch projects");
       }
@@ -149,7 +151,6 @@ export const AdminProjects = () => {
       >
         {showForm ? "Close Form" : "Add Project"}
       </button>
-
       {showForm && (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg mb-5 space-y-4 border dark:border-gray-700">
           {fields.map((field) => (
