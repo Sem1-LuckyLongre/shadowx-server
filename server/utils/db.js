@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
 
-// const LocalURI = "mongodb://localhost:27017/mern_admin";
-const URI = process.env.MONGODB_URI;
-
 const connectDB = async () => {
   try {
-    await mongoose.connect(URI);
-    console.log("Connection successfull to db.");
+    if (!process.env.MONGODB_URI) {
+      throw new Error("❌ MONGODB_URI is missing in environment variables!");
+    }
+
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log("✅ MongoDB connected successfully.");
   } catch (error) {
-    console.log("connection failed to db...");
-    process.exit(0);
+    console.error("❌ MongoDB connection failed:", error.message);
+    process.exit(1); // Stop the process if the connection fails
   }
 };
 
