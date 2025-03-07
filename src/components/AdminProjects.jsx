@@ -44,7 +44,7 @@ export const AdminProjects = () => {
       if (response.ok) {
         const sortedProjects = [...data].sort((a, b) => b.id - a.id);
         setProjects(sortedProjects);
-        console.log("changed to top");
+        // console.log("changed to top");
         
       } else {
         setProjects([]);

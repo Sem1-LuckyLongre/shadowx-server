@@ -9,7 +9,10 @@ import {
   FaUser,
   FaCommentAlt,
   FaDiscourse,
-} from "react-icons/fa";
+} from "react-ico
+
+
+ns/fa";
 import { useTheme } from "../context/ThemeContext";
 
 export const Contact = () => {

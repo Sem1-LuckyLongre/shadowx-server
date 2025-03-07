@@ -60,7 +60,7 @@ export const ThemeProvider = ({ children }) => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("User Data :", data);
+          // console.log("User Data :", data);
           setUser(data);
           // toast.success("Authentication Successfully");
         }

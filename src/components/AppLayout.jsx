@@ -4,7 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 
 const AppLayout = ({ Login }) => {
   const { isDarkMode } = useTheme();
-  console.log("corps allowed");
+  // console.log("corps allowed");
   return (
     <div className={`min-h-screen ${isDarkMode ? "dark" : ""}`}>
       <div className="flex flex-col min-h-screen bg-[rgb(var(--background))]">
