@@ -31,6 +31,7 @@ export const NavBar = ({ Login }) => {
   const { handleLogoutEvent, user } = useTheme();
   const [IsAdmin, setIsAdmin] = useState(false);
 
+  
   // if(user.userData.isAdmin){
   //   const IsAdmin = true
   // }

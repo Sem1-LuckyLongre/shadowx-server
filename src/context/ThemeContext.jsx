@@ -69,7 +69,6 @@ export const ThemeProvider = ({ children }) => {
       }
     }
   };
-  
 
   useEffect(() => {
     userAuthentication();
