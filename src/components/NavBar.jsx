@@ -125,6 +125,7 @@ export const NavBar = ({ Login }) => {
                 {isSettingsOpen && (
                   <SettingsDropdown
                     handleLogoutEvent={handleLogoutEvent}
+                    setToggle={setToggle}
                     handleDeleteEvent={handleDeleteEvent}
                   />
                 )}
