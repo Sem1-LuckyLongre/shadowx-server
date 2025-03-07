@@ -1,6 +1,24 @@
-// src/components/ModernLoader.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaGithub,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+} from "react-icons/fa";
+
+const icons = [
+  FaGithub,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+];
 
 export const Loader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -9,81 +27,82 @@ export const Loader = () => {
     // Simulate loading for 3 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 3200);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <AnimatePresence>
-      {isLoading && (
-        <motion.div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "linear-gradient(135deg, #1a1a1a, #2c3e50)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1000,
-          }}
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+    <div className="w-full z-50">
+      <AnimatePresence>
+        {isLoading && (
           <motion.div
             style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(135deg, #0f0f0f, #1e3c72)",
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "center",
               alignItems: "center",
-              gap: "20px",
+              zIndex: 1000,
             }}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {/* Logo with Horizontal Circular Rotation */}
             <motion.div
               style={{
-                fontSize: "2.5rem",
-                fontWeight: "bold",
-                color: "#fff",
-                display: "flex",
-                gap: "10px",
-                perspective: "500px", // Adds a 3D perspective
+                position: "relative",
+                width: "200px",
+                height: "200px",
               }}
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             >
-              {"Loading...".split("").map((char, index) => (
-                <motion.span
+              {/* Icons Rotating in a Circle */}
+              {icons.map((Icon, index) => (
+                <motion.div
                   key={index}
                   style={{
-                    display: "inline-block",
-                    transformOrigin: "center center", // Rotate from the center
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    width: "50px",
+                    height: "50px",
+                    margin: "-25px", // Center icons
                   }}
-                  animate={{ rotateY: [0, 360] }} // Horizontal rotation
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    x: 80 * Math.cos((index * (2 * Math.PI)) / icons.length),
+                    y: 80 * Math.sin((index * (2 * Math.PI)) / icons.length),
+                  }}
                   transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: index * 0.1,
+                    duration: 1,
+                    ease: "easeInOut",
+                    delay: index * 0.3,
                   }}
                 >
-                  {char}
-                </motion.span>
+                  <Icon size={40} color="#00ff88" />
+                </motion.div>
               ))}
             </motion.div>
 
-            {/* Loading Bar */}
+            {/* Animated Loading Bar */}
             <motion.div
               style={{
-                width: "200px",
-                height: "5px",
-                backgroundColor: "#444",
+                width: "250px",
+                height: "8px",
+                backgroundColor: "#222",
                 borderRadius: "5px",
                 overflow: "hidden",
+                boxShadow: "0px 0px 10px #00ff88",
+                position: "absolute",
+                bottom: "-50px",
               }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
@@ -95,19 +114,20 @@ export const Loader = () => {
                   height: "100%",
                   backgroundColor: "#00ff88",
                   borderRadius: "5px",
+                  boxShadow: "0px 0px 15px #00ff88",
                 }}
                 initial={{ x: "-100%" }}
                 animate={{ x: "100%" }}
                 transition={{
-                  duration: 2,
+                  duration: 1.8,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
               />
             </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
