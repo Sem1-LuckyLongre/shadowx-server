@@ -41,7 +41,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: CheckLogin() ? <Profile /> : <Welcome />,
+          element: CheckLogin() ? <Welcome /> : <Welcome />,
         },
         {
           path: "/SignUp",

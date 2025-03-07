@@ -78,7 +78,7 @@ export const Welcome = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <Link to="/signUp" className="group">
+          <Link to="/projects" className="group">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -96,7 +96,7 @@ export const Welcome = () => {
                 group-hover:ring-blue-500/50
               "
             >
-              Get Started
+              My Projects
               <FaRocket className="ml-2" />
               <FaArrowRight className="ml-2 opacity-0 group-hover:opacity-100 transition-all" />
             </motion.button>
