@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const URI = "http://localhost:3000";
+  const URI = "https://shadowx-backend.onrender.com";
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Check local storage for saved theme preference
