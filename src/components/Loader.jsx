@@ -1,24 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaGithub,
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-} from "react-icons/fa";
+import { FaGithub, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
 
-const icons = [
-  FaGithub,
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-];
+const icons = [FaGithub, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaDatabase];
 
 export const Loader = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +11,7 @@ export const Loader = () => {
     // Simulate loading for 3 seconds
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3200);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
