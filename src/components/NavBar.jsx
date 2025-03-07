@@ -70,7 +70,7 @@ export const NavBar = ({ Login }) => {
       name: "Projects",
       path: "/projects",
       icon: GoProjectSymlink,
-      alwaysVisible: Login,
+      alwaysVisible: true,
     },
     {
       name: "Explore",

@@ -79,3 +79,23 @@ input:-webkit-autofill {
 html {
   scroll-behavior: smooth;
 }
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+@keyframes shadow {
+  0% {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+motion.span {
+  animation: shadow 1.5s infinite;
+}
