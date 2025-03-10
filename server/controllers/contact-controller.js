@@ -4,9 +4,9 @@ const contactForm = async (req, res) => {
   try {
     const response = req.body;
     await Contact.create(response);
-    return res.status(200).json({ msg: "massage sent successfully" });
+    return res.status(200).json({ msg: "message sent successfully" });
   } catch (error) {
-    return res.status(500).json({ msg: "massage not delivered" });
+    return res.status(500).json({ msg: "message not delivered" });
     // next(error);
   }
 };
