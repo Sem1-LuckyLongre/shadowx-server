@@ -9,7 +9,7 @@ import { Loader } from "./Loader";
 
 export const AdminMessages = () => {
   const [messages, setMessages] = useState();
-  const { URI, autherizedToken, user } = useTheme();
+  const { URI, autherizedToken } = useTheme();
 
   const getMessages = async () => {
     try {
@@ -76,7 +76,7 @@ export const AdminMessages = () => {
                     <h2 className="text-lg font-semibold">
                       {msg.name}
                       <span className="text-red-500 font-extralight text-sm">
-                        {user.userData.isAdmin ? " Admin" : ""}
+                        {msg.isAdmin ? " Admin" : ""}
                       </span>
                     </h2>
                   </div>

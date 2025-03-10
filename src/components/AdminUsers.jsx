@@ -157,9 +157,11 @@ export const AdminUsers = () => {
                   <p className="text-gray-400">{user.email}</p>
                   <p className="text-gray-400">📚 {user.course}</p>
                   <div className="flex gap-3 mt-3">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition flex items-center gap-1">
-                      <FiEdit size={16} /> Edit
-                    </button>
+                    <Link to={`/admin/users/${user._id}/edit`}>
+                      <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition flex items-center gap-1">
+                        <FiEdit size={16} /> Edit
+                      </button>
+                    </Link>
                     <button
                       className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition flex items-center gap-1"
                       onClick={() => deleteUser(user)}
