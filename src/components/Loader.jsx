@@ -1,93 +1,120 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Code, Terminal, Cpu, Server, Database, Bug } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FaGithub,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+} from "react-icons/fa";
 
-const icons = [Code, Terminal, Cpu, Server, Database, Bug];
+const icons = [
+  FaGithub,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+];
 
-const MainLoader = ({ onFinish }) => {
-  const radius = 80; // Radius of the circular path
-  const [visibleIcons, setVisibleIcons] = useState([]);
-  const [showWelcome, setShowWelcome] = useState(false);
-
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index < icons.length) {
-        setVisibleIcons((prev) => [...prev, icons[index]]);
-        index++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => setShowWelcome(true), 1000); // Show welcome text after icons animation
-      }
-    }, 500);
-
-    setTimeout(() => {
-      onFinish();
-    }, 5000);
-  }, [onFinish]);
-
+export const Loader = () => {
+  // const [isLoading, setIsLoading] = useState(true);
   return (
-    <motion.div
-      className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ delay: 5, duration: 0.6 }}
-    >
-      <div className="relative w-[200px] h-[200px] flex items-center justify-center">
-        {/* Central Glowing Circle */}
+    <div className="w-full z-50">
+      <AnimatePresence>
         <motion.div
-          className="absolute w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full shadow-2xl shadow-cyan-400/50"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-        />
-
-        {/* Rotating Icons */}
-        {visibleIcons.map((Icon, index) => {
-          const angle = (index / icons.length) * (2 * Math.PI);
-          const x = Math.cos(angle) * radius;
-          const y = Math.sin(angle) * radius;
-
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
-              animate={{ opacity: 1, scale: 1, x, y, rotate: 360 }}
-              transition={{
-                duration: 0.8,
-                ease: "easeInOut",
-                delay: index * 0.2,
-              }}
-              className="absolute text-blue-400 shadow-xl bg-white/10 p-3 rounded-full backdrop-blur-sm"
-            >
-              <Icon className="w-8 h-8 text-cyan-300" />
-            </motion.div>
-          );
-        })}
-
-        {/* Pulsating Ring */}
-        <motion.div
-          className="absolute w-[200px] h-[200px] border-2 border-cyan-400/50 rounded-full"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1.2, opacity: 1 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      {/* Welcome Text Animation */}
-      {showWelcome && (
-        <motion.div
-          className="absolute bottom-10 text-2xl font-semibold text-cyan-300"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: -20, opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "linear-gradient(135deg, #0f0f0f, #1e3c72)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          Welcome to ShadowX
+          <motion.div
+            style={{
+              position: "relative",
+              width: "200px",
+              height: "200px",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+          >
+            {/* Icons Rotating in a Circle */}
+            {icons.map((Icon, index) => (
+              <motion.div
+                key={index}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  width: "50px",
+                  height: "50px",
+                  margin: "-25px", // Center icons
+                }}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  x: 80 * Math.cos((index * (2 * Math.PI)) / icons.length),
+                  y: 80 * Math.sin((index * (2 * Math.PI)) / icons.length),
+                }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                  delay: index * 0.3,
+                }}
+              >
+                <Icon size={40} color="#00ff88" />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Animated Loading Bar */}
+          <motion.div
+            style={{
+              width: "250px",
+              height: "8px",
+              backgroundColor: "#222",
+              borderRadius: "5px",
+              overflow: "hidden",
+              boxShadow: "0px 0px 10px #00ff88",
+              position: "absolute",
+              bottom: "-50px",
+            }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          >
+            <motion.div
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#00ff88",
+                borderRadius: "5px",
+                boxShadow: "0px 0px 15px #00ff88",
+              }}
+              initial={{ x: "-100%" }}
+              animate={{ x: "100%" }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
         </motion.div>
-      )}
-    </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
-
-export default MainLoader;
