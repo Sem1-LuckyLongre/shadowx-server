@@ -34,7 +34,7 @@ export const NavBar = ({ Login }) => {
   
   // if(user.userData.isAdmin){
   //   const IsAdmin = true
-  // }
+  // }sdsdsdsd
   useEffect(() => {
     if (user) {
       setIsAdmin(user.userData.isAdmin);

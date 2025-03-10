@@ -16,9 +16,10 @@ const MobileMenu = ({ navLinks, Login, toggle, setToggle, isActiveLink }) => {
                 icon={link.icon}
                 name={link.name}
                 isActive={isActiveLink(link.path)}
-                onClick={() => setToggle(false)}
+                onClick={() => setToggle(!toggle)}
               />
-            )
+            ) 
+            // hello
         )}
 
         {/* Buttons Section */}
