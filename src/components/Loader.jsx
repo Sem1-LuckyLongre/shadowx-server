@@ -6,16 +6,6 @@ const icons = [FaGithub, FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaDatabase
 
 export const Loader = () => {
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading for 3 seconds
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="w-full z-50">
       <AnimatePresence>
