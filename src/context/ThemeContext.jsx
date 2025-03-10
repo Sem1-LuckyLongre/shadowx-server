@@ -17,6 +17,8 @@ export const ThemeProvider = ({ children }) => {
   });
   const [token, setToken] = useState(localStorage.getItem("Token"));
   const [user, setUser] = useState("");
+  const [mainLoader, setMainLoader] = useState(false);
+
   let isLoggedIn = !!token;
   const storeTokenIntoLocalStorage = (serverToken) => {
     localStorage.setItem("Token", serverToken);
@@ -50,6 +52,7 @@ export const ThemeProvider = ({ children }) => {
 
   const userAuthentication = async () => {
     if (token) {
+      setMainLoader(true);
       try {
         const response = await fetch(`${URI}/api/auth/user`, {
           method: "GET",
@@ -62,6 +65,7 @@ export const ThemeProvider = ({ children }) => {
           const data = await response.json();
           // console.log("User Data :", data);
           setUser(data);
+          setMainLoader(false);
           // toast.success("Authentication Successfully");
         }
       } catch (error) {
@@ -83,6 +87,7 @@ export const ThemeProvider = ({ children }) => {
         handleLogoutEvent,
         toggleTheme,
         user,
+        mainLoader,
         setUser,
         URI,
         autherizedToken,
