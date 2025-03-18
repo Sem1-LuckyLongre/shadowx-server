@@ -12,7 +12,7 @@ const uploadRoute = require("./router/upload-router"); // Add Upload Route
 const app = express();
 
 const corsOptions = {
-  origin: "https://shadowx-frontend.onrender.com",
+  origin: ["https://shadowx-frontend.onrender.com", "http://localhost:5173"],
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
