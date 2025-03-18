@@ -1,15 +1,12 @@
 const Project = require("../models/project-model");
 
 const projects = async (req, res) => {
-  console.log("Request Receaved");
-
   try {
-    const response = await Project.find();
-    if (!response) {
-      res.status(404).json({ msg: "No Projects Foud..." });
-      return;
+    const projects = await Project.find();
+    if (!projects || projects.length === 0) {
+      return res.status(404).json({ msg: "Projects Not Found" });
     }
-    res.status(200).json({ msg: "Projets Fetch Successfully.", response });
+    res.status(200).json(projects);
   } catch (error) {
     console.log(error);
   }
