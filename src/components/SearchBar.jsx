@@ -127,7 +127,7 @@ export const SearchBar = ({
           </h2>
 
           {/* Sorting Buttons */}
-          <div className="flex gap-4 w-full sm:justify-center">
+          <div className="flex gap-4 w-full justify-evenly sm:justify-center">
             <button
               onClick={(e) => {
                 e.preventDefault();

@@ -23,7 +23,7 @@ export const Projects = () => {
       const projectsData = await fetch(`${URI}/api/data/project`);
       const data = await projectsData.json();
       if (projectsData.ok) {
-        const sortedProjects = [...data.response].sort((a, b) => b.id - a.id);
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
         setProjects(sortedProjects);
         // console.log(projects);
       } else {
@@ -59,10 +59,8 @@ export const Projects = () => {
   };
 
   const searchProject = (project) => {
-    if (search) {
-      return project.title.toLowerCase().includes(search.toLowerCase());
-    }
-    return true;
+    if (!project || !project.title) return false; // Prevent error if title is missing
+    return project.title.toLowerCase().includes(search.toLowerCase());
   };
 
   // Filter Projects based on selected category
@@ -164,7 +162,7 @@ export const Projects = () => {
                       style={{ backfaceVisibility: "hidden" }}
                     >
                       {/* Card ID Badge */}
-                      <div
+                      {/* <div
                         className={`absolute top-2 right-2 px-3 py-1 rounded-full text-sm font-semibold ${
                           isDarkMode
                             ? "bg-gray-700 text-white"
@@ -172,7 +170,7 @@ export const Projects = () => {
                         }`}
                       >
                         ID: {project.id}
-                      </div>
+                      </div> */}
 
                       {project.imageURL && (
                         <motion.img

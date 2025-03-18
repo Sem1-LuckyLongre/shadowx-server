@@ -45,7 +45,6 @@ export const AdminProjects = () => {
         const sortedProjects = [...data].sort((a, b) => b.id - a.id);
         setProjects(sortedProjects);
         // console.log("changed to top");
-        
       } else {
         setProjects([]);
         toast.error("Failed to fetch projects");
@@ -86,7 +85,7 @@ export const AdminProjects = () => {
       Object.values(errors).forEach((error) => toast.error(error));
       return;
     }
-
+    if (!projects) return;
     // Auto-generate unique ID
     const newId = projects?.length + 1;
 
