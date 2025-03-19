@@ -149,7 +149,7 @@ export const AdminProjects = () => {
     }
     try {
       const response = await fetch(
-        `${URI}/api/admin/ppoject/delete/${project._id}`,
+        `${URI}/api/admin/project/delete/${project._id}`,
         {
           method: "DELETE",
           headers: { Authorization: autherizedToken },
