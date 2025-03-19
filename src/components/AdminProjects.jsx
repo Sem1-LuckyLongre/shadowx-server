@@ -141,7 +141,7 @@ export const AdminProjects = () => {
 
   const deleteProject = async (project) => {
     const password = prompt("Enter a Password");
-    console.log(user.userData._id);
+    console.log(user.userData._id),"updated";
 
     if (!password || password != user.userData._id) {
       toast.error("Wrong Password!");
@@ -149,7 +149,7 @@ export const AdminProjects = () => {
     }
     try {
       const response = await fetch(
-        `${URI}/api/admin/poject/delete/${project._id}`,
+        `${URI}/api/admin/ppoject/delete/${project._id}`,
         {
           method: "DELETE",
           headers: { Authorization: autherizedToken },
