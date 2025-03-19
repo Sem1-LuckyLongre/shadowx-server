@@ -110,6 +110,15 @@ const addProject = async (req, res) => {
       sourceCode,
     } = req.body;
 
+    // Check if project with same ID already exists
+    const existingProject = await Project.findOne({ id });
+    if (existingProject) {
+      return res
+        .status(400)
+        .json({ msg: "Project with this ID already exists" });
+    }
+
+    // Create new project
     const projectCreated = await Project.create({
       title,
       category,
@@ -121,12 +130,15 @@ const addProject = async (req, res) => {
       betterUI,
       sourceCode,
     });
-    res.status(200).json({
-      msg: "Project Added Succesfully",
-      projectCreated,
+
+    // Send response
+    return res.status(201).json({
+      msg: "Project Added Successfully",
+      project: projectCreated,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error adding project:", error);
+    return res.status(500).json({ error: error.message });
   }
 };
 

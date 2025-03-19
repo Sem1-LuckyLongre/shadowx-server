@@ -23,9 +23,9 @@ export const Projects = () => {
       const projectsData = await fetch(`${URI}/api/data/project`);
       const data = await projectsData.json();
       if (projectsData.ok) {
-        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id); 
         setProjects(sortedProjects);
-        // console.log(projects);
+        console.log(sortedProjects);
       } else {
         toast.error("Failed to fetch projects");
       }

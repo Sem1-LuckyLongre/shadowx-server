@@ -8,7 +8,7 @@ export const AdminProjects = () => {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [newProject, setNewProject] = useState({});
-  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const { URI, autherizedToken } = useTheme();
 
   const fields = [
@@ -55,25 +55,43 @@ export const AdminProjects = () => {
   };
 
   const validateForm = () => {
-    let newErrors = {};
-    if (!newProject.title) newErrors.title = "Title is required";
-    if (!newProject.category) newErrors.category = "Category is required";
-    if (!newProject.liveLink) newErrors.liveLink = "Live link is required";
-    if (!newProject.sourceCode)
-      newErrors.sourceCode = "Source code is required";
-    if (!newProject.imageURL) newErrors.imageURL = "Image URL is required";
-    if (!newProject.description)
-      newErrors.description = "Description is required";
-    if (!newProject.betterUI)
-      newErrors.betterUI = "Better UI field is required";
+    // let newErrors = {};
+    if (!newProject.title) {
+      toast.error("Title is required");
+      return false;
+    }
+    if (!newProject.category) {
+      toast.error("Category is required");
+      return false;
+    }
+    if (!newProject.liveLink) {
+      toast.error("Live link is required");
+      return false;
+    }
+    if (!newProject.sourceCode) {
+      toast.error("Source code is required");
+      return false;
+    }
+    if (!newProject.imageURL) {
+      toast.error("Image URL is required");
+      return false;
+    }
+    if (!newProject.description) {
+      toast.error("Description is required");
+      return false;
+    }
+    if (!newProject.betterUI) {
+      toast.error("Better UI field is required");
+      return false;
+    }
     if (
       !newProject.responsive ||
       !["YES", "NO"].includes(newProject.responsive.toUpperCase())
     ) {
-      newErrors.responsive = "Responsive must be YES or NO";
+      return toast.error("Responsive must be YES or NO");
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // setErrors(newErrors);
+    return true;
   };
 
   const handleInputChange = (e) => {
@@ -81,40 +99,41 @@ export const AdminProjects = () => {
   };
 
   const handleAddProject = async () => {
-    if (!validateForm()) {
-      Object.values(errors).forEach((error) => toast.error(error));
-      return;
-    }
-    if (!projects) return;
-    // Auto-generate unique ID
-    const newId = projects?.length + 1;
+    if (validateForm()) {
+      if (!projects) return;
+      // Auto-generate unique ID
+      setLoading(true);
+      const newId = projects?.length + 1;
 
-    const formattedProject = {
-      ...newProject,
-      id: newId,
-      category: newProject.category.split(",").map((c) => c.trim()),
-      responsive: newProject.responsive.toUpperCase(),
-    };
+      const formattedProject = {
+        ...newProject,
+        id: newId,
+        category: newProject.category.split(",").map((c) => c.trim()),
+        responsive: newProject.responsive.toUpperCase(),
+      };
+      console.log(JSON.stringify(formattedProject));
 
-    try {
-      const response = await fetch(`${URI}/api/admin/projects/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: autherizedToken,
-        },
-        body: JSON.stringify(formattedProject),
-      });
+      try {
+        const response = await fetch(`${URI}/api/admin/projects/add`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: autherizedToken,
+          },
+          body: JSON.stringify(formattedProject),
+        });
 
-      if (response.ok) {
-        toast.success("Project added successfully");
-        setShowForm(false);
-        getProjects();
-      } else {
-        toast.error("Failed to add project");
+        if (response.ok) {
+          toast.success("Project added successfully");
+          setShowForm(false);
+          getProjects();
+          setLoading(false);
+        } else {
+          toast.error("Failed to add project");
+        }
+      } catch (error) {
+        toast.error("Error adding project");
       }
-    } catch (error) {
-      toast.error("Error adding project");
     }
   };
 
@@ -172,16 +191,18 @@ export const AdminProjects = () => {
                   onChange={handleInputChange}
                 />
               )}
-              {errors[field.name] && (
+              {/* {errors[field.name] && (
                 <p className="text-red-500 text-sm">{errors[field.name]}</p>
-              )}
+              )} */}
             </div>
           ))}
           <button
-            className="bg-green-500 text-white px-4 py-3 rounded-lg w-full hover:bg-green-600"
+            className={`${
+              !loading ? "bg-green-500" : "bg-gray-300"
+            } text-white px-4 py-3 rounded-lg w-full hover:bg-green-600`}
             onClick={handleAddProject}
           >
-            Submit Project
+            {!loading ? "Submit Project" : "Submiting..."}
           </button>
         </div>
       )}
