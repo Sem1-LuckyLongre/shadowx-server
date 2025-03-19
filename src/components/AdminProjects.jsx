@@ -9,7 +9,7 @@ export const AdminProjects = () => {
   const [showForm, setShowForm] = useState(false);
   const [newProject, setNewProject] = useState({});
   const [loading, setLoading] = useState(false);
-  const { URI, autherizedToken,user } = useTheme();
+  const { URI, autherizedToken, user } = useTheme();
 
   const fields = [
     { name: "title", type: "text", placeholder: "Project Title" },
@@ -141,8 +141,8 @@ export const AdminProjects = () => {
 
   const deleteProject = async (project) => {
     const password = prompt("Enter a Password");
-    console.log(user);
-    
+    console.log(user.userData._id);
+
     if (!password || password != user.userData._id) {
       toast.error("Wrong Password!");
       return;
