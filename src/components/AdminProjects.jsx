@@ -9,7 +9,7 @@ export const AdminProjects = () => {
   const [showForm, setShowForm] = useState(false);
   const [newProject, setNewProject] = useState({});
   const [loading, setLoading] = useState(false);
-  const { URI, autherizedToken } = useTheme();
+  const { URI, autherizedToken,user } = useTheme();
 
   const fields = [
     { name: "title", type: "text", placeholder: "Project Title" },
@@ -103,7 +103,7 @@ export const AdminProjects = () => {
       if (!projects) return;
       // Auto-generate unique ID
       setLoading(true);
-      const newId = projects?.length + 1;
+      const newId = projects?.length + 2;
 
       const formattedProject = {
         ...newProject,
@@ -122,14 +122,16 @@ export const AdminProjects = () => {
           },
           body: JSON.stringify(formattedProject),
         });
-
+        const data = await response.json();
+        console.log(data);
         if (response.ok) {
-          toast.success("Project added successfully");
+          toast.success(data.msg || "Project added successfully");
           setShowForm(false);
           getProjects();
           setLoading(false);
         } else {
-          toast.error("Failed to add project");
+          setLoading(false);
+          toast.error(data.msg || "Failed to add project");
         }
       } catch (error) {
         toast.error("Error adding project");
@@ -138,15 +140,21 @@ export const AdminProjects = () => {
   };
 
   const deleteProject = async (project) => {
+    const password = prompt("Enter a Password");
+    console.log(user);
+    
+    if (!password || password != user.userData._id) {
+      toast.error("Wrong Password!");
+      return;
+    }
     try {
       const response = await fetch(
-        `${URI}/api/admin/project/delete/${project._id}`,
+        `${URI}/api/admin/poject/delete/${project._id}`,
         {
           method: "DELETE",
           headers: { Authorization: autherizedToken },
         }
       );
-
       if (response.ok) {
         toast.success("Project deleted successfully");
         getProjects();
