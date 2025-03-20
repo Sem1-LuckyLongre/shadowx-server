@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PracticalCard from "./PracticalCard";
+import { useTheme } from "../../../../context/ThemeContext";
 
 const ShowPracticals = () => {
+  const { isLoggedIn } = useTheme();
   const navigate = useNavigate();
   const [practicals, setPracticals] = useState([]);
 
   useEffect(() => {
-    const Login = localStorage.getItem("LoggedIn");
+    const Login = isLoggedIn;
     if (!Login) {
       navigate("/SignIn");
       return;

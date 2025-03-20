@@ -174,7 +174,7 @@ export const SearchBar = ({
               <option value="CSS">CSS</option>
               <option value="JavaScript">JavaScript</option>
               <option value="React JS">React JS</option>
-              <option value="ShadowXVs">ShadowX Versions</option>
+              <option value="ShadowXVs">ShadowX</option>
             </select>
           </div>
         </motion.div>

@@ -1,6 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Modal from "../../common/Modal";
 
 const Activities = () => {
   return (
@@ -53,12 +52,6 @@ const Activities = () => {
             <h2 className="text-xl font-semibold">🧪 Show Practicals</h2>
           </Link>
         </motion.div>
-        <NavLink to="/">
-          <Modal
-            isOpen={true}
-            message="This feature is currently under development. Please contact the developer for more details."
-          />
-        </NavLink>
       </div>
     </div>
   );

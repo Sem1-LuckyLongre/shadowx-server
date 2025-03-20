@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
 import Modal from "../../../common/Modal";
+import { useTheme } from "../../../../context/ThemeContext";
+import { toast } from "react-toastify";
 
 const AddAssignment = () => {
+  const { isLoggedIn } = useTheme();
   const navigate = useNavigate();
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [formData, setFormData] = useState({
@@ -17,7 +20,7 @@ const AddAssignment = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const Login = localStorage.getItem("LoggedIn");
+    const Login = isLoggedIn;
     const storedSubjects = localStorage.getItem("SelectedSubjects");
     const storedAssignments = localStorage.getItem("Assignments");
 
@@ -52,13 +55,52 @@ const AddAssignment = () => {
   };
 
   const handleSubmit = () => {
+    if (!formData.subject) {
+      toast.error("Subject is required!");
+      return;
+    }
+    if (formData.subject.length < 3 || formData.subject.length > 100) {
+      toast.error("Subject must be between 3 and 100 characters!");
+      return;
+    }
+
+    if (!formData.topic) {
+      toast.error("Topic is required!");
+      return;
+    }
+    if (formData.topic.length < 3 || formData.topic.length > 100) {
+      toast.error("Topic must be between 3 and 100 characters!");
+      return;
+    }
+
+    if (!formData.date) {
+      toast.error("Date is required!");
+      return;
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Time ko 00:00:00 kar diya
+
+    const selectedDate = new Date(formData.date);
+    selectedDate.setHours(0, 0, 0, 0); // Time ko 00:00:00 kar diya
+
+    if (selectedDate < today) {
+      toast.error("Date cannot be in the past!");
+      return;
+    }
+
+    if (!formData.deadline) {
+      toast.error("Deadline is required!");
+      return;
+    }
+    if (new Date(formData.deadline) < new Date(formData.date)) {
+      toast.error("Deadline must be after the selected date!");
+      return;
+    }
     if (
-      !formData.subject ||
-      !formData.date ||
-      !formData.deadline ||
-      !formData.topic
+      new Date(formData.deadline) >
+      new Date(new Date().setFullYear(new Date().getFullYear() + 1))
     ) {
-      alert("Please fill all the fields!");
+      toast.error("Deadline cannot be more than 1 year in the future!");
       return;
     }
 
@@ -90,7 +132,7 @@ const AddAssignment = () => {
 
     setTimeout(() => {
       setLoading(false);
-      alert("Assignment Added Successfully!");
+      toast.success("Assignment Added Successfully!");
       setFormData({ subject: "", date: "", deadline: "", topic: "" });
     }, 1500);
   };
@@ -207,7 +249,6 @@ const AddAssignment = () => {
           message="Please select your subjects first before adding assignments."
         />
       </NavLink>
-     
     </div>
   );
 };

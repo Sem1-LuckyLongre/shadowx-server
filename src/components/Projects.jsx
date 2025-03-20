@@ -23,9 +23,9 @@ export const Projects = () => {
       const projectsData = await fetch(`${URI}/api/data/project`);
       const data = await projectsData.json();
       if (projectsData.ok) {
-        const sortedProjects = [...data].sort((a, b) => b.id - a.id); 
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
         setProjects(sortedProjects);
-        console.log(sortedProjects);
+        // console.log(sortedProjects);
       } else {
         toast.error("Failed to fetch projects");
       }
@@ -47,7 +47,9 @@ export const Projects = () => {
 
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
-      if (project.category[i].toLowerCase() === filter.toLowerCase()) {
+      if (
+        project.category[i].toLowerCase() === filter.toLowerCase() 
+      ) {
         return project.category[i];
       }
     }

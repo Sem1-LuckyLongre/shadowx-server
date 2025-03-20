@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
 import AssignmentCard from "./AssignmentCard";
+import { useTheme } from "../../../../context/ThemeContext";
 
 const ShowAssignments = () => {
   const navigate = useNavigate();
   const [assignments, setAssignments] = useState([]);
+  const { isLoggedIn } = useTheme();
 
   useEffect(() => {
-    const Login = localStorage.getItem("LoggedIn");
+    const Login = isLoggedIn;
     if (!Login) {
       navigate("/SignIn");
       return;

@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { Loader } from "../../Loader";
 import { NavLink, useNavigate } from "react-router-dom";
 import semesterSubjects from "./SemesterSubjects.json"; // ✅ Importing subject data
+import { useTheme } from "../../../context/ThemeContext";
 
 const SubjectSelection = () => {
+  const { isLoggedIn } = useTheme();
+
   const navigate = useNavigate();
   const [semester, setSemester] = useState("");
   const [subjectsData, setSubjectsData] = useState({});
@@ -19,7 +22,7 @@ const SubjectSelection = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const Login = localStorage.getItem("LoggedIn");
+    const Login = isLoggedIn;
     const storedSubjects = localStorage.getItem("SelectedSubjects");
 
     if (!Login) {
@@ -42,11 +45,16 @@ const SubjectSelection = () => {
   };
 
   const validateSelection = () =>
-    selectedSubjects.AEC && selectedSubjects.VAC && selectedSubjects.SEC && selectedSubjects.GE;
+    selectedSubjects.AEC &&
+    selectedSubjects.VAC &&
+    selectedSubjects.SEC &&
+    selectedSubjects.GE;
 
   const handleSubmit = () => {
     if (!validateSelection()) {
-      setError("Please select a subject for AEC, VAC, SEC, and GE before submitting.");
+      setError(
+        "Please select a subject for AEC, VAC, SEC, and GE before submitting."
+      );
       return;
     }
 
@@ -62,7 +70,10 @@ const SubjectSelection = () => {
     };
 
     setTimeout(() => {
-      localStorage.setItem("SelectedSubjects", JSON.stringify(allSelectedSubjects));
+      localStorage.setItem(
+        "SelectedSubjects",
+        JSON.stringify(allSelectedSubjects)
+      );
       setLoading(false);
       setSubmitted(true);
     }, 2000);
