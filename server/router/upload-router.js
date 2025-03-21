@@ -19,7 +19,7 @@ router.post("/profile", upload.single("image"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
-    const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    const imageUrl = `https://shadowx-backend.onrender.com/uploads/${req.file.filename}`;
 
     // Update user profile in MongoDB
     await User.findByIdAndUpdate(req.body.userId, { ProfileImage: imageUrl });

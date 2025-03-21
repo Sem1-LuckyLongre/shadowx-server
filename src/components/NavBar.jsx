@@ -5,7 +5,7 @@ import {
   AiOutlineContacts,
   AiOutlineLogin,
 } from "react-icons/ai";
-import { FaBars, FaCog, FaUserPlus } from "react-icons/fa";
+import { FaBars, FaCog, FaUser, FaUserPlus } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "./common/ThemeToggle";
@@ -31,7 +31,6 @@ export const NavBar = ({ Login }) => {
   const { handleLogoutEvent, user } = useTheme();
   const [IsAdmin, setIsAdmin] = useState(false);
 
-  
   // if(user.userData.isAdmin){
   //   const IsAdmin = true
   // }sdsdsdsd
@@ -111,6 +110,13 @@ export const NavBar = ({ Login }) => {
               <ThemeToggle />
             </div>
             {Login && (
+              <div className="p-1 rounded-lg cursor-pointer">
+                <Link to="/LoggedIn/profile">
+                  <FaUser size={30} />
+                </Link>
+              </div>
+            )}
+            {Login && (
               <div className="relative">
                 <button
                   onClick={() => setIsSettingsOpen(!isSettingsOpen)} // Toggle settings dropdown
@@ -164,12 +170,19 @@ export const NavBar = ({ Login }) => {
                 )
             )}
           </ul>
-
+            
           {/* Desktop Authentication and Settings */}
           <div className="hidden md:flex items-center space-x-4">
             <div className="p-1 bg-white/10 rounded-lg">
               <ThemeToggle />
             </div>
+            {Login && (
+              <div className="p-1 rounded-lg cursor-pointer">
+                <Link to="/LoggedIn/profile">
+                  <FaUser size={25} />
+                </Link>
+              </div>
+            )}
             {Login ? (
               <div className="relative">
                 <button
