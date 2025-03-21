@@ -179,6 +179,7 @@ export const EditProfile = () => {
                           name={field.name}
                           placeholder={field.label}
                           defaultValue={user?.userData[field.name] || ""}
+                          disabled={field.type === "email"}
                           className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none"
                         />
                       </div>
