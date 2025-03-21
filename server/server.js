@@ -41,7 +41,7 @@ app.route("/").get((req, res) => {
     For further inquiries, please visit our website:
 </p>
 <p style="text-align: center; margin-top: 5px;">
-    <a href="/" style="text-decoration: none; font-size: 18px; color: #007bff; font-weight: bold; transition: color 0.3s;">
+    <a href="https://shadowx-frontend.onrender.com/" style="text-decoration: none; font-size: 18px; color: #007bff; font-weight: bold; transition: color 0.3s;">
         Click Here
     </a>
 </p>
