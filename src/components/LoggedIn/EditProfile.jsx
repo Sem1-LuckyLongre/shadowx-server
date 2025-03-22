@@ -68,7 +68,12 @@ export const EditProfile = () => {
 
   const validateField = (name, value) => {
     if (value === "") return true;
-    if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    if (
+      name === "email" &&
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        value
+      )
+    ) {
       toast.error("Invalid email format");
       return false;
     }
