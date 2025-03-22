@@ -42,7 +42,7 @@ export const ThemeProvider = ({ children }) => {
         toast.error("Error fetching profile image:", error);
       }
     };
-    if (user) {
+    if (user.userData.ProfileImage) {
       fetchProfileImage();
     }
   }, [user, globalProfileImg]);
