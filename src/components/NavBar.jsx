@@ -112,13 +112,19 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  {globalProfileImg === "profile.png" && <FaUser size={30} />}
-                  {!globalProfileImg === "profile.png" && (
-                    <img src={globalProfileImg} alt="" />
+                  {globalProfileImg === "profile.png" ? (
+                    <FaUser size={30} />
+                  ) : (
+                    <img
+                      src={globalProfileImg}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full"
+                    />
                   )}
                 </Link>
               </div>
             )}
+
             {Login && (
               <div className="relative">
                 <button
@@ -182,13 +188,19 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  {globalProfileImg === "profile.png" && <FaUser size={30} />}
-                  {!globalProfileImg === "profile.png" && (
-                    <img src={globalProfileImg} alt="" />
+                  {globalProfileImg === "profile.png" ? (
+                    <FaUser size={30} />
+                  ) : (
+                    <img
+                      src={globalProfileImg}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full"
+                    />
                   )}
                 </Link>
               </div>
             )}
+
             {Login ? (
               <div className="relative">
                 <button
