@@ -119,7 +119,7 @@ export const NavBar = ({ Login }) => {
                     <img
                       src={globalProfileImg}
                       alt="Profile"
-                      className="w-8 h-8 rounded-full"
+                      className="w-8 h-8 rounded-full object-cover"
                     />
                   )}
                 </Link>
@@ -195,7 +195,7 @@ export const NavBar = ({ Login }) => {
                     <img
                       src={globalProfileImg}
                       alt="Profile"
-                      className="w-8 h-8 rounded-full"
+                      className="w-8 h-8 rounded-full object-cover"
                     />
                   )}
                 </Link>
