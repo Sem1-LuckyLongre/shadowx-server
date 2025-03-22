@@ -104,7 +104,8 @@ export const AdminProjects = () => {
       // Auto-generate unique ID
       setLoading(true);
       const newId = projects?.length + 1;
-
+      console.log("updated 123");
+      
       const formattedProject = {
         ...newProject,
         id: newId,
