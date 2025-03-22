@@ -27,7 +27,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchProfileImage = async () => {
-      if (!user.userData.ProfileImage) return;
+      if (!user?.userData.ProfileImage) return;
       try {
         const response = await fetch(
           `${URI}/api/upload/profile/${user.userData._id}`
