@@ -25,6 +25,28 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem("Token", serverToken);
   };
 
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const response = await fetch(
+          `${URI}/api/upload/profile/${userData._id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch image");
+
+        const data = await response.json();
+        if (data.imageUrl) {
+          // setProfileImage(`${data.imageUrl}`);
+          setGlobalProfileImg(data.imageUrl);
+        }
+      } catch (error) {
+        toast.error("Error fetching profile image:", error);
+      }
+    };
+    if (user) {
+      fetchProfileImage();
+    }
+  }, [user]); 
+
   const autherizedToken = `Bearer ${token}`;
 
   const handleLogoutEvent = () => {

@@ -15,7 +15,7 @@ export const Profile = () => {
   const [showPasskey, setShowPasskey] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { isLoggedIn, user, URI, setGlobalProfileImg } = useTheme();
+  const { isLoggedIn, user, URI, globalProfileImg } = useTheme();
 
   // Ensure user and userData exist before accessing properties
   const userData = user?.userData || {};
@@ -24,33 +24,13 @@ export const Profile = () => {
       navigate("/SignIn");
       return;
     }
+    setProfileImage(globalProfileImg);
     // const storedProfileImage = localStorage.getItem("ProfileImage");
     // if (storedProfileImage) {
     //   setProfileImage(storedProfileImage);
     // }
-  }, [isLoggedIn, navigate]);
-
-  useEffect(() => {
-    const fetchProfileImage = async () => {
-      try {
-        const response = await fetch(
-          `${URI}/api/upload/profile/${userData._id}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch image");
-
-        const data = await response.json();
-        if (data.imageUrl) {
-          setProfileImage(`${data.imageUrl}`);
-          setGlobalProfileImg(data.imageUrl);
-        }
-      } catch (error) {
-        toast.error("Error fetching profile image:", error);
-      }
-    };
-    if (user) {
-      fetchProfileImage();
-    }
-  }, [user]); // Add dependency to ensure it runs when `userData._id` is available
+  }, [isLoggedIn, navigate, globalProfileImg]);
+  // Add dependency to ensure it runs when `userData._id` is available
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -71,10 +51,10 @@ export const Profile = () => {
       if (response.ok) {
         setProfileImage(data.imageUrl); // Database se Image URL Fetch
       } else {
-        console.error("Image upload failed:", data.message);
+        toast.error("Image upload failed:", data.message);
       }
     } catch (error) {
-      console.error("Error uploading image:", error);
+      toast.error("Error uploading image:", error);
     }
   };
 
