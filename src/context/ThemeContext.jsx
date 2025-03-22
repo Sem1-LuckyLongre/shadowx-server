@@ -29,7 +29,7 @@ export const ThemeProvider = ({ children }) => {
     const fetchProfileImage = async () => {
       try {
         const response = await fetch(
-          `${URI}/api/upload/profile/${userData._id}`
+          `${URI}/api/upload/profile/${user.userData._id}`
         );
         if (!response.ok) throw new Error("Failed to fetch image");
 
@@ -45,7 +45,7 @@ export const ThemeProvider = ({ children }) => {
     if (user) {
       fetchProfileImage();
     }
-  }, [user]); 
+  }, [user]);
 
   const autherizedToken = `Bearer ${token}`;
 
