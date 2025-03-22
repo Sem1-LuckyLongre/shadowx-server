@@ -103,7 +103,7 @@ export const AdminProjects = () => {
       if (!projects) return;
       // Auto-generate unique ID
       setLoading(true);
-      const newId = projects?.length + 2;
+      const newId = projects?.length + 1;
 
       const formattedProject = {
         ...newProject,
