@@ -10,12 +10,13 @@ import { toast } from "react-toastify";
 
 export const Profile = () => {
   const [showNotification, setShowNotification] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState("profile.png");
   const [showPasskey, setShowPasskey] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { isLoggedIn, user, URI, globalProfileImg } = useTheme();
+  const { isLoggedIn, user, URI, globalProfileImg, setGlobalProfileImg } =
+    useTheme();
 
   // Ensure user and userData exist before accessing properties
   const userData = user?.userData || {};
@@ -50,6 +51,7 @@ export const Profile = () => {
 
       if (response.ok) {
         setProfileImage(data.imageUrl); // Database se Image URL Fetch
+        setGlobalProfileImg(data.imageUrl);
       } else {
         toast.error("Image upload failed:", data.message);
       }
@@ -81,11 +83,6 @@ export const Profile = () => {
         <Loader />
       ) : (
         <div className="min-h-screen bg-[rgb(var(--background))] dark:bg-gradient-to-br dark:from-gray-900 dark:to-black text-gray-900 dark:text-white">
-          {isLoading && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-              <Loader />
-            </div>
-          )}
           {showNotification && (
             <a href="#ediNow">
               <div className="fixed top-40 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-blue-300 to-blue-400 text-white px-6 py-2 rounded-lg shadow-lg flex items-center gap-6 max-w-xs sm:max-w-md md:max-w-lg w-full">

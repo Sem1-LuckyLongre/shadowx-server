@@ -45,7 +45,7 @@ export const ThemeProvider = ({ children }) => {
     if (user) {
       fetchProfileImage();
     }
-  }, [user]);
+  }, [user, globalProfileImg]);
 
   const autherizedToken = `Bearer ${token}`;
 
