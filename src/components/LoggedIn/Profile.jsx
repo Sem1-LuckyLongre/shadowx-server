@@ -41,6 +41,7 @@ export const Profile = () => {
         const data = await response.json();
         if (data.imageUrl) {
           setProfileImage(`${data.imageUrl}`);
+          setGlobalProfileImg(data.imageUrl);
         }
       } catch (error) {
         toast.error("Error fetching profile image:", error);
@@ -69,7 +70,6 @@ export const Profile = () => {
 
       if (response.ok) {
         setProfileImage(data.imageUrl); // Database se Image URL Fetch
-        setGlobalProfileImg(data.imageUrl);
       } else {
         console.error("Image upload failed:", data.message);
       }
