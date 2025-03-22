@@ -28,7 +28,7 @@ export const NavBar = ({ Login }) => {
   //   localStorage.removeItem("LoggedIn");
   //   window.location.reload();
   // };
-  const { handleLogoutEvent, user } = useTheme();
+  const { handleLogoutEvent, user, globalProfileImg } = useTheme();
   const [IsAdmin, setIsAdmin] = useState(false);
 
   // if(user.userData.isAdmin){
@@ -112,7 +112,10 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  <FaUser size={30} />
+                  {globalProfileImg === "pofile.png" && <FaUser size={30} />}
+                  {!globalProfileImg === "pofile.png" && (
+                    <img src={globalProfileImg} alt="" />
+                  )}
                 </Link>
               </div>
             )}
@@ -170,7 +173,7 @@ export const NavBar = ({ Login }) => {
                 )
             )}
           </ul>
-            
+
           {/* Desktop Authentication and Settings */}
           <div className="hidden md:flex items-center space-x-4">
             <div className="p-1 bg-white/10 rounded-lg">

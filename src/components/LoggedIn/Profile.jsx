@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Loader } from "../Loader";
 import { AiOutlineClose } from "react-icons/ai";
 import { useTheme } from "../../context/ThemeContext";
+import { toast } from "react-toastify";
 
 export const Profile = () => {
   const [showNotification, setShowNotification] = useState(false);
@@ -14,7 +15,7 @@ export const Profile = () => {
   const [showPasskey, setShowPasskey] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { isLoggedIn, user, URI } = useTheme();
+  const { isLoggedIn, user, URI, setGlobalProfileImg } = useTheme();
 
   // Ensure user and userData exist before accessing properties
   const userData = user?.userData || {};
@@ -42,7 +43,7 @@ export const Profile = () => {
           setProfileImage(`${data.imageUrl}`);
         }
       } catch (error) {
-        console.error("Error fetching profile image:", error);
+        toast.error("Error fetching profile image:", error);
       }
     };
     if (user) {
@@ -68,6 +69,7 @@ export const Profile = () => {
 
       if (response.ok) {
         setProfileImage(data.imageUrl); // Database se Image URL Fetch
+        setGlobalProfileImg(data.imageUrl);
       } else {
         console.error("Image upload failed:", data.message);
       }
