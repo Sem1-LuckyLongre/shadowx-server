@@ -51,6 +51,7 @@ export const NavBar = ({ Login }) => {
     // alert("jj")
     setDeleteModalOpen(true);
   };
+  console.log("navbar updated");
 
   const navLinks = [
     {
@@ -112,7 +113,7 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  {globalProfileImg === "profile.png" ? (
+                  {!globalProfileImg ? (
                     <FaUser size={30} />
                   ) : (
                     <img
@@ -188,7 +189,7 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  {globalProfileImg === "profile.png" ? (
+                  {!globalProfileImg ? (
                     <FaUser size={30} />
                   ) : (
                     <img
