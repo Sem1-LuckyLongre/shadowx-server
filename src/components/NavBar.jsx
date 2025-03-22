@@ -112,8 +112,8 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  {globalProfileImg === "pofile.png" && <FaUser size={30} />}
-                  {!globalProfileImg === "pofile.png" && (
+                  {globalProfileImg === "profile.png" && <FaUser size={30} />}
+                  {!globalProfileImg === "profile.png" && (
                     <img src={globalProfileImg} alt="" />
                   )}
                 </Link>
@@ -182,7 +182,10 @@ export const NavBar = ({ Login }) => {
             {Login && (
               <div className="p-1 rounded-lg cursor-pointer">
                 <Link to="/LoggedIn/profile">
-                  <FaUser size={25} />
+                  {globalProfileImg === "profile.png" && <FaUser size={30} />}
+                  {!globalProfileImg === "profile.png" && (
+                    <img src={globalProfileImg} alt="" />
+                  )}
                 </Link>
               </div>
             )}
