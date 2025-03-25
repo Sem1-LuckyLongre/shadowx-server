@@ -66,7 +66,7 @@ export const AdminMessages = () => {
           </h1>
           <div className="w-full max-w-3xl space-y-4">
             {messages.length > 0 ? (
-              messages.map((msg) => (
+              [...messages].reverse().map((msg) => (
                 <div
                   key={msg._id}
                   className="dark:bg-gray-800 dark:text-gray-100 p-4 rounded-lg shadow-md border dark:border-gray-700 flex flex-col"

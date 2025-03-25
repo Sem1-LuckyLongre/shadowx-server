@@ -50,7 +50,7 @@ export const AdminProjects = () => {
         toast.error("Failed to fetch projects");
       }
     } catch (error) {
-      toast.error("Failed To Fetch Projects!");
+      toast.error(error.message || "Failed To Fetch Projects!");
     }
   };
 
@@ -105,7 +105,7 @@ export const AdminProjects = () => {
       setLoading(true);
       const newId = projects?.length + 1;
       console.log("updated 123");
-      
+
       const formattedProject = {
         ...newProject,
         id: newId,
@@ -135,14 +135,14 @@ export const AdminProjects = () => {
           toast.error(data.msg || "Failed to add project");
         }
       } catch (error) {
-        toast.error("Error adding project");
+        toast.error(error.message || "Error adding project");
       }
     }
   };
 
   const deleteProject = async (project) => {
     const password = prompt("Enter a Password");
-    console.log(user.userData._id),"updated";
+    console.log(user.userData._id), "updated";
 
     if (!password || password != user.userData._id) {
       toast.error("Wrong Password!");
