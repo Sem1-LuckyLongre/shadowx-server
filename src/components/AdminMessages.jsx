@@ -10,6 +10,7 @@ import { Loader } from "./Loader";
 export const AdminMessages = () => {
   const [messages, setMessages] = useState();
   const { URI, autherizedToken } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
 
   const getMessages = async () => {
     try {
@@ -33,6 +34,7 @@ export const AdminMessages = () => {
   };
 
   const deleteMessage = async (id) => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${URI}/api/admin/messages/delete/${id}`, {
         method: "DELETE",
@@ -44,6 +46,7 @@ export const AdminMessages = () => {
       if (response.ok) {
         setMessages(messages.filter((msg) => msg._id !== id));
         toast.success("Message deleted successfully");
+        setIsLoading(false);
       } else {
         toast.error(data.msg || "Failed to delete message");
       }
@@ -96,6 +99,9 @@ export const AdminMessages = () => {
                   >
                     <FiTrash2 size={20} />
                   </button>
+                  {isLoading && (
+                    <Loader text="Removing message..." showText={true} />
+                  )}
                 </div>
               ))
             ) : (
