@@ -109,13 +109,7 @@ export const SignIn = () => {
             Sign in to continue
           </p>
         </div>
-
-        {isLoading && (
-          <div className="flex justify-center mb-4">
-            <Loader />
-          </div>
-        )}
-
+        {isLoading && <Loader />}
         <form action={handleSubmit} ref={formRef}>
           <div className="space-y-4">
             {inputFields.map((field) => (
