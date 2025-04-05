@@ -13,14 +13,15 @@ import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// toast.configure();
-
 export const SignIn = () => {
-  // const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
 
-  const { storeTokenIntoLocalStorage } = useTheme();
+  const { storeTokenIntoLocalStorage, URI } = useTheme();
   const formRef = useRef(null);
 
   const inputFields = [
@@ -30,6 +31,7 @@ export const SignIn = () => {
       name: "email",
       icon: FaEnvelope,
       validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+      errorMsg: "Please enter a valid email address",
     },
     {
       label: "Password",
@@ -37,46 +39,67 @@ export const SignIn = () => {
       name: "password",
       icon: FaLock,
       validation: (value) => value.length >= 8,
+      errorMsg: "Password must be at least 8 characters",
     },
   ];
 
-  const { URI } = useTheme();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = (formData) => {
-    setIsLoading(true);
-    // console.log("login..");
+    // Validate all fields
+    const formData = new FormData(formRef.current);
+    const formUserData = Object.fromEntries(formData.entries());
 
-    setTimeout(async () => {
-      const formUserData = Object.fromEntries(formData.entries());
-      try {
-        const response = await fetch(`${URI}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formUserData),
-        });
-        const res_data = await response.json();
-        console.log(res_data);
+    let isValid = true;
+    const newErrors = {};
 
-        if (response.ok) {
-          if (res_data.msg === "Login Succesfull") {
-            setIsLoading(false);
-            storeTokenIntoLocalStorage(res_data.token);
-            toast.success("Login Successful!");
-            setTimeout(() => window.location.assign("/"), 2000);
-          }
-        } else {
-          setIsLoading(false);
-          // setError("Invalid email or password");
-          toast.error(res_data.msg);
-        }
-      } catch (error) {
-        console.error("login " + error);
-        setIsLoading(false);
-        toast.error("An error occurred. Please try again.");
+    inputFields.forEach((field) => {
+      const value = formUserData[field.name];
+      if (!value) {
+        newErrors[field.name] = `${field.label} is required`;
+        isValid = false;
+      } else if (!field.validation(value)) {
+        newErrors[field.name] = field.errorMsg;
+        isValid = false;
+      } else {
+        newErrors[field.name] = "";
       }
-    }, 0);
+    });
+
+    setErrors(newErrors);
+
+    if (!isValid) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${URI}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formUserData),
+      });
+
+      const res_data = await response.json();
+
+      if (response.ok) {
+        if (res_data.msg === "Login Succesfull") {
+          storeTokenIntoLocalStorage(res_data.token);
+          toast.success("Login Successful!");
+          setTimeout(() => window.location.assign("/"), 2000);
+        }
+      } else {
+        toast.error(res_data.msg);
+      }
+    } catch (error) {
+      console.error("Login error: ", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -88,13 +111,13 @@ export const SignIn = () => {
       name: "Google",
       icon: FaGoogle,
       color: "text-red-500",
-      handler: () => alert("Google Registration Coming Soon!"),
+      handler: () => toast.info("Google Registration Coming Soon!"),
     },
     {
       name: "GitHub",
       icon: FaGithub,
       color: "text-gray-800",
-      handler: () => alert("GitHub Registration Coming Soon!"),
+      handler: () => toast.info("GitHub Registration Coming Soon!"),
     },
   ];
 
@@ -109,12 +132,20 @@ export const SignIn = () => {
             Sign in to continue
           </p>
         </div>
+
         {isLoading && <Loader />}
-        <form action={handleSubmit} ref={formRef}>
+
+        <form onSubmit={handleSubmit} ref={formRef}>
           <div className="space-y-4">
             {inputFields.map((field) => (
               <div key={field.name} className="relative">
-                <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 p-2">
+                <div
+                  className={`flex items-center border ${
+                    errors[field.name]
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-700"
+                  } rounded-lg bg-gray-100 dark:bg-gray-800 p-2`}
+                >
                   <div className="pl-4 text-gray-500 dark:text-gray-400">
                     <field.icon />
                   </div>
@@ -140,6 +171,11 @@ export const SignIn = () => {
                     </button>
                   )}
                 </div>
+                {errors[field.name] && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors[field.name]}
+                  </p>
+                )}
               </div>
             ))}
           </div>
@@ -155,26 +191,43 @@ export const SignIn = () => {
 
           <button
             type="submit"
-            className="w-full mt-6 bg-blue-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-700 text-white py-3 rounded-lg shadow-lg transition-transform duration-300"
+            className="w-full mt-6 bg-blue-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-700 text-white py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300 disabled:opacity-50"
+            disabled={isLoading}
           >
-            Sign In
+            {isLoading ? "Signing In..." : "Sign In"}
           </button>
-          <h1 className="text-center my-5">Or</h1>
-          <div className="mt-6">
-            <div className="flex items-center justify-center space-x-4">
-              {socialRegistrtionHandlers.map((social) => (
-                <button
-                  key={social.name}
-                  type="button"
-                  onClick={social.handler}
-                  className={`p-3 rounded-full bg-gray-200 dark:bg-gray-700 ${social.color} hover:bg-opacity-80`}
-                >
-                  <social.icon size={24} />
-                </button>
-              ))}
-            </div>
+
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+            <span className="mx-4 text-gray-500 dark:text-gray-400">Or</span>
+            <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+          </div>
+
+          <div className="flex justify-center space-x-4">
+            {socialRegistrtionHandlers.map((social) => (
+              <button
+                key={social.name}
+                type="button"
+                onClick={social.handler}
+                className={`p-3 rounded-full bg-gray-200 dark:bg-gray-700 ${social.color} hover:bg-opacity-80 transition-colors duration-300`}
+              >
+                <social.icon size={24} />
+              </button>
+            ))}
           </div>
         </form>
+
+        <div className="text-center mt-6">
+          <p className="text-gray-600 dark:text-gray-400">
+            Dont have an account?
+            <Link
+              to="/signup"
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
