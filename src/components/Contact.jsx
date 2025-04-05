@@ -11,10 +11,11 @@ import {
   FaDiscourse,
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
+import { Loader } from "./Loader";
 
 export const Contact = () => {
-  const { URI } = useTheme();
-  const { user } = useTheme();
+  const { user, URI } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = (formData) => {
     if (!formData.name.trim()) {
@@ -42,7 +43,7 @@ export const Contact = () => {
     const formUserData = Object.fromEntries(formData.entries());
 
     if (!validateForm(formUserData)) return;
-
+    setIsLoading(true);
     try {
       const response = await fetch(`${URI}/api/form/contact`, {
         method: "POST",
@@ -53,6 +54,7 @@ export const Contact = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success(data.msg || "Message sent successfully!");
+        setIsLoading(false);
         event.target.reset();
       } else {
         toast.error(
@@ -169,6 +171,9 @@ export const Contact = () => {
               >
                 <FaPaperPlane className="mr-2" /> Send Message
               </button>
+              {isLoading && (
+                <Loader text="Sending message..." showText={true} />
+              )}
             </form>
           </motion.div>
         </div>
