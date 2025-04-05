@@ -9,6 +9,7 @@ export const AdminUpdateUser = () => {
   const params = useParams();
 
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSingleUserById = async () => {
     try {
@@ -34,7 +35,7 @@ export const AdminUpdateUser = () => {
   const handleUpdate = async (formData, e) => {
     e.preventDefault();
     const updatedUserData = Object.fromEntries(formData.entries());
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${URI}/api/admin/user/update/${params.id}`,
@@ -50,6 +51,7 @@ export const AdminUpdateUser = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success("Updated Successfully");
+        setIsLoading(false);
         getSingleUserById();
       }
     } catch (error) {
@@ -106,10 +108,13 @@ export const AdminUpdateUser = () => {
             >
               Update
             </button>
+            {isLoading && (
+              <Loader text="Updating user details..." showText={true} />
+            )}
           </form>
         </div>
       )}
-      {!user && <Loader text="Updating user details..." showText={true} />}
+      {!user && <Loader text="Retrieving user details..." showText={true} />}
     </>
   );
 };

@@ -8,6 +8,7 @@ import { Loader } from "./Loader";
 export const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const { URI, autherizedToken, user } = useTheme();
+  const DoNotDeleteUser = false; // Set this to true if you want to prevent deletion
 
   const getAllUsers = async () => {
     try {
@@ -30,6 +31,10 @@ export const AdminUsers = () => {
   };
 
   const deleteUser = async (user) => {
+    if (DoNotDeleteUser) {
+      toast.error("You can not delete this user.");
+      return;
+    }
     if (user.isAdmin) {
       toast.error("You can not delete the Admin.");
       return;

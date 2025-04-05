@@ -10,6 +10,7 @@ export const AdminProjects = () => {
   const [newProject, setNewProject] = useState({});
   const [loading, setLoading] = useState(false);
   const { URI, autherizedToken, user } = useTheme();
+  const DoNotDeleteUser = false; // Set this to true if you want to prevent deletion
 
   const fields = [
     { name: "title", type: "text", placeholder: "Project Title" },
@@ -141,6 +142,10 @@ export const AdminProjects = () => {
   };
 
   const deleteProject = async (project) => {
+    if (DoNotDeleteUser) {
+      toast.error("You can not delete this project.");
+      return;
+    }
     const password = prompt("Enter a Password");
     console.log(user.userData._id), "updated";
 
