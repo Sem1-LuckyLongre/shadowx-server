@@ -168,7 +168,7 @@ export const SignUp = () => {
 
         {isLoading && (
           <div className="flex justify-center mb-4">
-            <Loader />
+            <Loader text="Registering you…" showText={true} />
           </div>
         )}
 

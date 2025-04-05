@@ -47,9 +47,7 @@ export const Projects = () => {
 
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
-      if (
-        project.category[i].toLowerCase() === filter.toLowerCase() 
-      ) {
+      if (project.category[i].toLowerCase() === filter.toLowerCase()) {
         return project.category[i];
       }
     }
@@ -103,7 +101,9 @@ export const Projects = () => {
 
   return (
     <>
-      {projects.length == 0 && <Loader />}
+      {projects.length == 0 && (
+        <Loader text="Retrieving project data..." showText={true} />
+      )}
       {projects.length > 0 && (
         <>
           <Modal isOpen={isOpen} onClose={closeModal} message={modalMessage} />

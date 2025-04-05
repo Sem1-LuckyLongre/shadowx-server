@@ -133,7 +133,7 @@ export const SignIn = () => {
           </p>
         </div>
 
-        {isLoading && <Loader />}
+        {isLoading && <Loader text="Authenticating…" showText={true} />}
 
         <form onSubmit={handleSubmit} ref={formRef}>
           <div className="space-y-4">
