@@ -96,7 +96,7 @@ export const ThemeProvider = ({ children }) => {
         } else if (data.msg) {
           toast.error("Please re-login");
           setMainLoader(false);
-          setToken("");
+          // setToken("");
         }
       } catch (error) {
         toast.error("Server Error Please Try Again Later...");
