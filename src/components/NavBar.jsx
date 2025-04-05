@@ -51,7 +51,7 @@ export const NavBar = ({ Login }) => {
     // alert("jj")
     setDeleteModalOpen(true);
   };
-  console.log("navbar updated");
+  // console.log("navbar updated");
 
   const navLinks = [
     {

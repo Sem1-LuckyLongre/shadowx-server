@@ -86,7 +86,7 @@ export const ThemeProvider = ({ children }) => {
         });
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         if (response.ok) {
           // console.log("User Data :", data);
@@ -99,14 +99,15 @@ export const ThemeProvider = ({ children }) => {
           setToken("");
         }
       } catch (error) {
-        console.error(error);
+        toast.error("Server Error Please Try Again Later...");
+        // console.error(error);
       }
     }
   };
 
   useEffect(() => {
     userAuthentication();
-  }, []);
+  }, [token]);
 
   return (
     <ThemeContext.Provider
