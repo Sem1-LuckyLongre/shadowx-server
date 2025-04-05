@@ -69,15 +69,11 @@ export const Welcome = () => {
             </h1>
 
             <p className="text-gray-600 dark:text-gray-300 max-w-xl text-lg mt-4">
-              I’m a Growing Web Developer, passionate about building clean,
-              responsive, and user-friendly web experiences. I have hands-on
-              experience with HTML, CSS, JavaScript, React.js, Bootstrap, and
-              Tailwind CSS, and I also have a basic understanding of Python and
-              C++. I enjoy learning new technologies and constantly improving my
-              skills through real projects. I’m excited to share my work with
-              you and hope you find it inspiring. Whether you’re a fellow
-              developer or just someone who loves technology, I invite you to
-              explore my projects and connect with me.
+              I’m a passionate Web Developer with hands-on experience in HTML,
+              CSS, JavaScript, React.js, Bootstrap, and Tailwind CSS, along with
+              a basic understanding of Python and C++. I love building
+              responsive, user-friendly projects and continuously learning new
+              technologies. Feel free to explore my work and connect!
             </p>
           </div>
         </div>
