@@ -85,12 +85,17 @@ export const ThemeProvider = ({ children }) => {
           },
         });
 
+        const data = await response.json();
+        console.log(data);
+        
         if (response.ok) {
-          const data = await response.json();
           // console.log("User Data :", data);
           setUser(data);
           setMainLoader(false);
           // toast.success("Authentication Successfully");
+        }else{
+          toast.error(data);
+          setMainLoader(false);
         }
       } catch (error) {
         console.error(error);
