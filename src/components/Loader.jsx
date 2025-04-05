@@ -9,7 +9,7 @@ export const Loader = ({ text = "Loading", showText = true }) => {
   ];
 
   return (
-    <div className="flex flex-col items-center m-2 justify-center space-y-4">
+    <div className="flex flex-col items-center mb-2 justify-center space-y-4">
       <div className="flex space-x-1">
         {colors.map((color, i) => (
           <div
