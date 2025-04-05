@@ -69,11 +69,9 @@ export const Welcome = () => {
             </h1>
 
             <p className="text-gray-600 dark:text-gray-300 max-w-xl text-lg mt-4">
-              I’m a passionate Web Developer with hands-on experience in HTML,
-              CSS, JavaScript, React.js, Bootstrap, and Tailwind CSS, along with
-              a basic understanding of Python and C++. I love building
-              responsive, user-friendly projects and continuously learning new
-              technologies. Feel free to explore my work and connect!
+              I’m a Passionate Full Stack Developer, Dedicated to Building
+              Sleek, Efficient, and user-friendly Digital Experiences Using
+              Modern Technologies.
             </p>
           </div>
         </div>
