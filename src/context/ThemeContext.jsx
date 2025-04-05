@@ -87,15 +87,16 @@ export const ThemeProvider = ({ children }) => {
 
         const data = await response.json();
         console.log(data);
-        
+
         if (response.ok) {
           // console.log("User Data :", data);
           setUser(data);
           setMainLoader(false);
           // toast.success("Authentication Successfully");
-        }else{
-          toast.error(data);
+        } else if (data.msg) {
+          toast.error("Please re-login");
           setMainLoader(false);
+          setToken("");
         }
       } catch (error) {
         console.error(error);
