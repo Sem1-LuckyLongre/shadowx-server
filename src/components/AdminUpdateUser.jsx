@@ -109,7 +109,7 @@ export const AdminUpdateUser = () => {
           </form>
         </div>
       )}
-      {!user && <Loader />}
+      {!user && <Loader text="Updating user details..." showText={true} />}
     </>
   );
 };

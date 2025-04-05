@@ -104,7 +104,7 @@ export const AdminMessages = () => {
           </div>
         </>
       )}
-      {!messages && <Loader />}
+      {!messages && <Loader text="Retrieving messages..." showText={true} />}
     </div>
   );
 };

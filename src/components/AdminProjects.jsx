@@ -283,7 +283,7 @@ export const AdminProjects = () => {
           ))}
         </div>
       ) : (
-        <Loader />
+        <Loader text="Retrieving projects..." showText={true} />
       )}
     </div>
   );

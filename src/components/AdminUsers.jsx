@@ -177,7 +177,9 @@ export const AdminUsers = () => {
           </div>
         </>
       )}
-      {!users.length > 0 && <Loader />}
+      {!users.length > 0 && (
+        <Loader text="Retrieving users..." showText={true} />
+      )}
     </div>
   );
 };
