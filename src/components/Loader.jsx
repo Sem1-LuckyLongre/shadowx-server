@@ -1,10 +1,43 @@
-export const Loader = () => {
+export const Loader = ({ text = "Loading", showText = true }) => {
+  const colors = [
+    "bg-blue-500",
+    "bg-red-500",
+    "bg-yellow-500",
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-red-500",
+  ];
+
   return (
-    <div className="flex items-center justify-center bg-transparent">
-      <div className="relative w-20 h-20">
-        <div className="absolute inset-0 rounded-full border-4 border-blue-500 opacity-30"></div>
-        <div className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
+    <div className="flex flex-col items-center m-2 justify-center space-y-4">
+      <div className="flex space-x-1">
+        {colors.map((color, i) => (
+          <div
+            key={i}
+            className={`w-3 h-3 ${color} rounded-full animate-bounce`}
+            style={{
+              animationDelay: `${i * 0.1}s`,
+              animationDuration: "1s",
+            }}
+          />
+        ))}
       </div>
+      {showText && (
+        <div className="flex space-x-1">
+          {text.split("").map((char, i) => (
+            <span
+              key={i}
+              className="text-blue-500 font-medium text-lg animate-pulse"
+              style={{
+                animationDelay: `${i * 0.1}s`,
+                animationDuration: "1.5s",
+              }}
+            >
+              {char}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
