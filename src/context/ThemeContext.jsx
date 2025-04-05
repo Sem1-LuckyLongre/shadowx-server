@@ -121,6 +121,7 @@ export const ThemeProvider = ({ children }) => {
         mainLoader,
         setUser,
         URI,
+        userAuthentication,
         globalProfileImg,
         setGlobalProfileImg,
         autherizedToken,

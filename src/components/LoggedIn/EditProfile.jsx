@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -23,7 +23,9 @@ import "react-toastify/dist/ReactToastify.css";
 export const EditProfile = () => {
   let navigate = useNavigate();
   // const { userAuthentication } = useTheme();
-  const { isLoggedIn, user, URI, autherizedToken } = useTheme();
+  const { isLoggedIn, userAuthentication, user, URI, autherizedToken } =
+    useTheme();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -117,9 +119,9 @@ export const EditProfile = () => {
       validatedData[field.name] = formUserData[field.name];
     }
 
-    console.log("Validated Data:", validatedData);
+    // console.log("Validated Data:", validatedData);
     // toast.success("Profile updated successfully!");
-
+    setIsLoading(true);
     try {
       const response = await fetch(`${URI}/api/auth/user/profile/edit`, {
         method: "PATCH",
@@ -134,8 +136,10 @@ export const EditProfile = () => {
         console.log("updated", data);
         // setUser(data);
         toast.success("Updated Successfully");
-        // userAuthentication();
-        window.location.assign("/");
+        setIsLoading(false);
+        // Call userAuthentication to refresh user data
+        userAuthentication();
+        // window.location.assign("/");
       }
     } catch (error) {
       console.error(error);
@@ -200,6 +204,9 @@ export const EditProfile = () => {
                     <FaSave className="mr-2" /> Save Changes
                   </button>
                 </div>
+                {isLoading && (
+                  <Loader text="Updating profile..." showText={true} />
+                )}
               </form>
             </div>
 
