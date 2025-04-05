@@ -8,7 +8,7 @@ import { Loader } from "./Loader";
 export const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const { URI, autherizedToken, user } = useTheme();
-  const DoNotDeleteUser = false; // Set this to true if you want to prevent deletion
+  const DoNotDeleteUser = true; // Set this to false if you want to prevent deletion
 
   const getAllUsers = async () => {
     try {
