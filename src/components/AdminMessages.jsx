@@ -10,7 +10,7 @@ import { Loader } from "./Loader";
 export const AdminMessages = () => {
   const [messages, setMessages] = useState();
   const { URI, autherizedToken } = useTheme();
-  const [isLoading, setIsLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null); // Track which message is being deleted
 
   const getMessages = async () => {
     try {
@@ -24,7 +24,6 @@ export const AdminMessages = () => {
       if (response.ok) {
         setMessages(data);
       } else {
-        // toast.error(data.msg || "Failed to fetch messages");
         setMessages(data);
       }
     } catch (error) {
@@ -34,7 +33,7 @@ export const AdminMessages = () => {
   };
 
   const deleteMessage = async (id) => {
-    setIsLoading(true);
+    setDeletingId(id); // Set the ID of the message being deleted
     try {
       const response = await fetch(`${URI}/api/admin/messages/delete/${id}`, {
         method: "DELETE",
@@ -46,13 +45,14 @@ export const AdminMessages = () => {
       if (response.ok) {
         setMessages(messages.filter((msg) => msg._id !== id));
         toast.success("Message deleted successfully");
-        setIsLoading(false);
       } else {
         toast.error(data.msg || "Failed to delete message");
       }
     } catch (error) {
       toast.error("Failed To Delete Message!");
       console.log(error);
+    } finally {
+      setDeletingId(null); // Reset the deleting ID regardless of success or failure
     }
   };
 
@@ -96,12 +96,14 @@ export const AdminMessages = () => {
                   <button
                     className="mt-3 text-red-400 hover:text-red-500 self-end"
                     onClick={() => deleteMessage(msg._id)}
+                    disabled={deletingId === msg._id} // Disable button while deleting
                   >
-                    <FiTrash2 size={20} />
+                    {deletingId === msg._id ? (
+                      <Loader text="Removing..." showText={false} size={20} />
+                    ) : (
+                      <FiTrash2 size={20} />
+                    )}
                   </button>
-                  {isLoading && (
-                    <Loader text="Removing message..." showText={true} />
-                  )}
                 </div>
               ))
             ) : (
