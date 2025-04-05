@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
 import { Loader } from "./Loader";
+import { useState } from "react";
 
 export const Contact = () => {
   const { user, URI } = useTheme();
