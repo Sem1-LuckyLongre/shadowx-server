@@ -14,7 +14,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: ["https://shadowx-frontend.onrender.com", "http://localhost:5173"],
+  origin: ["https://shadowx-frontend.onrender.com"],
   methods: "GET, POST, PUT, DELETE, PATCH, OPTIONS",
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
