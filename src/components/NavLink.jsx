@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-const NavLink = ({ to, icon: Icon, name, isActive }) => {
+const NavLink = ({ to, icon: Icon, name, isActive, setToggle }) => {
   return (
-    <li>
+    <li onClick={() => setToggle(false)}>
       <Link
         to={to}
         className={`flex items-center space-x-2 transition-colors duration-300 group ${
