@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 export const Profile = () => {
   const [showNotification, setShowNotification] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
-  // const [profileImage, setProfileImage] = useState("profile.png");
+  const [profileImage, setProfileImage] = useState("profile.png");
   const [showPasskey, setShowPasskey] = useState(false);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const Profile = () => {
       navigate("/SignIn");
       return;
     }
-    // setProfileImage(globalProfileImg);
+    setProfileImage(globalProfileImg);
     // const storedProfileImage = localStorage.getItem("ProfileImage");
     // if (storedProfileImage) {
     //   setProfileImage(storedProfileImage);
@@ -50,7 +50,7 @@ export const Profile = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // setProfileImage(data.imageUrl); // Database se Image URL Fetch
+        setProfileImage(data.imageUrl); // Database se Image URL Fetch
         setGlobalProfileImg(data.imageUrl);
       } else {
         toast.error("Image upload failed:", data.message);
@@ -110,7 +110,7 @@ export const Profile = () => {
               <div className="flex flex-col md:flex-row items-center mb-8">
                 <div className="relative">
                   <img
-                    src={globalProfileImg}
+                    src={profileImage}
                     alt="Profile"
                     className="w-48 h-48 rounded-full object-cover border-4 border-blue-500 shadow-lg transition-transform duration-300 hover:scale-105"
                   />
