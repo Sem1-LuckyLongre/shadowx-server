@@ -51,7 +51,10 @@ export const AdminLayout = () => {
                 isActive ? "text-blue-600 dark:text-blue-400" : ""
               }
             >
-              <li className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300">
+              <li
+                onClick={setIsSidebarOpen(false)}
+                className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
+              >
                 <FiUsers
                   size={20}
                   className="text-blue-600 dark:text-blue-400"
@@ -65,7 +68,10 @@ export const AdminLayout = () => {
                 isActive ? "text-blue-600 dark:text-blue-400" : ""
               }
             >
-              <li className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300">
+              <li
+                onClick={setIsSidebarOpen(false)}
+                className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
+              >
                 <FiMessageCircle
                   size={20}
                   className="text-blue-600 dark:text-blue-400"
@@ -79,7 +85,10 @@ export const AdminLayout = () => {
                 isActive ? "text-blue-600 dark:text-blue-400" : ""
               }
             >
-              <li className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300">
+              <li
+                onClick={setIsSidebarOpen(false)}
+                className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
+              >
                 <FiFolder
                   size={20}
                   className="text-blue-600 dark:text-blue-400"
