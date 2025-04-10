@@ -88,7 +88,7 @@ export const SignIn = () => {
       if (response.ok) {
         if (res_data.msg === "Login Succesfull") {
           storeTokenIntoLocalStorage(res_data.token);
-          toast.success("Login Successful!");
+          // toast.success("Login Successful!");
           setTimeout(() => window.location.assign("/"), 2000);
         }
       } else {

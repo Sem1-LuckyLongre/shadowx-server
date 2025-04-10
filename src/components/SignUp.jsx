@@ -134,7 +134,6 @@ export const SignUp = () => {
           if (res_data.msg === "Registraction Succesfull") {
             storeTokenIntoLocalStorage(res_data.token);
             toast.success("Registration Successful!");
-
             setTimeout(() => {
               navigate("/SignIn");
             }, 1000);

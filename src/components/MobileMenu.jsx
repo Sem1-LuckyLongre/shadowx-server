@@ -3,7 +3,7 @@ import NavLink from "./NavLink";
 import { AiOutlineLogin } from "react-icons/ai";
 import { FaUserPlus } from "react-icons/fa";
 
-const MobileMenu = ({ navLinks, Login, toggle, setToggle, isActiveLink }) => {
+const MobileMenu = ({ navLinks, Login, setToggle, isActiveLink }) => {
   return (
     <div className="md:hidden absolute w-full bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-800">
       <ul className="px-4 py-6 space-y-4">
@@ -16,10 +16,9 @@ const MobileMenu = ({ navLinks, Login, toggle, setToggle, isActiveLink }) => {
                 icon={link.icon}
                 name={link.name}
                 isActive={isActiveLink(link.path)}
-                onClick={() => setToggle(!toggle)}
+                onClick={() => setToggle(false)}
               />
-            ) 
-            // hello
+            )
         )}
 
         {/* Buttons Section */}

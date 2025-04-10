@@ -140,6 +140,7 @@ export const NavBar = ({ Login }) => {
                 </button>
                 {isSettingsOpen && (
                   <SettingsDropdown
+                    setIsSettingsOpen={setIsSettingsOpen}
                     handleLogoutEvent={handleLogoutEvent}
                     setToggle={setToggle}
                     handleDeleteEvent={handleDeleteEvent}
@@ -247,7 +248,6 @@ export const NavBar = ({ Login }) => {
           <MobileMenu
             navLinks={navLinks}
             Login={Login}
-            toggle={toggle}
             setToggle={setToggle}
             isActiveLink={isActiveLink}
           />
