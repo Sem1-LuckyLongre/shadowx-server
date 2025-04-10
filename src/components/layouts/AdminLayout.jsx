@@ -52,7 +52,7 @@ export const AdminLayout = () => {
               }
             >
               <li
-                onClick={setIsSidebarOpen(false)}
+                onClick={() => setIsSidebarOpen(false)}
                 className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
               >
                 <FiUsers
@@ -69,7 +69,7 @@ export const AdminLayout = () => {
               }
             >
               <li
-                onClick={setIsSidebarOpen(false)}
+                onClick={() => setIsSidebarOpen(false)}
                 className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
               >
                 <FiMessageCircle
@@ -86,7 +86,7 @@ export const AdminLayout = () => {
               }
             >
               <li
-                onClick={setIsSidebarOpen(false)}
+                onClick={() => setIsSidebarOpen(false)}
                 className="p-3 flex items-center gap-3 hover:bg-blue-500/20 dark:hover:bg-blue-600/30 cursor-pointer rounded-lg transition-all duration-300"
               >
                 <FiFolder
