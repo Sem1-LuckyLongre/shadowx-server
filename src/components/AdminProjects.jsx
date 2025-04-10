@@ -43,7 +43,7 @@ export const AdminProjects = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        const sortedProjects = [...data];
+        const sortedProjects = [...data].reverse();
         setProjects(sortedProjects);
         // console.log("changed to top");
       } else {
