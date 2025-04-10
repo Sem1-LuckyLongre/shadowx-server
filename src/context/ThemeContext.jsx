@@ -16,7 +16,7 @@ export const ThemeProvider = ({ children }) => {
     return savedTheme ? savedTheme === "dark" : prefersDark;
   });
   const [token, setToken] = useState(localStorage.getItem("Token"));
-  const [globalProfileImg, setGlobalProfileImg] = useState(null);
+  const [globalProfileImg, setGlobalProfileImg] = useState("profile.png");
   const [user, setUser] = useState("");
   const [mainLoader, setMainLoader] = useState(false);
 
