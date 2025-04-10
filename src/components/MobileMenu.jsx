@@ -10,14 +10,15 @@ const MobileMenu = ({ navLinks, Login, setToggle, isActiveLink }) => {
         {navLinks.map(
           (link, index) =>
             (link.alwaysVisible || (link.name === "Explore" && Login)) && (
-              <NavLink
-                key={index}
-                to={link.path}
-                icon={link.icon}
-                name={link.name}
-                isActive={isActiveLink(link.path)}
-                onClick={() => setToggle(false)}
-              />
+              <button key={index} onClick={() => setToggle(false)}>
+                {/* Use NavLink component for navigation links */}
+                <NavLink
+                  to={link.path}
+                  icon={link.icon}
+                  name={link.name}
+                  isActive={isActiveLink(link.path)}
+                />
+              </button>
             )
         )}
 
