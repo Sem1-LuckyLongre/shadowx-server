@@ -12,7 +12,7 @@ const home = async (req, res) => {
 const register = async (req, res, next) => {
   try {
     // console.log(req.body);
-    const { name, email, course, password } = req.body;
+    const { name, email, course, password, isAdmin } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -25,6 +25,7 @@ const register = async (req, res, next) => {
       email,
       course,
       password,
+      isAdmin,
     });
     res.status(200).json({
       msg: "Registraction Succesfull",
