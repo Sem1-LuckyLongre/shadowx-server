@@ -223,7 +223,7 @@ export const SignIn = () => {
             Dont have an account?
             <Link
               to="/signup"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-blue-600 mr-1 dark:text-blue-400 hover:underline"
             >
               Sign Up
             </Link>
