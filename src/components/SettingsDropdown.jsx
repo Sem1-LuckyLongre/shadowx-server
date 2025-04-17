@@ -16,6 +16,7 @@ const SettingsDropdown = ({
             setIsSettingsOpen(false); // Close the settings dropdown
             setToggle(false); // Close the settings dropdown
           }}
+          className="w-full flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-gray-500/20 dark:hover:bg-gray-500/30 text-gray-600 dark:text-gray-300 px-4 rounded-lg transition-colors"
         >
           <Link
             to="/LoggedIn/EditProfile"
