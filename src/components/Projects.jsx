@@ -1,41 +1,18 @@
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { SearchBar } from "./SearchBar";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Modal from "./common/Modal";
 import { Loader } from "./Loader";
-import { toast } from "react-toastify";
-// import {toast} from ""
-
 export const Projects = () => {
-  const { isDarkMode } = useTheme();
-  const [projects, setProjects] = useState([]);
+  const { isDarkMode, globalProjects } = useTheme();
+  const [projects, setProjects] = useState(globalProjects);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [flippedId, setFlippedId] = useState(null); // Track which card is flipped
   const [isOpen, setIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-
-  const { URI } = useTheme();
-  const fetchProjects = async () => {
-    try {
-      const projectsData = await fetch(`${URI}/api/data/project`);
-      const data = await projectsData.json();
-      if (projectsData.ok) {
-        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
-        setProjects(sortedProjects);
-        // console.log(sortedProjects);
-      } else {
-        toast.error("Failed to fetch projects");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchProjects();
-  }, []);
 
   // useEffect(() => {
   //   setProjects(Myprojects);
