@@ -141,7 +141,7 @@ export const SignUp = () => {
 
         if (response.ok) {
           const res_data = await response.json();
-          if (res_data.msg === "Registration Successful") {
+          if (res_data.msg === "Registraction Succesfull") {
             storeTokenIntoLocalStorage(res_data.token);
             toast.success("Registration Successful!");
             setTimeout(() => {
