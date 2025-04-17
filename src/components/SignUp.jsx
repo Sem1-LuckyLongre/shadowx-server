@@ -1,25 +1,22 @@
-import { useState } from "react";
-import {
-  FaUser,
-  FaEnvelope,
-  FaLock,
-  FaGraduationCap,
-  FaEye,
-  FaEyeSlash,
-} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Loader } from "./Loader";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 export const SignUp = () => {
-  if (localStorage.getItem("Registration")) {
-    window.location.assign("/");
-  }
+  // useEffect(() => {
+  //   if (localStorage.getItem("Registration")) {
+  //     window.location.assign("/");
+  //   }
+  // }, []);
 
   const [formData, setFormData] = useState({
     name: "",
+    alwaysVisible: true,
     course: "",
     email: "",
     password: "",
@@ -27,6 +24,7 @@ export const SignUp = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isAdminVisible, setIsAdminVisible] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
     confirmPassword: false,
@@ -35,11 +33,23 @@ export const SignUp = () => {
   const { storeTokenIntoLocalStorage } = useTheme();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleAdminToggle = (event) => {
+      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") {
+        toast.success("Admin Form Enabled");
+        setIsAdminVisible((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleAdminToggle);
+    return () => window.removeEventListener("keydown", handleAdminToggle);
+  });
+
   const inputFields = [
     {
       label: "Full Name",
       type: "text",
       name: "name",
+      alwaysVisible: true,
       icon: FaUser,
       validation: (value) => value.length >= 4,
       errorMessage: "Name must be at least 4 characters",
@@ -48,7 +58,8 @@ export const SignUp = () => {
     //   label: "Course",
     //   type: "text",
     //   name: "course",
-    //   icon: FaGraduationCap,
+    // alwaysVisible:true,
+    // icon: FaGraduationCap,
     //   validation: (value) => value.length >= 3,
     //   errorMessage: "Course must be at least 3 characters",
     // },
@@ -56,14 +67,26 @@ export const SignUp = () => {
       label: "Email Address",
       type: "email",
       name: "email",
+      alwaysVisible: true,
       icon: FaEnvelope,
       validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
       errorMessage: "Invalid email format",
     },
     {
+      label: "IsAdmin",
+
+      type: "text",
+      name: "isAdmin",
+      alwaysVisible: isAdminVisible,
+      icon: MdAdminPanelSettings,
+      validation: (value) => value === "true" || value === "false",
+      errorMessage: "Invalid value for IsAdmin (true/false)",
+    },
+    {
       label: "Password",
       type: "password",
       name: "password",
+      alwaysVisible: true,
       icon: FaLock,
       validation: (value) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
@@ -76,6 +99,7 @@ export const SignUp = () => {
       label: "Confirm Password",
       type: "password",
       name: "confirmPassword",
+      alwaysVisible: true,
       icon: FaLock,
       validation: (value) => value === formData.password,
       errorMessage: "Passwords do not match",
@@ -116,6 +140,7 @@ export const SignUp = () => {
     e.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
+      // eslint-disable-next-line no-unused-vars
       const { confirmPassword, ...dataToSend } = formData;
 
       try {
@@ -187,6 +212,8 @@ export const SignUp = () => {
                           : "password"
                         : field.type
                     }
+                    autoComplete="off"
+                    disabled={!field.alwaysVisible}
                     name={field.name}
                     placeholder={field.label}
                     value={formData[field.name]}
@@ -212,10 +239,11 @@ export const SignUp = () => {
           </div>
 
           <button
+            disabled={isLoading}
             type="submit"
             className="w-full mt-6 bg-blue-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-700 text-white py-3 rounded-lg shadow-lg transition-transform duration-300"
           >
-            Sign Up
+            {isLoading ? "Wait..." : "Sign Up"}
           </button>
           <div className="text-center mt-6">
             <p className="text-gray-600 dark:text-gray-400">
