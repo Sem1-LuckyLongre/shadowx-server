@@ -10,41 +10,46 @@ import { MdAdminPanelSettings } from "react-icons/md";
 export const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
-    course: "",
+    isAdmin: "false",
     email: "",
     password: "",
     confirmPassword: "",
-    isAdmin: "", // Add isAdmin in form data
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isAdminVisible, setIsAdminVisible] = useState(false); // Initial visibility state
+  const [showAdminField, setShowAdminField] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
     confirmPassword: false,
   });
 
-  const { storeTokenIntoLocalStorage } = useTheme();
+  const { storeTokenIntoLocalStorage, URI } = useTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleAdminToggle = (event) => {
       // Shortcut Key = Ctrl + Shift + Q
       if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "q") {
-        toast.success("Admin Form Enabled");
-        setIsAdminVisible((prev) => !prev); // Toggle the visibility state of isAdmin field
+        event.preventDefault();
+        const newState = !showAdminField;
+        setShowAdminField(newState);
+        if (newState) {
+          toast.success("Admin Field Enabled");
+        } else {
+          setFormData((prev) => ({ ...prev, isAdmin: "false" }));
+        }
       }
     };
+
     window.addEventListener("keydown", handleAdminToggle);
     return () => window.removeEventListener("keydown", handleAdminToggle);
-  }, []);
+  }, [showAdminField]);
 
   const inputFields = [
     {
       label: "Full Name",
       type: "text",
       name: "name",
-      alwaysVisible: true,
       icon: FaUser,
       validation: (value) => value.length >= 4,
       errorMessage: "Name must be at least 4 characters",
@@ -53,38 +58,35 @@ export const SignUp = () => {
       label: "Email Address",
       type: "email",
       name: "email",
-      alwaysVisible: true,
       icon: FaEnvelope,
       validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
       errorMessage: "Invalid email format",
     },
     {
-      label: "IsAdmin",
+      label: "IsAdmin (true/false)",
       type: "text",
       name: "isAdmin",
-      alwaysVisible: isAdminVisible, // Control visibility based on the state
       icon: MdAdminPanelSettings,
       validation: (value) => value === "true" || value === "false",
-      errorMessage: "Invalid value for IsAdmin (true/false)",
+      errorMessage: 'Must be either "true" or "false"',
+      hidden: !showAdminField,
     },
     {
       label: "Password",
       type: "password",
       name: "password",
-      alwaysVisible: true,
       icon: FaLock,
       validation: (value) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
           value
         ),
       errorMessage:
-        "Password must be 8 characters long and contain uppercase, lowercase, number, and special character",
+        "Password must be 8+ chars with uppercase, lowercase, number, and special character",
     },
     {
       label: "Confirm Password",
       type: "password",
       name: "confirmPassword",
-      alwaysVisible: true,
       icon: FaLock,
       validation: (value) => value === formData.password,
       errorMessage: "Passwords do not match",
@@ -93,6 +95,8 @@ export const SignUp = () => {
 
   const validateForm = () => {
     for (let field of inputFields) {
+      if (field.hidden) continue;
+
       if (!formData[field.name]) {
         toast.error(`${field.label} is required`);
         return false;
@@ -119,8 +123,6 @@ export const SignUp = () => {
     }));
   };
 
-  const { URI } = useTheme();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -138,9 +140,7 @@ export const SignUp = () => {
         });
 
         if (response.ok) {
-          setIsLoading(false);
           const res_data = await response.json();
-
           if (res_data.msg === "Registration Successful") {
             storeTokenIntoLocalStorage(res_data.token);
             toast.success("Registration Successful!");
@@ -149,16 +149,16 @@ export const SignUp = () => {
             }, 1000);
           }
         } else {
-          setIsLoading(false);
           const res_data = await response.json();
           if (res_data.msg === "User already exists!") {
             toast.error("User Already Exists...");
           }
         }
       } catch (error) {
-        setIsLoading(false);
-        console.error("register " + error);
+        console.error("Registration error:", error);
         toast.error("Something went wrong! Please try again.");
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -177,59 +177,62 @@ export const SignUp = () => {
 
         {isLoading && (
           <div className="flex justify-center mb-4">
-            <Loader text="Registering you…" showText={true} />
+            <Loader text="Registering you..." showText={true} />
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {inputFields.map((field) => (
-              <div key={field.name} className="relative">
-                <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 p-2">
-                  <div className="pl-4 text-gray-500 dark:text-gray-400">
-                    <field.icon />
-                  </div>
-                  <input
-                    type={
-                      field.type === "password"
-                        ? passwordVisibility[field.name]
-                          ? "text"
-                          : "password"
-                        : field.type
-                    }
-                    autoComplete="off"
-                    disabled={!field.alwaysVisible}
-                    name={field.name}
-                    placeholder={field.label}
-                    value={formData[field.name]}
-                    onChange={handleInputChange}
-                    className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none autofill:bg-blue-500 autofill:text-white"
-                  />
-                  {field.type === "password" && (
-                    <button
-                      type="button"
-                      onClick={() => togglePasswordVisibility(field.name)}
-                      className="pr-4 hover:bg-black text-gray-500 dark:text-gray-400"
-                    >
-                      {passwordVisibility[field.name] ? (
-                        <FaEye />
-                      ) : (
-                        <FaEyeSlash />
+            {inputFields.map(
+              (field) =>
+                !field.hidden && (
+                  <div key={field.name} className="relative">
+                    <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-800 p-2">
+                      <div className="pl-4 text-gray-500 dark:text-gray-400">
+                        <field.icon />
+                      </div>
+                      <input
+                        type={
+                          field.type === "password"
+                            ? passwordVisibility[field.name]
+                              ? "text"
+                              : "password"
+                            : field.type
+                        }
+                        autoComplete="off"
+                        name={field.name}
+                        placeholder={field.label}
+                        value={formData[field.name]}
+                        onChange={handleInputChange}
+                        className="w-full p-3 bg-transparent text-gray-900 dark:text-white focus:outline-none"
+                      />
+                      {field.type === "password" && (
+                        <button
+                          type="button"
+                          onClick={() => togglePasswordVisibility(field.name)}
+                          className="pr-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                        >
+                          {passwordVisibility[field.name] ? (
+                            <FaEye />
+                          ) : (
+                            <FaEyeSlash />
+                          )}
+                        </button>
                       )}
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+                    </div>
+                  </div>
+                )
+            )}
           </div>
 
           <button
             disabled={isLoading}
             type="submit"
-            className="w-full mt-6 bg-blue-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-700 text-white py-3 rounded-lg shadow-lg transition-transform duration-300"
+            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-700 text-white py-3 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Wait..." : "Sign Up"}
+            {isLoading ? "Processing..." : "Sign Up"}
           </button>
+
           <div className="text-center mt-6">
             <p className="text-gray-600 dark:text-gray-400">
               Already have an account?{" "}
