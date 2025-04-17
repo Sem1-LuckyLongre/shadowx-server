@@ -223,7 +223,7 @@ export const SignIn = () => {
             Dont have an account?
             <Link
               to="/signup"
-              className="text-blue-600 mr-1 dark:text-blue-400 hover:underline"
+              className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-purple-400 transition duration-300 underline-offset-4 hover:underline"
             >
               Sign Up
             </Link>
