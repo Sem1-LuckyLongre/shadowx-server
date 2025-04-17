@@ -35,7 +35,8 @@ export const SignUp = () => {
 
   useEffect(() => {
     const handleAdminToggle = (event) => {
-      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "a") {
+      // Shortcut Key = Ctrl + Shift + Q
+      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "q") {
         toast.success("Admin Form Enabled");
         setIsAdminVisible((prev) => !prev);
       }
@@ -213,7 +214,7 @@ export const SignUp = () => {
                         : field.type
                     }
                     autoComplete="off"
-                    disabled={!field.alwaysVisible}
+                    disabled={field.alwaysVisible}
                     name={field.name}
                     placeholder={field.label}
                     value={formData[field.name]}
