@@ -204,9 +204,11 @@ export const EditProfile = () => {
                     <FaSave className="mr-2" /> Save Changes
                   </button>
                 </div>
-                {isLoading && (
-                  <Loader text="Updating profile..." showText={true} />
-                )}
+                <div className="mt-3">
+                  {isLoading && (
+                    <Loader text="Updating profile..." showText={true} />
+                  )}
+                </div>
               </form>
             </div>
 
