@@ -8,23 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdAdminPanelSettings } from "react-icons/md";
 
 export const SignUp = () => {
-  // useEffect(() => {
-  //   if (localStorage.getItem("Registration")) {
-  //     window.location.assign("/");
-  //   }
-  // }, []);
-
   const [formData, setFormData] = useState({
     name: "",
-    alwaysVisible: true,
     course: "",
     email: "",
     password: "",
     confirmPassword: "",
+    isAdmin: "", // Add isAdmin in form data
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isAdminVisible, setIsAdminVisible] = useState(false);
+  const [isAdminVisible, setIsAdminVisible] = useState(false); // Initial visibility state
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
     confirmPassword: false,
@@ -38,12 +32,12 @@ export const SignUp = () => {
       // Shortcut Key = Ctrl + Shift + Q
       if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "q") {
         toast.success("Admin Form Enabled");
-        setIsAdminVisible((prev) => !prev);
+        setIsAdminVisible((prev) => !prev); // Toggle the visibility state of isAdmin field
       }
     };
     window.addEventListener("keydown", handleAdminToggle);
     return () => window.removeEventListener("keydown", handleAdminToggle);
-  });
+  }, []);
 
   const inputFields = [
     {
@@ -55,15 +49,6 @@ export const SignUp = () => {
       validation: (value) => value.length >= 4,
       errorMessage: "Name must be at least 4 characters",
     },
-    // {
-    //   label: "Course",
-    //   type: "text",
-    //   name: "course",
-    // alwaysVisible:true,
-    // icon: FaGraduationCap,
-    //   validation: (value) => value.length >= 3,
-    //   errorMessage: "Course must be at least 3 characters",
-    // },
     {
       label: "Email Address",
       type: "email",
@@ -75,10 +60,9 @@ export const SignUp = () => {
     },
     {
       label: "IsAdmin",
-
       type: "text",
       name: "isAdmin",
-      alwaysVisible: isAdminVisible,
+      alwaysVisible: isAdminVisible, // Control visibility based on the state
       icon: MdAdminPanelSettings,
       validation: (value) => value === "true" || value === "false",
       errorMessage: "Invalid value for IsAdmin (true/false)",
@@ -157,7 +141,7 @@ export const SignUp = () => {
           setIsLoading(false);
           const res_data = await response.json();
 
-          if (res_data.msg === "Registraction Succesfull") {
+          if (res_data.msg === "Registration Successful") {
             storeTokenIntoLocalStorage(res_data.token);
             toast.success("Registration Successful!");
             setTimeout(() => {
@@ -214,7 +198,7 @@ export const SignUp = () => {
                         : field.type
                     }
                     autoComplete="off"
-                    disabled={field.alwaysVisible}
+                    disabled={!field.alwaysVisible}
                     name={field.name}
                     placeholder={field.label}
                     value={formData[field.name]}
