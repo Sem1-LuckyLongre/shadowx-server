@@ -7,8 +7,8 @@ import Modal from "./common/Modal";
 import { Loader } from "./Loader";
 import { toast } from "react-toastify";
 export const Projects = () => {
-  const { isDarkMode, globalProjects, URI } = useTheme();
-  const [projects, setProjects] = useState(globalProjects);
+  const { isDarkMode, URI } = useTheme();
+  const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [flippedId, setFlippedId] = useState(null); // Track which card is flipped
@@ -35,7 +35,7 @@ export const Projects = () => {
     };
     fetchProjects();
     console.log("fetching projects...");
-  }, []);
+  }, [URI]);
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
       if (project.category[i].toLowerCase() === filter.toLowerCase()) {
