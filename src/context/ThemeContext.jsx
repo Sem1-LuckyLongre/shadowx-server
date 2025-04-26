@@ -99,6 +99,7 @@ export const ThemeProvider = ({ children }) => {
           setToken("");
         }
       } catch (error) {
+        setToken("");
         toast.error("Server Error Please Try Again Later...");
         console.error(error);
       }
