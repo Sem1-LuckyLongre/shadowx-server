@@ -7,9 +7,47 @@ import { FaArrowUp } from "react-icons/fa";
 import { MainLoader } from "./MainLoader";
 
 const AppLayout = ({ Login }) => {
-  const { isDarkMode, mainLoader } = useTheme();
+  const { isDarkMode, mainLoader, URI } = useTheme();
   const [showButton, setShowButton] = useState(false);
+  const [totalVisits, setTotalVisits] = useState(0);
   // console.log("corps allowed");
+
+  // const fetchTotalVisits = async () => {
+  //   try {
+  //     const response = await fetch(`${URI}/api/data/totalvisits`);
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setTotalVisits(data.totalVisits);
+  //     } else {
+  //       console.error("Error fetching total visits:", data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const postTotalVisits = async () => {
+    try {
+      const response = await fetch(`${URI}/api/data/totalvisits`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        console.error("Error posting total visits:", response.statusText);
+      } else {
+        const data = await response.json();
+        setTotalVisits(data.totalVisits);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    postTotalVisits();
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +83,16 @@ const AppLayout = ({ Login }) => {
           <FaArrowUp className="text-2xl" />
         </button>
       )}
+
+      {/* Footer */}
+      {/* Footer */}
+      <footer className="bg-gray-100 dark:bg-gray-900 text-center py-4 mt-auto">
+        <div className="container mx-auto px-4">
+          <p className="text-gray-800 dark:text-gray-300 font-medium">
+            Total Number of Visits: {totalVisits + 1}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
