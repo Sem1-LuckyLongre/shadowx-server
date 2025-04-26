@@ -110,24 +110,21 @@ export const ThemeProvider = ({ children }) => {
     userAuthentication();
   }, [token]);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const projectsData = await fetch(`${URI}/api/data/project`);
-        const data = await projectsData.json();
-        if (projectsData.ok) {
-          const sortedProjects = [...data].sort((a, b) => b.id - a.id);
-          setGlobalProjects(sortedProjects);
-          // console.log(sortedProjects);
-        } else {
-          toast.error("Failed to fetch projects");
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchProjects = async () => {
+    try {
+      const projectsData = await fetch(`${URI}/api/data/project`);
+      const data = await projectsData.json();
+      if (projectsData.ok) {
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
+        setGlobalProjects(sortedProjects);
+        // console.log(sortedProjects);
+      } else {
+        toast.error("Failed to fetch projects");
       }
-    };
-    fetchProjects();
-  }, []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <ThemeContext.Provider
@@ -146,6 +143,7 @@ export const ThemeProvider = ({ children }) => {
         globalProfileImg,
         setGlobalProfileImg,
         autherizedToken,
+        fetchProjects,
       }}
     >
       {children}
