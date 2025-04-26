@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { SearchBar } from "./SearchBar";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Modal from "./common/Modal";
 import { Loader } from "./Loader";
 export const Projects = () => {
-  const { isDarkMode, globalProjects } = useTheme();
+  const { isDarkMode, globalProjects, fetchProjects } = useTheme();
   const [projects, setProjects] = useState(globalProjects);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -14,13 +14,10 @@ export const Projects = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  // useEffect(() => {
-  //   setProjects(Myprojects);
-  // }, []);
-  // useEffect(() => {
-  //   const sortedProjects = [...projects].sort((a, b) => b.id - a.id);
-  //   setProjects(sortedProjects);
-  // }, [projects]);
+  // Fetch projects when the component mounts or when globalProjects changes
+  useEffect(() => {
+    fetchProjects();
+  });
 
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
