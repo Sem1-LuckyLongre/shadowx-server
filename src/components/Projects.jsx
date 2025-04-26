@@ -6,9 +6,9 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Modal from "./common/Modal";
 import { Loader } from "./Loader";
 import { toast } from "react-toastify";
-export const Projects = ({globalProjects,setGlobalProjects}) => {
+export const Projects = ({ globalProjects, setGlobalProjects }) => {
   const { isDarkMode, URI } = useTheme();
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(globalProjects);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [flippedId, setFlippedId] = useState(null); // Track which card is flipped
