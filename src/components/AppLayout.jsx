@@ -47,7 +47,8 @@ const AppLayout = ({ Login }) => {
 
   useEffect(() => {
     postTotalVisits();
-  });
+    // hello
+  },[]);
 
   useEffect(() => {
     const handleScroll = () => {
