@@ -18,6 +18,8 @@ export const Projects = () => {
   // fetching projects...
   useEffect(() => {
     fetchProjects();
+    console.log("fetching projects...");
+    
   }, []);
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
