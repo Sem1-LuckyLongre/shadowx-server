@@ -5,8 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Modal from "./common/Modal";
 import { Loader } from "./Loader";
+import { toast } from "react-toastify";
 export const Projects = () => {
-  const { isDarkMode, globalProjects, fetchProjects } = useTheme();
+  const { isDarkMode, globalProjects, URI } = useTheme();
   const [projects, setProjects] = useState(globalProjects);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -17,9 +18,23 @@ export const Projects = () => {
   // Fetch projects when the component mounts or when globalProjects changes
   // fetching projects...
   useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsData = await fetch(`${URI}/api/data/project`);
+        const data = await projectsData.json();
+        if (projectsData.ok) {
+          const sortedProjects = [...data].sort((a, b) => b.id - a.id);
+          setProjects(sortedProjects);
+          // console.log(sortedProjects);
+        } else {
+          toast.error("Failed to fetch projects");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchProjects();
     console.log("fetching projects...");
-    
   }, []);
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {

@@ -16,7 +16,6 @@ export const ThemeProvider = ({ children }) => {
     return savedTheme ? savedTheme === "dark" : prefersDark;
   });
   const [token, setToken] = useState(localStorage.getItem("Token"));
-  const [globalProjects, setGlobalProjects] = useState([]);
   const [globalProfileImg, setGlobalProfileImg] = useState("profile.png");
   const [user, setUser] = useState("");
   const [mainLoader, setMainLoader] = useState(false);
@@ -110,22 +109,6 @@ export const ThemeProvider = ({ children }) => {
     userAuthentication();
   }, [token]);
 
-  const fetchProjects = async () => {
-    try {
-      const projectsData = await fetch(`${URI}/api/data/project`);
-      const data = await projectsData.json();
-      if (projectsData.ok) {
-        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
-        setGlobalProjects(sortedProjects);
-        // console.log(sortedProjects);
-      } else {
-        toast.error("Failed to fetch projects");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <ThemeContext.Provider
       value={{
@@ -135,15 +118,13 @@ export const ThemeProvider = ({ children }) => {
         handleLogoutEvent,
         toggleTheme,
         user,
-        globalProjects,
         mainLoader,
         setUser,
         URI,
         userAuthentication,
         globalProfileImg,
         setGlobalProfileImg,
-        autherizedToken,
-        fetchProjects,
+        autherizedToken
       }}
     >
       {children}
