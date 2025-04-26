@@ -28,7 +28,7 @@ export const NavBar = ({ Login }) => {
   //   localStorage.removeItem("LoggedIn");
   //   window.location.reload();
   // };
-  const { handleLogoutEvent, user, fetchProjects, globalProfileImg } =
+  const { handleLogoutEvent, user, globalProfileImg } =
     useTheme();
   const [IsAdmin, setIsAdmin] = useState(false);
 
@@ -41,10 +41,7 @@ export const NavBar = ({ Login }) => {
     }
   }, [user]);
 
-  // fetching projects...
-  useEffect(() => {
-    fetchProjects();
-  });
+
 
   const handleDeleteEvent = () => {
     // if (
