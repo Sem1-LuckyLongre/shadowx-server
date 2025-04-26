@@ -70,6 +70,7 @@ const Footer = ({ totalVisits }) => {
             transition={{ delay: 0.4 }}
           >
             Made with <FaHeart className="text-red-500 mx-1" /> © {new Date().getFullYear()} ShadowX
+          </motion.p>
         </motion.div>
       </div>
     </footer>
