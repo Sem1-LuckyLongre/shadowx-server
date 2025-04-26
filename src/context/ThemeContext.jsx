@@ -83,7 +83,7 @@ export const ThemeProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
+        // });
 
         const data = await response.json();
         // console.log(data);
@@ -99,6 +99,7 @@ export const ThemeProvider = ({ children }) => {
           setToken("");
         }
       } catch (error) {
+        setMainLoader(false);
         setToken("");
         toast.error("Server Error Please Try Again Later...");
         console.error(error);
