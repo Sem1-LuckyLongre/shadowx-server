@@ -40,14 +40,14 @@ const Footer = ({ totalVisits }) => {
             transition={{ delay: 0.2 }}
           >
             <motion.a 
-              href="#" 
+              href="https://github.com/Sem1-LuckyLongre" 
               whileHover={{ y: -2 }}
               className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 text-xl"
             >
               <FaGithub />
             </motion.a>
             <motion.a 
-              href="#" 
+              href="https://www.instagram.com/shadowx_lucky_longre" 
               whileHover={{ y: -2 }}
               className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 text-xl"
             >
