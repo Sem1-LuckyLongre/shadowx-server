@@ -16,6 +16,7 @@ export const Projects = () => {
 
   // Fetch projects when the component mounts or when globalProjects changes
   useEffect(() => {
+    console.log("Fetching projects...");
     fetchProjects();
   });
 
