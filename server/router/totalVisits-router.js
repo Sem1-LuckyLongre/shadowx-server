@@ -16,9 +16,9 @@ const TotalVisits = require("../models/totalVisites-model");
 //   }
 // });
 
-router.route("/totalvisits").patch(async (req, res) => {
+router.route("/totalvisits").patch( async (req, res) => {
   try {
-    const totalVisits = TotalVisits.findOne({});
+    const totalVisits = await TotalVisits.findOne({});
     if (totalVisits === undefined) {
       return res.status(400).json({ message: "Total Visits is required" });
     }
