@@ -17,24 +17,24 @@ export const Projects = () => {
 
   // Fetch projects when the component mounts or when globalProjects changes
   // fetching projects...
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const projectsData = await fetch(`${URI}/api/data/project`);
-        const data = await projectsData.json();
-        if (projectsData.ok) {
-          const sortedProjects = [...data].sort((a, b) => b.id - a.id);
-          setProjects(sortedProjects);
-          // console.log(sortedProjects);
-        } else {
-          toast.error("Failed to fetch projects");
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchProjects = async () => {
+    try {
+      const projectsData = await fetch(`${URI}/api/data/project`);
+      const data = await projectsData.json();
+      if (projectsData.ok) {
+        const sortedProjects = [...data].sort((a, b) => b.id - a.id);
+        setProjects(sortedProjects);
+        // console.log(sortedProjects);
+      } else {
+        toast.error("Failed to fetch projects");
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    if (projects.length > 0) return;
     fetchProjects();
-    console.log("fetching projects...");
   }, [URI]);
   const searchCategory = (project) => {
     for (let i = 0; i < project.category.length; i++) {
