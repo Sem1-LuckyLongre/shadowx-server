@@ -33,6 +33,7 @@ export const Projects = () => {
     }
   };
   useEffect(() => {
+    console.log(projects.length);
     if (projects.length > 0) return;
     fetchProjects();
   }, [URI]);
