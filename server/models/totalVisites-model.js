@@ -8,5 +8,5 @@ const totalVisitsSchema = new mongoose.Schema({
     }
 });
 
-const TotalVisits = mongoose.model('TotalVisits', totalVisitsSchema);
+const TotalVisits = mongoose.model('Totalvisits', totalVisitsSchema);
 module.exports = TotalVisits;
