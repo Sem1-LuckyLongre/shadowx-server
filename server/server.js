@@ -9,6 +9,7 @@ const contactRoute = require("./router/contact-router");
 const projectRoute = require("./router/project-router");
 const adminRoute = require("./router/admin-router");
 const uploadRoute = require("./router/upload-router");
+const totalVisitsRoute = require("./router/totalVisits-router");
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/api/data", projectRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/upload", uploadRoute);
 app.use("/uploads", express.static("uploads"));
+app.use("/api/data", totalVisitsRoute);
 
 // Home Route
 app.get("/", (req, res) => {
