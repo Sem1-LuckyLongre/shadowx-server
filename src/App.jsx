@@ -23,11 +23,13 @@ import { AdminWelcome } from "./components/AdminWelcome";
 import { AdminMessages } from "./components/AdminMessages";
 import { AdminUpdateUser } from "./components/AdminUpdateUser";
 import { AdminProjects } from "./components/AdminProjects";
+import { useState } from "react";
 
 const App = () => {
   // const Registration = localStorage.getItem("Registration");
   // const Login = localStorage.getItem("LoggedIn");
   const { isLoggedIn } = useTheme();
+  const [globalProjects, setGlobalProjects] = useState([]);
 
   const CheckLogin = () => {
     return !!isLoggedIn;
@@ -53,7 +55,12 @@ const App = () => {
         },
         {
           path: "/projects",
-          element: <Projects />,
+          element: (
+            <Projects
+              globalProjects={globalProjects}
+              setGlobalProjects={setGlobalProjects}
+            />
+          ),
         },
         {
           path: "/Contact",

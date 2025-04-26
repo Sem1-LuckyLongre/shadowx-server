@@ -6,7 +6,7 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Modal from "./common/Modal";
 import { Loader } from "./Loader";
 import { toast } from "react-toastify";
-export const Projects = () => {
+export const Projects = ({globalProjects,setGlobalProjects}) => {
   const { isDarkMode, URI } = useTheme();
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
@@ -24,6 +24,7 @@ export const Projects = () => {
       if (projectsData.ok) {
         const sortedProjects = [...data].sort((a, b) => b.id - a.id);
         setProjects(sortedProjects);
+        setGlobalProjects(sortedProjects); // Update globalProjects in context
         // console.log(sortedProjects);
       } else {
         toast.error("Failed to fetch projects");
@@ -33,8 +34,8 @@ export const Projects = () => {
     }
   };
   useEffect(() => {
-    console.log(projects.length);
-    if (projects.length > 0) return;
+    console.log(globalProjects.length);
+    if (globalProjects.length > 0) return;
     fetchProjects();
   }, [URI]);
   const searchCategory = (project) => {
