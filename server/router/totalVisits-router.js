@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const TotalVisits = require("../models/totalVisits-model");
+const TotalVisits = require("../models/totalVisites-model");
 
 // router.route("/totalvisits").get((req, res) => {
 //   try {
