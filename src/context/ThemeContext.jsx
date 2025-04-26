@@ -83,7 +83,7 @@ export const ThemeProvider = ({ children }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        // });
+        });
 
         const data = await response.json();
         // console.log(data);
