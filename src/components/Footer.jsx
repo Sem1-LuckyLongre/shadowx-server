@@ -69,8 +69,7 @@ const Footer = ({ totalVisits }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Made with <FaHeart className="text-red-500 mx-1" /> © {new Date().getFullYear()} Your Company
-          </motion.p>
+            Made with <FaHeart className="text-red-500 mx-1" /> © {new Date().getFullYear()} ShadowX
         </motion.div>
       </div>
     </footer>

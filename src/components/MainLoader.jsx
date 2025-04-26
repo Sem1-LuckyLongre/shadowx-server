@@ -1,30 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-  FaChartLine,
-  FaServer,
-  FaPalette,
-} from "react-icons/fa";
-import { SiTypescript, SiNextdotjs } from "react-icons/si";
-
-const techIcons = [
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-  SiTypescript,
-  SiNextdotjs,
-  FaChartLine,
-  FaServer,
-  FaPalette,
-];
 
 export const MainLoader = () => {
   const loadingMessages = [
@@ -56,24 +30,30 @@ export const MainLoader = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Floating background elements */}
+          {/* Abstract floating elements */}
           <motion.div
             style={{
               position: "absolute",
               top: "20%",
-              left: "10%",
-              width: "100px",
-              height: "100px",
-              borderRadius: "50%",
-              background: "rgba(0, 255, 136, 0.05)",
+              left: "15%",
+              width: "120px",
+              height: "120px",
+              borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
+              background: "linear-gradient(45deg, #00ff88, #00d4ff)",
+              opacity: 0.1,
               filter: "blur(30px)",
             }}
             animate={{
-              y: [0, -40, 0],
-              scale: [1, 1.2, 1],
+              y: [0, -50, 0],
+              rotate: [0, 180, 360],
+              borderRadius: [
+                "30% 70% 70% 30% / 30% 30% 70% 70%",
+                "60% 40% 30% 70% / 60% 30% 70% 40%",
+                "30% 70% 70% 30% / 30% 30% 70% 70%",
+              ],
             }}
             transition={{
-              duration: 8,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -82,148 +62,121 @@ export const MainLoader = () => {
           <motion.div
             style={{
               position: "absolute",
-              bottom: "15%",
-              right: "15%",
+              bottom: "25%",
+              right: "20%",
               width: "150px",
               height: "150px",
-              borderRadius: "50%",
-              background: "rgba(0, 200, 255, 0.05)",
+              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+              background: "linear-gradient(135deg, #ff00aa, #8800ff)",
+              opacity: 0.1,
               filter: "blur(40px)",
             }}
             animate={{
-              y: [0, 50, 0],
-              scale: [1, 1.3, 1],
+              y: [0, 60, 0],
+              rotate: [0, -180, -360],
+              borderRadius: [
+                "60% 40% 30% 70% / 60% 30% 70% 40%",
+                "30% 70% 70% 30% / 30% 30% 70% 70%",
+                "60% 40% 30% 70% / 60% 30% 70% 40%",
+              ],
             }}
             transition={{
-              duration: 10,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 1,
+              delay: 2,
             }}
           />
 
-          {/* Main loader content */}
+          {/* Main loader animation */}
           <div
-            style={{ position: "relative", width: "300px", height: "300px" }}
+            style={{ position: "relative", width: "200px", height: "200px" }}
           >
-            {/* Outer rotating ring */}
-            <motion.div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                border: "2px dashed rgba(0, 255, 136, 0.3)",
-                borderRadius: "50%",
-              }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Inner rotating ring */}
-            <motion.div
-              style={{
-                position: "absolute",
-                top: "25%",
-                left: "25%",
-                right: "25%",
-                bottom: "25%",
-                border: "1px dashed rgba(0, 200, 255, 0.2)",
-                borderRadius: "50%",
-              }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-
-            {/* Icons Rotating in a Circle */}
-            {techIcons.map((Icon, index) => (
-              <motion.div
-                key={index}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  width: "50px",
-                  height: "50px",
-                  margin: "-25px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                animate={{
-                  x: 120 * Math.cos((index * (2 * Math.PI)) / techIcons.length),
-                  y: 120 * Math.sin((index * (2 * Math.PI)) / techIcons.length),
-                  rotate: -360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <motion.div
-                  animate={{
-                    rotate: 360,
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: index * 0.1,
-                  }}
-                >
-                  <Icon
-                    size={30}
-                    color={`hsl(${index * (360 / techIcons.length)}, 80%, 60%)`}
-                  />
-                </motion.div>
-              </motion.div>
-            ))}
-
-            {/* Central logo/text */}
+            {/* Pulsing center circle */}
             <motion.div
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #00ff88, #00d4ff)",
                 transform: "translate(-50%, -50%)",
-                textAlign: "center",
+                boxShadow: "0 0 30px rgba(0, 255, 136, 0.5)",
               }}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.8, 1, 0.8],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            {/* Rotating rings */}
+            {[0, 1, 2].map((i) => (
               <motion.div
+                key={i}
                 style={{
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                  background: "linear-gradient(90deg, #00ff88, #00d4ff)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                  marginBottom: "10px",
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  width: `${120 + i * 60}px`,
+                  height: `${120 + i * 60}px`,
+                  border: `2px solid rgba(0, 255, 136, ${0.3 - i * 0.1})`,
+                  borderRadius: "50%",
+                  transform: "translate(-50%, -50%)",
                 }}
                 animate={{
+                  rotate: 360,
                   scale: [1, 1.05, 1],
-                  opacity: [0.8, 1, 0.8],
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 8 + i * 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            ))}
+
+            {/* Floating particles */}
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  width: "12px",
+                  height: "12px",
+                  borderRadius: "50%",
+                  background: `hsl(${i * 45}, 80%, 60%)`,
+                  transform: "translate(-50%, -50%)",
+                  filter: "blur(1px)",
+                }}
+                animate={{
+                  x: 80 * Math.cos((i * Math.PI) / 4),
+                  y: 80 * Math.sin((i * Math.PI) / 4),
+                  scale: [1, 1.5, 1],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 3 + i * 0.5,
                   repeat: Infinity,
                   ease: "easeInOut",
+                  delay: i * 0.2,
                 }}
-              >
-                Dashboard
-              </motion.div>
-            </motion.div>
+              />
+            ))}
           </div>
 
           {/* Loading text */}
           <motion.div
             style={{
-              marginTop: "60px",
+              marginTop: "80px",
               fontSize: "18px",
               fontWeight: "500",
               color: "#fff",
@@ -251,11 +204,11 @@ export const MainLoader = () => {
             </AnimatePresence>
           </motion.div>
 
-          {/* Animated Loading Bar */}
+          {/* Animated progress track */}
           <motion.div
             style={{
               width: "min(80%, 400px)",
-              height: "8px",
+              height: "6px",
               backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderRadius: "10px",
               overflow: "hidden",
@@ -274,54 +227,72 @@ export const MainLoader = () => {
                 width: "100%",
                 height: "100%",
                 background:
-                  "linear-gradient(90deg, transparent, #00ff88, transparent)",
+                  "linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.5), transparent)",
                 borderRadius: "10px",
               }}
               initial={{ x: "-100%" }}
               animate={{ x: "100%" }}
               transition={{
-                duration: 2,
+                duration: 2.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             />
+
             <motion.div
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: "30%",
+                width: "20%",
                 height: "100%",
                 background: "linear-gradient(90deg, #00ff88, #00d4ff)",
                 borderRadius: "10px",
-                boxShadow: "0 0 10px #00ff88",
+                boxShadow: "0 0 15px rgba(0, 255, 136, 0.7)",
               }}
-              initial={{ x: "-30%", width: "30%" }}
-              animate={{ x: "130%", width: "30%" }}
+              initial={{ x: "-20%" }}
+              animate={{ x: "120%" }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: 0.3,
+                delay: 0.5,
               }}
             />
           </motion.div>
 
-          {/* Percentage counter */}
+          {/* Percentage counter with animation */}
           <motion.div
             style={{
               marginTop: "20px",
               fontSize: "14px",
               color: "rgba(255, 255, 255, 0.7)",
+              display: "flex",
+              alignItems: "center",
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
             <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
+              style={{
+                display: "inline-block",
+                width: "40px",
+                textAlign: "right",
+              }}
+              animate={{
+                scale: [1, 1.1, 1],
+                color: [
+                  "rgba(255,255,255,0.7)",
+                  "#00ff88",
+                  "rgba(255,255,255,0.7)",
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               {0}
             </motion.span>
