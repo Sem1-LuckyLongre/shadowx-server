@@ -38,7 +38,7 @@ export const MainLoader = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900/95 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900/95 backdrop-blur-md">
       {/* Animated Core */}
       <div className="relative mb-12 h-40 w-40">
         {/* Pulsing Center */}
