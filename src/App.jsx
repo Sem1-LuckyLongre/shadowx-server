@@ -24,6 +24,7 @@ import { AdminMessages } from "./components/AdminMessages";
 import { AdminUpdateUser } from "./components/AdminUpdateUser";
 import { AdminProjects } from "./components/AdminProjects";
 import { useState } from "react";
+import { MainLoader } from "./components/MainLoader";
 
 const App = () => {
   // const Registration = localStorage.getItem("Registration");
@@ -44,6 +45,10 @@ const App = () => {
         {
           path: "/",
           element: CheckLogin() ? <Welcome /> : <Welcome />,
+        },
+        {
+          path:"/LuckyLongre/MainLoader",
+          element: <MainLoader />,
         },
         {
           path: "/SignUp",
