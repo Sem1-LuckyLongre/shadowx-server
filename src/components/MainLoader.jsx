@@ -17,10 +17,10 @@ export const MainLoader = () => {
 
   useEffect(() => {
     const startTime = Date.now();
-
+    const DURATION = 52;
     const updateLoader = () => {
       const elapsed = (Date.now() - startTime) / 1000;
-      const newProgress = Math.min(99, (elapsed / 50) * 99); // 50s duration
+      const newProgress = Math.min(99, (elapsed / DURATION) * 99);
       setProgress(newProgress);
 
       // Update message based on progress
