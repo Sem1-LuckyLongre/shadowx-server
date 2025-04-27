@@ -6,12 +6,16 @@ export const MainLoader = () => {
   const [progress, setProgress] = useState(0);
 
   const loadingMessages = [
-    "Booting neural engine...",
-    "Calibrating data streams...",
-    "Optimizing quantum cache...",
-    "Synthesizing AI models...",
-    "Finalizing hyperparameters...",
-    "Ready in T-minus 3.2..."
+    "Initializing MongoDB connection...",
+    "Establishing API routes...",
+    "Loading React components...",
+    "Authenticating user session...",
+    "Fetching dashboard data...",
+    "Optimizing bundle size...",
+    "Compiling SCSS modules...",
+    "Caching static assets...",
+    "Mounting UI layouts...",
+    "Almost ready...",
   ];
 
   const TOTAL_DURATION = 50; // 50 seconds
@@ -51,7 +55,7 @@ export const MainLoader = () => {
           transition={{
             duration: 2.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
 
@@ -62,7 +66,7 @@ export const MainLoader = () => {
           transition={{
             duration: 30,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
         >
           {Array.from({ length: 36 }).map((_, i) => (
@@ -72,7 +76,7 @@ export const MainLoader = () => {
               style={{
                 left: `${50 + 45 * Math.cos((i * Math.PI) / 18)}%`,
                 top: `${50 + 45 * Math.sin((i * Math.PI) / 18)}%`,
-                opacity: Math.random() > 0.5 ? 1 : 0.3
+                opacity: Math.random() > 0.5 ? 1 : 0.3,
               }}
             >
               {Math.random() > 0.5 ? "1" : "0"}
@@ -88,7 +92,7 @@ export const MainLoader = () => {
           }}
           transition={{
             duration: 4,
-            repeat: Infinity
+            repeat: Infinity,
           }}
         />
       </div>
@@ -105,7 +109,7 @@ export const MainLoader = () => {
             }}
             transition={{
               duration: 3,
-              repeat: Infinity
+              repeat: Infinity,
             }}
           />
 
@@ -113,13 +117,17 @@ export const MainLoader = () => {
           <motion.div
             className="relative h-full rounded-full bg-[length:200%_100%] bg-[linear-gradient(90deg,rgba(96,165,250,0.8)_0%,rgba(192,132,252,0.8)_50%,rgba(96,165,250,0.8)_100%)] shadow-[inset_0_0_10px_rgba(167,139,250,0.6),0_0_20px_rgba(96,165,250,0.3)]"
             initial={{ width: "0%" }}
-            animate={{ 
+            animate={{
               width: `${progress}%`,
-              backgroundPosition: ["0% 0%", "100% 0%"] 
+              backgroundPosition: ["0% 0%", "100% 0%"],
             }}
-            transition={{ 
+            transition={{
               width: { duration: TOTAL_DURATION, ease: "linear" },
-              backgroundPosition: { duration: 3, repeat: Infinity, ease: "linear" }
+              backgroundPosition: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+              },
             }}
           >
             {/* Scanning Light */}
@@ -131,7 +139,7 @@ export const MainLoader = () => {
               transition={{
                 duration: 2,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
             />
           </motion.div>
@@ -140,18 +148,18 @@ export const MainLoader = () => {
         {/* HUD-style Percentage */}
         <div className="mt-3 flex justify-between font-mono text-xs text-gray-400">
           <span>SYSTEM INIT</span>
-          <motion.span 
+          <motion.span
             className="text-cyan-300"
             animate={{
-              textShadow: "0 0 8px rgba(96,165,250,0.7)"
+              textShadow: "0 0 8px rgba(96,165,250,0.7)",
             }}
             transition={{
               duration: 1,
               repeat: Infinity,
-              repeatType: "reverse"
+              repeatType: "reverse",
             }}
           >
-            {Math.floor(progress)}.{(progress % 1).toFixed(1).split('.')[1]}%
+            {Math.floor(progress)}.{(progress % 1).toFixed(1).split(".")[1]}%
           </motion.span>
         </div>
       </div>
@@ -176,7 +184,7 @@ export const MainLoader = () => {
             }}
             transition={{
               duration: 3,
-              repeat: Infinity
+              repeat: Infinity,
             }}
           />
         </motion.div>
