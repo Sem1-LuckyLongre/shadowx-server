@@ -32,9 +32,7 @@ const Footer = ({ totalVisits }) => {
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 500, damping: 15 }}
                 >
-                  {totalVisits && totalVisits > 0
-                    ? totalVisits + 1
-                    : "Loading..."}
+                  {totalVisits && totalVisits > 0 ? totalVisits : "Loading..."}
                 </motion.span>
               </span>
             </p>
