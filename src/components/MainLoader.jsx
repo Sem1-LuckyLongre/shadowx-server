@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const MainLoader = () => {
@@ -6,142 +6,122 @@ export const MainLoader = () => {
   const [progress, setProgress] = useState(0);
 
   const loadingMessages = [
-    "Initializing system...",
-    "Loading core modules...",
-    "Preparing your dashboard...",
+    "Initializing systems...",
+    "Loading modules...",
+    "Preparing dashboard...",
     "Optimizing performance...",
     "Finalizing setup...",
-    "Almost there...",
-    "Just a few more seconds...",
-    "Completing the process..."
+    "Almost there..."
   ];
 
   const TOTAL_DURATION = 50; // 50 seconds total
+  const MESSAGE_INTERVAL = TOTAL_DURATION / loadingMessages.length; // Seconds per message
 
   useEffect(() => {
-    // Cycle through messages
-    const messageInterval = setInterval(() => {
-      setCurrentMessageIndex((prev) => (prev + 1) % loadingMessages.length);
-    }, TOTAL_DURATION * 1000 / loadingMessages.length);
+    // Update message every MESSAGE_INTERVAL seconds
+    const messageTimer = setInterval(() => {
+      setCurrentMessageIndex((prev) => 
+        (prev + 1) % loadingMessages.length
+      );
+    }, MESSAGE_INTERVAL * 1000);
 
-    // Smooth progress over TOTAL_DURATION
+    // Smooth progress over 50 seconds (0% → 99%)
     const startTime = Date.now();
     const progressInterval = setInterval(() => {
       const elapsed = (Date.now() - startTime) / 1000;
-      const newProgress = Math.min(100, (elapsed / TOTAL_DURATION) * 100);
+      const newProgress = Math.min(99, (elapsed / TOTAL_DURATION) * 99); // Cap at 99%
       setProgress(newProgress);
-      
-      if (newProgress >= 100) {
-        clearInterval(progressInterval);
-      }
-    }, 100);
+    }, 100); // Update every 100ms for smoothness
 
     return () => {
-      clearInterval(messageInterval);
+      clearInterval(messageTimer);
       clearInterval(progressInterval);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
-      {/* Main animation container - enlarged for video */}
-      <div className="relative h-64 w-64 md:h-80 md:w-80">
-        {/* Enhanced pulsing center */}
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900">
+      {/* Animation Container */}
+      <div className="relative h-64 w-64">
+        {/* Pulsing Core (Slowed to match 50s duration) */}
         <motion.div
-          className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 shadow-xl shadow-emerald-400/40"
+          className="absolute inset-0 m-auto h-20 w-20 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400"
           animate={{
-            scale: [1, 1.15, 1],
+            scale: [1, 1.1, 1],
             opacity: [0.8, 1, 0.8],
           }}
           transition={{
-            duration: 2.5,
+            duration: 3, // Slower pulse
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut"
           }}
         />
 
-        {/* More pronounced rotating rings */}
-        {[0, 1, 2, 3].map((i) => (
+        {/* Rotating Rings (Adjusted for 50s) */}
+        {[0, 1, 2].map((i) => (
           <motion.div
             key={i}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+            className="absolute inset-0 m-auto rounded-full border border-emerald-400/20"
             style={{
-              width: `${140 + i * 80}px`,
-              height: `${140 + i * 80}px`,
-              borderColor: `hsla(${i * 90}, 80%, 60%, ${0.3 - i * 0.07})`,
+              width: `${120 + i * 80}px`,
+              height: `${120 + i * 80}px`,
             }}
-            animate={{
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
+            animate={{ rotate: 360 }}
             transition={{
-              duration: 12 + i * 4,
+              duration: 20 + i * 10, // Slower rotation
               repeat: Infinity,
-              ease: "linear",
+              ease: "linear"
             }}
           />
         ))}
 
-        {/* Enhanced floating particles */}
-        {[...Array(8)].map((_, i) => (
+        {/* Particles */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[1px]"
-            style={{
-              backgroundColor: `hsl(${i * 45}, 80%, 60%)`,
-            }}
+            className="absolute h-3 w-3 rounded-full bg-cyan-400 blur-[1px]"
+            initial={{ x: 0, y: 0 }}
             animate={{
-              x: 90 * Math.cos((i * Math.PI) / 4),
-              y: 90 * Math.sin((i * Math.PI) / 4),
-              scale: [1, 1.8, 1],
+              x: 80 * Math.cos((i * Math.PI) / 3),
+              y: 80 * Math.sin((i * Math.PI) / 3),
               opacity: [0.7, 1, 0.7],
             }}
             transition={{
-              duration: 4 + i * 0.7,
+              duration: 5 + i,
               repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.3,
+              ease: "easeInOut"
             }}
           />
         ))}
       </div>
 
-      {/* Loading text */}
-      <div className="mt-16 h-10 text-center">
-        <motion.p
-          className="text-xl font-medium text-white"
-          animate={{
-            opacity: [0.8, 1, 0.8],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-          }}
-        >
-          {loadingMessages[currentMessageIndex]}
-        </motion.p>
-      </div>
-
-      {/* Progress bar */}
-      <div className="mt-10 w-full max-w-md">
-        <div className="h-3 w-full overflow-hidden rounded-full bg-gray-700/50">
-          <motion.div
-            className="h-full bg-gradient-to-r from-emerald-400 to-cyan-400"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: TOTAL_DURATION, ease: "linear" }}
-          />
-        </div>
-        
-        <div className="mt-3 flex justify-between text-sm">
-          <span className="text-gray-300">Loading</span>
-          <motion.span 
-            className="font-mono"
-            animate={{
-              color: progress >= 100 ? "#34d399" : "#d1d5db",
-            }}
+      {/* Text & Progress Bar */}
+      <div className="mt-32 text-center">
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={currentMessageIndex}
+            className="text-lg text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {Math.min(100, Math.round(progress))}%
+            {loadingMessages[currentMessageIndex]}
+          </motion.p>
+        </AnimatePresence>
+
+        {/* Progress Bar (0% → 99%) */}
+        <div className="mt-8 w-64">
+          <div className="h-2 w-full rounded-full bg-gray-700">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400"
+              initial={{ width: "0%" }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: TOTAL_DURATION, ease: "linear" }}
+            />
+          </div>
+          <motion.span className="mt-2 block text-sm text-gray-300">
+            {Math.floor(progress)}% {/* No decimals, stops at 99% */}
           </motion.span>
         </div>
       </div>
