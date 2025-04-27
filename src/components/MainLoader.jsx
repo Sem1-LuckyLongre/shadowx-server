@@ -6,27 +6,27 @@ export const MainLoader = () => {
   const [currentMessage, setCurrentMessage] = useState("");
 
   const loadingPhases = [
-    { threshold: 0, message: "Initializing MongoDB connection..." },
+    { threshold: 0, message: "Processing your request, please wait..." },
     { threshold: 15, message: "Establishing API routes..." },
     { threshold: 30, message: "Loading React components..." },
     { threshold: 45, message: "Authenticating session..." },
     { threshold: 60, message: "Fetching dashboard data..." },
     { threshold: 75, message: "Applying theme preferences..." },
-    { threshold: 90, message: "Finalizing your dashboard..." }
+    { threshold: 90, message: "Finalizing your dashboard..." },
   ];
 
   useEffect(() => {
     const startTime = Date.now();
-    
+
     const updateLoader = () => {
       const elapsed = (Date.now() - startTime) / 1000;
       const newProgress = Math.min(99, (elapsed / 50) * 99); // 50s duration
       setProgress(newProgress);
 
       // Update message based on progress
-      const currentPhase = [...loadingPhases].reverse().find(
-        phase => newProgress >= phase.threshold
-      );
+      const currentPhase = [...loadingPhases]
+        .reverse()
+        .find((phase) => newProgress >= phase.threshold);
       setCurrentMessage(currentPhase?.message || "");
 
       if (newProgress < 99) {
@@ -46,12 +46,12 @@ export const MainLoader = () => {
           className="absolute inset-0 m-auto h-16 w-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500"
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.9, 1, 0.9]
+            opacity: [0.9, 1, 0.9],
           }}
           transition={{
             duration: 2.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
 
@@ -62,23 +62,23 @@ export const MainLoader = () => {
             className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400"
             style={{
               x: 60 * Math.cos((i * 2 * Math.PI) / 3),
-              y: 60 * Math.sin((i * 2 * Math.PI) / 3)
+              y: 60 * Math.sin((i * 2 * Math.PI) / 3),
             }}
             animate={{
               rotate: 360,
-              scale: [1, 1.5, 1]
+              scale: [1, 1.5, 1],
             }}
             transition={{
               duration: 4 + i,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
             }}
           />
         ))}
       </div>
 
       {/* Loading Message */}
-      <motion.p 
+      <motion.p
         className="mb-8 text-lg font-light text-gray-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -99,7 +99,7 @@ export const MainLoader = () => {
             style={{
               width: `${progress}%`,
               backgroundSize: "200% 100%",
-              boxShadow: "inset 0 0 8px rgba(255,255,255,0.3)"
+              boxShadow: "inset 0 0 8px rgba(255,255,255,0.3)",
             }}
           >
             {/* Scanning Indicator */}
@@ -107,12 +107,12 @@ export const MainLoader = () => {
               className="absolute right-0 top-1/2 h-4 w-0.5 -translate-y-1/2 bg-white/80"
               animate={{
                 opacity: [0, 1, 0],
-                x: ["-100%", "0%"]
+                x: ["-100%", "0%"],
               }}
               transition={{
                 duration: 1.2,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
             />
           </motion.div>
