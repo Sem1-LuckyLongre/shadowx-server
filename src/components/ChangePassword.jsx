@@ -180,12 +180,6 @@ export const ChangePassword = () => {
               Change Password
             </h1>
           </div>
-          <Link
-            to="/"
-            className="text-gray-400 hover:text-primary-400 font-medium flex items-center"
-          >
-            <i className="fas fa-arrow-left mr-2"></i> Back to Home
-          </Link>
         </div>
       </header>
       <main className="container mx-auto py-8 px-4">
