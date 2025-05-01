@@ -47,12 +47,16 @@ const App = () => {
           element: CheckLogin() ? <Welcome /> : <Welcome />,
         },
         {
-          path:"/LuckyLongre/MainLoader",
+          path: "/LuckyLongre/MainLoader",
           element: <MainLoader />,
         },
         {
           path: "/SignUp",
           element: <SignUp />,
+        },
+        {
+          path:"/profile/change-password",
+          element: <ChangePassword />,
         },
         {
           path: "/SignIn",

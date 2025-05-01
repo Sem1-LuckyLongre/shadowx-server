@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
-import { FaSignOutAlt, FaTrash } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 const SettingsDropdown = ({
   handleLogoutEvent,
   setToggle,
-  handleDeleteEvent,
   setIsSettingsOpen,
 }) => {
   return (
@@ -27,6 +27,20 @@ const SettingsDropdown = ({
         </button>
         <button
           onClick={() => {
+            setIsSettingsOpen(false); // Close the settings dropdown
+            setToggle(false); // Close the settings dropdown
+          }}
+          className="w-full flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-gray-500/20 dark:hover:bg-gray-500/30 text-gray-600 dark:text-gray-300 rounded-lg transition-colors"
+        >
+          <Link
+            to="/profile/change-password"
+            className="block w-full text-center bg-blue-50 hover:bg-blue-100 dark:bg-blue-500/20 dark:hover:bg-blue-500/30 text-blue-600 dark:text-blue-300 px-4 py-2 rounded-lg transition-colors"
+          >
+            <RiLockPasswordLine className="inline mr-2" /> Change Password
+          </Link>
+        </button>
+        <button
+          onClick={() => {
             handleLogoutEvent();
             setIsSettingsOpen(false); // Close the settings dropdown
             setToggle(false);
@@ -35,7 +49,7 @@ const SettingsDropdown = ({
         >
           <FaSignOutAlt className="mr-2" /> Logout
         </button>
-        <button
+        {/* <button
           onClick={() => {
             handleDeleteEvent();
             setIsSettingsOpen(false); // Close the settings dropdown
@@ -44,7 +58,7 @@ const SettingsDropdown = ({
           className="w-full flex items-center justify-center bg-red-100 hover:bg-red-200 dark:bg-red-700/20 dark:hover:bg-red-700/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg transition-colors"
         >
           <FaTrash className="mr-2" /> Delete Account
-        </button>
+        </button> */}
       </div>
     </div>
   );
