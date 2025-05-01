@@ -4,7 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Loader } from "./Loader";
 
 export const ChangePassword = () => {
-  const { autherizedToken, URI, userAuthentication, user } = useTheme();
+  const { autherizedToken, URI, userAuthentication } = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -167,7 +167,7 @@ export const ChangePassword = () => {
 
   return (
     <div className="bg-dark-900 text-gray-100 min-h-screen">
-      <header className="w-full bg-dark-800 p-4 shadow-md border-b border-dark-700">
+      {/* <header className="w-full bg-dark-800 p-4 shadow-md border-b border-dark-700">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-blue-400 flex items-center justify-center">
@@ -180,7 +180,7 @@ export const ChangePassword = () => {
             </h1>
           </div>
         </div>
-      </header>
+      </header> */}
       <main className="container mx-auto py-8 px-4">
         <div className="max-w-lg mx-auto">
           <div className="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
