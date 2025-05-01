@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export const changePassword = () => {
+export const ChangePassword = () => {
   return (
     <div className="bg-dark-900 text-gray-100 min-h-screen">
       <header className="w-full bg-dark-800 p-4 shadow-md border-b border-dark-700">
