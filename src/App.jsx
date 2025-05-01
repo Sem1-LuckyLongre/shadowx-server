@@ -25,6 +25,7 @@ import { AdminUpdateUser } from "./components/AdminUpdateUser";
 import { AdminProjects } from "./components/AdminProjects";
 import { useState } from "react";
 import { MainLoader } from "./components/MainLoader";
+import { ChangePassword } from "./components/ChangePassword";
 
 const App = () => {
   // const Registration = localStorage.getItem("Registration");
