@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 export const ChangePassword = () => {
   return (
     <div className="bg-dark-900 text-gray-100 min-h-screen">
@@ -15,12 +13,12 @@ export const ChangePassword = () => {
               Change Password
             </h1>
           </div>
-          <Link
+          <a
             to="/"
             className="text-gray-400 hover:text-primary-400 font-medium flex items-center"
           >
             <i className="fas fa-arrow-left mr-2"></i> Back to Home
-          </Link>
+          </a>
         </div>
       </header>
       <main className="container mx-auto py-8 px-4">
