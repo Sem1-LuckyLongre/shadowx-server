@@ -99,7 +99,7 @@ const changePassword = async (req, res) => {
     const match = await bcrypt.compare(currentPassword, user.password);
     if (!match)
       return res
-        .status(500)
+        .status(200)
         .send({ message: "Previous Password in Incorrect!" });
 
     const salt = await bcrypt.genSalt(10);
