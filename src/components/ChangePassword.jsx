@@ -181,7 +181,7 @@ export const ChangePassword = () => {
           </div>
         </div>
       </header> */}
-      {mainLoader && (
+      {!mainLoader && (
         <main className="container mx-auto py-8 px-4">
           <div className="max-w-lg mx-auto">
             <div className="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
