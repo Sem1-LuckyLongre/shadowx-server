@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const ChangePassword = () => {
   return (
@@ -15,12 +15,12 @@ export const ChangePassword = () => {
               Change Password
             </h1>
           </div>
-          <NavLink
+          <Link
             to="/"
             className="text-gray-400 hover:text-primary-400 font-medium flex items-center"
           >
             <i className="fas fa-arrow-left mr-2"></i> Back to Home
-          </NavLink>
+          </Link>
         </div>
       </header>
       <main className="container mx-auto py-8 px-4">
