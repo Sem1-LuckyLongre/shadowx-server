@@ -1,15 +1,138 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export const ChangePassword = () => {
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const [passwordChecks, setPasswordChecks] = useState({
+    length: false,
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    special: false,
+  });
+
+  const [showPassword, setShowPassword] = useState({
+    currentPassword: false,
+    newPassword: false,
+    confirmPassword: false,
+  });
+
+  const togglePasswordVisibility = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  useEffect(() => {
+    // Validate new password in real-time
+    if (formData.newPassword) {
+      setPasswordChecks({
+        length: formData.newPassword.length >= 8,
+        uppercase: /[A-Z]/.test(formData.newPassword),
+        lowercase: /[a-z]/.test(formData.newPassword),
+        number: /[0-9]/.test(formData.newPassword),
+        special: /[@$!%*?&]/.test(formData.newPassword),
+      });
+    }
+
+    // Validate password match in real-time
+    if (formData.confirmPassword && formData.newPassword) {
+      if (formData.confirmPassword !== formData.newPassword) {
+        setErrors((prev) => ({
+          ...prev,
+          confirmPassword: "Passwords do not match",
+        }));
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          confirmPassword: "",
+        }));
+      }
+    }
+  }, [formData.newPassword, formData.confirmPassword]);
+
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Validate current password
+    if (!formData.currentPassword.trim()) {
+      newErrors.currentPassword = "Current password is required";
+      isValid = false;
+    }
+
+    // Validate new password
+    if (!formData.newPassword.trim()) {
+      newErrors.newPassword = "New password is required";
+      isValid = false;
+    } else if (!passwordPattern.test(formData.newPassword)) {
+      newErrors.newPassword = "Password must meet all requirements";
+      isValid = false;
+    }
+
+    // Validate confirm password
+    if (!formData.confirmPassword.trim()) {
+      newErrors.confirmPassword = "Please confirm your new password";
+      isValid = false;
+    } else if (formData.confirmPassword !== formData.newPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+      console.log("Form submitted:", formData);
+      // Here you would typically make an API call to change the password
+    }
+  };
+
+  const getCheckClassName = (isValid) =>
+    `text-xs flex items-center ${isValid ? "text-green-500" : "text-gray-500"}`;
+
   return (
     <div className="bg-dark-900 text-gray-100 min-h-screen">
       <header className="w-full bg-dark-800 p-4 shadow-md border-b border-dark-700">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-blue-400 flex items-center justify-center">
-              <span className="font-bold text-white" id="userInitial">
-                U
-              </span>
+              <span className="font-bold text-white">U</span>
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary-500 to-blue-400 bg-clip-text text-transparent">
               Change Password
@@ -31,12 +154,7 @@ export const ChangePassword = () => {
               Password
             </h2>
 
-            <form
-              id="changePasswordForm"
-              action="/change-password"
-              method="POST"
-              className="space-y-6"
-            >
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
                 <div>
                   <label
@@ -45,27 +163,43 @@ export const ChangePassword = () => {
                   >
                     Current Password
                   </label>
-                  <div className="input-field bg-dark-700 rounded-lg border border-dark-600 focus-within:border-primary-500 transition-all relative">
+                  <div
+                    className={`input-field bg-dark-700 rounded-lg border ${
+                      errors.currentPassword
+                        ? "border-red-500"
+                        : "border-dark-600"
+                    } focus-within:border-primary-500 transition-all relative`}
+                  >
                     <input
-                      type="password"
+                      type={showPassword.currentPassword ? "text" : "password"}
                       name="currentPassword"
                       id="currentPassword"
                       className="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-100 placeholder-gray-500"
                       placeholder="Enter current password"
-                      required
+                      value={formData.currentPassword}
+                      onChange={handleInputChange}
                     />
                     <button
                       type="button"
-                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500 toggle-password"
-                      data-target="currentPassword"
+                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500"
+                      onClick={() =>
+                        togglePasswordVisibility("currentPassword")
+                      }
                     >
-                      <i className="far fa-eye"></i>
+                      <i
+                        className={`far ${
+                          showPassword.currentPassword
+                            ? "fa-eye-slash"
+                            : "fa-eye"
+                        }`}
+                      ></i>
                     </button>
                   </div>
-                  <p
-                    id="currentPasswordError"
-                    className="error-message hidden"
-                  ></p>
+                  {errors.currentPassword && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.currentPassword}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -75,69 +209,89 @@ export const ChangePassword = () => {
                   >
                     New Password
                   </label>
-                  <div className="input-field bg-dark-700 rounded-lg border border-dark-600 focus-within:border-primary-500 transition-all relative">
+                  <div
+                    className={`input-field bg-dark-700 rounded-lg border ${
+                      errors.newPassword ? "border-red-500" : "border-dark-600"
+                    } focus-within:border-primary-500 transition-all relative`}
+                  >
                     <input
-                      type="password"
+                      type={showPassword.newPassword ? "text" : "password"}
                       name="newPassword"
                       id="newPassword"
                       className="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-100 placeholder-gray-500"
                       placeholder="Enter new password"
-                      required
-                      minLength="8"
-                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                      value={formData.newPassword}
+                      onChange={handleInputChange}
                     />
                     <button
                       type="button"
-                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500 toggle-password"
-                      data-target="newPassword"
+                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500"
+                      onClick={() => togglePasswordVisibility("newPassword")}
                     >
-                      <i className="far fa-eye"></i>
+                      <i
+                        className={`far ${
+                          showPassword.newPassword ? "fa-eye-slash" : "fa-eye"
+                        }`}
+                      ></i>
                     </button>
                   </div>
-                  <p id="newPasswordError" className="error-message hidden"></p>
+                  {errors.newPassword && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.newPassword}
+                    </p>
+                  )}
                   <p className="text-xs text-gray-500 mt-1">
                     Must be at least 8 characters long with at least one
                     uppercase, one lowercase, one number and one special
                     character
                   </p>
                   <div className="mt-2 space-y-1">
-                    <p className="text-xs flex items-center" id="lengthCheck">
+                    <p
+                      className={getCheckClassName(passwordChecks.length)}
+                      id="lengthCheck"
+                    >
                       <i
-                        className="fas fa-circle mr-2 text-gray-500"
+                        className="fas fa-circle mr-2"
                         style={{ fontSize: "6px" }}
                       ></i>
                       At least 8 characters
                     </p>
                     <p
-                      className="text-xs flex items-center"
+                      className={getCheckClassName(passwordChecks.uppercase)}
                       id="uppercaseCheck"
                     >
                       <i
-                        className="fas fa-circle mr-2 text-gray-500"
+                        className="fas fa-circle mr-2"
                         style={{ fontSize: "6px" }}
                       ></i>
                       At least one uppercase letter
                     </p>
                     <p
-                      className="text-xs flex items-center"
+                      className={getCheckClassName(passwordChecks.lowercase)}
                       id="lowercaseCheck"
                     >
                       <i
-                        className="fas fa-circle mr-2 text-gray-500"
+                        className="fas fa-circle mr-2"
                         style={{ fontSize: "6px" }}
                       ></i>
                       At least one lowercase letter
                     </p>
-                    <p className="text-xs flex items-center" id="numberCheck">
+                    <p
+                      className={getCheckClassName(passwordChecks.number)}
+                      id="numberCheck"
+                    >
                       <i
-                        className="fas fa-circle mr-2 text-gray-500"
+                        className="fas fa-circle mr-2"
                         style={{ fontSize: "6px" }}
                       ></i>
                       At least one number
                     </p>
-                    <p className="text-xs flex items-center" id="specialCheck">
+                    <p
+                      className={getCheckClassName(passwordChecks.special)}
+                      id="specialCheck"
+                    >
                       <i
-                        className="fas fa-circle mr-2 text-gray-500"
+                        className="fas fa-circle mr-2"
                         style={{ fontSize: "6px" }}
                       ></i>
                       At least one special character
@@ -152,28 +306,46 @@ export const ChangePassword = () => {
                   >
                     Confirm New Password
                   </label>
-                  <div className="input-field bg-dark-700 rounded-lg border border-dark-600 focus-within:border-primary-500 transition-all relative">
+                  <div
+                    className={`input-field bg-dark-700 rounded-lg border ${
+                      errors.confirmPassword
+                        ? "border-red-500"
+                        : formData.confirmPassword &&
+                          formData.confirmPassword === formData.newPassword
+                        ? "border-green-500"
+                        : "border-dark-600"
+                    } focus-within:border-primary-500 transition-all relative`}
+                  >
                     <input
-                      type="password"
+                      type={showPassword.confirmPassword ? "text" : "password"}
                       name="confirmPassword"
                       id="confirmPassword"
                       className="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-100 placeholder-gray-500"
                       placeholder="Confirm new password"
-                      required
-                      minLength="8"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
                     />
                     <button
                       type="button"
-                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500 toggle-password"
-                      data-target="confirmPassword"
+                      className="absolute right-3 top-3 text-gray-400 hover:text-primary-500"
+                      onClick={() =>
+                        togglePasswordVisibility("confirmPassword")
+                      }
                     >
-                      <i className="far fa-eye"></i>
+                      <i
+                        className={`far ${
+                          showPassword.confirmPassword
+                            ? "fa-eye-slash"
+                            : "fa-eye"
+                        }`}
+                      ></i>
                     </button>
                   </div>
-                  <p
-                    id="confirmPasswordError"
-                    className="error-message hidden"
-                  ></p>
+                  {errors.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.confirmPassword}
+                    </p>
+                  )}
                 </div>
               </div>
 

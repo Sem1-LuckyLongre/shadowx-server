@@ -39,7 +39,9 @@
 }
 
 /* Common element styles */
-input, textarea, select {
+input,
+textarea,
+select {
   @apply bg-white border-gray-200 text-gray-900 placeholder-gray-500;
 }
 
@@ -65,11 +67,12 @@ input, textarea, select {
   @apply bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
 }
 
-
 input:-webkit-autofill {
   -webkit-text-fill-color: auto !important;
-  /*Settextcolortowhite*/background-color: transperent !important;
-  /*Bluebackground*/transition: background-color 5000s ease-in-out 0s !important;
+  /*Settextcolortowhite*/
+  background-color: transperent !important;
+  /*Bluebackground*/
+  transition: background-color 5000s ease-in-out 0s !important;
   -webkit-transition: background-color 5000s ease-in-out 0s !important;
   -moz-transition: background-color 5000s ease-in-out 0s !important;
   -ms-transition: background-color 5000s ease-in-out 0s !important;
@@ -98,4 +101,19 @@ html {
 
 motion.span {
   animation: shadow 1.5s infinite;
+}
+
+.input-field:focus-within {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.error-border {
+  border-color: #ef4444;
+}
+.success-border {
+  border-color: #10b981;
 }
