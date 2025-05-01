@@ -141,7 +141,11 @@ export const ChangePassword = () => {
         );
         const data = await response.json();
         if (response.ok) {
-          toast.success(data.message);
+          if (data.message === "Previous Password in Incorrect!") {
+            toast.error(data.message);
+          } else {
+            toast.success(data.message);
+          }
           setFormData({
             currentPassword: "",
             newPassword: "",
