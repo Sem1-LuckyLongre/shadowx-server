@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const ChangePassword = () => {
   return (
     <div className="bg-dark-900 text-gray-100 min-h-screen">
@@ -13,12 +15,12 @@ export const ChangePassword = () => {
               Change Password
             </h1>
           </div>
-          <a
+          <Link
             to="/"
             className="text-gray-400 hover:text-primary-400 font-medium flex items-center"
           >
             <i className="fas fa-arrow-left mr-2"></i> Back to Home
-          </a>
+          </Link>
         </div>
       </header>
       <main className="container mx-auto py-8 px-4">
@@ -102,7 +104,7 @@ export const ChangePassword = () => {
                     <p className="text-xs flex items-center" id="lengthCheck">
                       <i
                         className="fas fa-circle mr-2 text-gray-500"
-                        style="font-size: 6px"
+                        style={{ fontSize: "6px" }}
                       ></i>
                       At least 8 characters
                     </p>
@@ -112,7 +114,7 @@ export const ChangePassword = () => {
                     >
                       <i
                         className="fas fa-circle mr-2 text-gray-500"
-                        style="font-size: 6px"
+                        style={{ fontSize: "6px" }}
                       ></i>
                       At least one uppercase letter
                     </p>
@@ -122,21 +124,21 @@ export const ChangePassword = () => {
                     >
                       <i
                         className="fas fa-circle mr-2 text-gray-500"
-                        style="font-size: 6px"
+                        style={{ fontSize: "6px" }}
                       ></i>
                       At least one lowercase letter
                     </p>
                     <p className="text-xs flex items-center" id="numberCheck">
                       <i
                         className="fas fa-circle mr-2 text-gray-500"
-                        style="font-size: 6px"
+                        style={{ fontSize: "6px" }}
                       ></i>
                       At least one number
                     </p>
                     <p className="text-xs flex items-center" id="specialCheck">
                       <i
                         className="fas fa-circle mr-2 text-gray-500"
-                        style="font-size: 6px"
+                        style={{ fontSize: "6px" }}
                       ></i>
                       At least one special character
                     </p>
