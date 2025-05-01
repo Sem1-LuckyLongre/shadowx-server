@@ -91,4 +91,38 @@ const updateUserProfileById = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login, user, updateUserProfileById };
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById({ _id: req.user._id });
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match)
+      return res
+        .status(500)
+        .send({ message: "Previous Password in Incorrect!" });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      {
+        password: hashedPassword,
+      }
+    );
+
+    res.status(200).send({ message: "Password Changed Successfully!" });
+  } catch {
+    res.status(500).send({ message: "Failed to change password" });
+  }
+};
+
+module.exports = {
+  home,
+  register,
+  login,
+  user,
+  updateUserProfileById,
+  changePassword,
+};

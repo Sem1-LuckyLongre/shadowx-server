@@ -14,5 +14,8 @@ router.route("/user").get(authMiddleware, authControllers.user);
 router
   .route("/user/profile/edit")
   .patch(authMiddleware, authControllers.updateUserProfileById);
+router
+  .route("/user/profile/change-password")
+  .post(authMiddleware, authControllers.changePassword);
 
 module.exports = router;

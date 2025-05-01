@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 export const ChangePassword = () => {
+  const { autherizedToken, URI } = useTheme();
+
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -113,13 +117,41 @@ export const ChangePassword = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Form is valid, proceed with submission
-      console.log("Form submitted:", formData);
       // Here you would typically make an API call to change the password
+      try {
+        const response = await fetch(
+          `${URI}/api/auth/user/profile/change-password`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: autherizedToken,
+            },
+            body: JSON.stringify({
+              currentPassword: formData.currentPassword,
+              newPassword: formData.newPassword,
+            }),
+          }
+        );
+        const data = await response.json();
+        if (response.ok) {
+          toast.success(data.message);
+          setFormData({
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          });
+        } else {
+          toast.error(data.message || "Failed to change password");
+        }
+      } catch (error) {
+        console.log("Error changing password:", error);
+        toast.error("Internal server error. Please try again later.");
+      }
     }
   };
 
