@@ -4,7 +4,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Loader } from "./Loader";
 
 export const ChangePassword = () => {
-  const { autherizedToken, URI, userAuthentication, mainLoader } = useTheme();
+  const { autherizedToken, URI, userAuthentication } = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -185,7 +185,7 @@ export const ChangePassword = () => {
       <main className="container mx-auto py-8 px-4">
         <div className="max-w-lg mx-auto">
           <div className="bg-dark-800 p-6 rounded-2xl shadow-lg border border-dark-700">
-            <h2 className="text-xl font-bold mb-6 flex items-center">
+            <h2 className="text-xl font-bold mb-6 flex justify-center items-center">
               <i className="fas fa-lock text-primary-500 mr-2"></i> Change Your
               Password
             </h2>
