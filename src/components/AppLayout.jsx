@@ -67,8 +67,7 @@ const AppLayout = ({ Login }) => {
       <div className="flex flex-col min-h-screen bg-[rgb(var(--background))]">
         <NavBar Login={Login} />
         <main className="flex-grow px-4 py-8">
-          {mainLoader && <MainLoader />}
-          <Outlet />
+          {mainLoader ? <MainLoader /> : <Outlet />}
         </main>
       </div>
       {/* Back to Top Button (Fixed at Bottom-Right) */}
