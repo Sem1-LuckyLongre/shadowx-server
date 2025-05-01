@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTheme } from "../context/ThemeContext";
+import { Loader } from "./Loader";
 
 export const ChangePassword = () => {
-  const { autherizedToken, URI } = useTheme();
+  const { autherizedToken, URI, userAuthentication } = useTheme();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -123,6 +126,7 @@ export const ChangePassword = () => {
     if (validateForm()) {
       // Here you would typically make an API call to change the password
       try {
+        setIsLoading(true);
         const response = await fetch(
           `${URI}/api/auth/user/profile/change-password`,
           {
@@ -145,12 +149,16 @@ export const ChangePassword = () => {
             newPassword: "",
             confirmPassword: "",
           });
+          setIsLoading(false);
+          userAuthentication();
         } else {
           toast.error(data.message || "Failed to change password");
+          setIsLoading(false);
         }
       } catch (error) {
         console.log("Error changing password:", error);
         toast.error("Internal server error. Please try again later.");
+        setIsLoading(false);
       }
     }
   };
@@ -395,6 +403,7 @@ export const ChangePassword = () => {
                   Forgot password?
                 </a>
               </div>
+              {isLoading && <Loader />}
             </form>
           </div>
         </div>
