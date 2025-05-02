@@ -145,14 +145,14 @@ export const ChangePassword = () => {
             toast.error(data.message);
           } else {
             toast.success(data.message);
+            userAuthentication();
+            setFormData({
+              currentPassword: "",
+              newPassword: "",
+              confirmPassword: "",
+            });
           }
-          setFormData({
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: "",
-          });
           setIsLoading(false);
-          userAuthentication();
         } else {
           toast.error(data.message || "Failed to change password");
           setIsLoading(false);
