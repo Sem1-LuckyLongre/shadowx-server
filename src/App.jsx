@@ -120,6 +120,20 @@ const App = () => {
         {
           path: "/chat",
           element: <ChatLayout />,
+          children: [
+            {
+              path: "admin",
+              element: <AdminChat />,
+            },
+            // {
+            //   path: "one-to-one",
+            //   element: <OneToOneChat />,
+            // },
+            // {
+            //   path: "group",
+            //   element: <GroupChat />,
+            // },
+          ],
         },
         {
           path: "/admin",
