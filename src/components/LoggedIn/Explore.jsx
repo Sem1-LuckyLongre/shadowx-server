@@ -41,7 +41,7 @@ const Explore = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <Link to="/activities">
+          <Link to="/chat">
             <span>🔓</span>
             <h2 className="text-xl font-semibold">Chat</h2>
           </Link>

@@ -26,6 +26,7 @@ import { AdminProjects } from "./components/AdminProjects";
 import { useState } from "react";
 import { MainLoader } from "./components/MainLoader";
 import { ChangePassword } from "./components/ChangePassword";
+import { ChatLayout } from "./components/layouts/ChatLayout";
 
 const App = () => {
   // const Registration = localStorage.getItem("Registration");
@@ -56,7 +57,7 @@ const App = () => {
           element: <SignUp />,
         },
         {
-          path:"/profile/change-password",
+          path: "/profile/change-password",
           element: <ChangePassword />,
         },
         {
@@ -115,6 +116,10 @@ const App = () => {
         {
           path: "/SelectSubs",
           element: <SelectSubjects />,
+        },
+        {
+          path: "/chat",
+          element: <ChatLayout />,
         },
         {
           path: "/admin",

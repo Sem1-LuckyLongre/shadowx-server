@@ -55,7 +55,7 @@ export const ThemeProvider = ({ children }) => {
     localStorage.removeItem("Token");
     // localStorage.removeItem("ProfileImage");
     setTimeout(() => {
-      window.location.reload();
+      window.location.assign("/");
     }, 2000);
     toast.success("Logout Successfully");
   };
@@ -126,7 +126,7 @@ export const ThemeProvider = ({ children }) => {
         userAuthentication,
         globalProfileImg,
         setGlobalProfileImg,
-        autherizedToken
+        autherizedToken,
       }}
     >
       {children}
