@@ -123,7 +123,7 @@ const App = () => {
           element: <ChatLayout />,
           children: [
             {
-              path: "/admin",
+              path: "admin",
               element: <AdminChat />,
             },
             // {
