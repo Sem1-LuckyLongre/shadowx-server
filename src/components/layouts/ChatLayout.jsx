@@ -8,31 +8,50 @@ import { useMediaQuery } from "react-responsive";
 export const ChatLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activePath, setActivePath] = useState("");
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isMobile = useMediaQuery({ maxWidth: 768 }, undefined, (matches) => {
+    if (matches && isSidebarOpen) {
+      setIsSidebarOpen(false);
+    }
+  });
   useTheme();
 
-  // Close sidebar when route changes
+  // Close sidebar when route changes or on mobile
   useEffect(() => {
     if (isMobile && isSidebarOpen) {
       setIsSidebarOpen(false);
     }
   }, [activePath, isMobile, isSidebarOpen]);
 
+  // Prevent scrolling when sidebar is open on mobile
+  useEffect(() => {
+    if (isMobile && isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobile, isSidebarOpen]);
+
   const sidebarVariants = {
-    hidden: { x: "-100%" },
+    hidden: { x: "-100%", opacity: 0 },
     visible: { 
       x: 0, 
+      opacity: 1,
       transition: { 
         type: "spring", 
-        stiffness: 300, 
+        stiffness: 400, 
         damping: 30,
         mass: 0.5
       } 
     },
     exit: { 
       x: "-100%", 
+      opacity: 0,
       transition: { 
-        duration: 0.3,
+        duration: 0.25,
         ease: "easeInOut"
       } 
     },
@@ -99,10 +118,14 @@ export const ChatLayout = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="md:hidden fixed top-4 left-4 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg z-30 focus:outline-none"
-        onClick={() => setIsSidebarOpen(true)}
-        aria-label="Open sidebar"
+        onClick={() => setIsSidebarOpen(prev => !prev)}
+        aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
       >
-        <FiMenu size={24} className="text-gray-800 dark:text-white" />
+        {isSidebarOpen ? (
+          <FiX size={24} className="text-gray-800 dark:text-white" />
+        ) : (
+          <FiMenu size={24} className="text-gray-800 dark:text-white" />
+        )}
       </motion.button>
 
       {/* Mobile Sidebar with Backdrop */}
@@ -138,7 +161,7 @@ export const ChatLayout = () => {
                 <motion.button
                   whileHover={{ rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 md:hidden"
                   onClick={() => setIsSidebarOpen(false)}
                   aria-label="Close sidebar"
                 >
