@@ -125,7 +125,7 @@ const App = () => {
             {
               path: "admin",
               element: <AdminChat />,
-            },
+            }
             // {
             //   path: "one-to-one",
             //   element: <OneToOneChat />,
