@@ -27,6 +27,7 @@ import { useState } from "react";
 import { MainLoader } from "./components/MainLoader";
 import { ChangePassword } from "./components/ChangePassword";
 import { ChatLayout } from "./components/layouts/ChatLayout";
+import AdminChat from "./components/AdminChat";
 
 const App = () => {
   // const Registration = localStorage.getItem("Registration");
