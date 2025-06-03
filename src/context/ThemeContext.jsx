@@ -55,7 +55,7 @@ export const ThemeProvider = ({ children }) => {
     localStorage.removeItem("Token");
     // localStorage.removeItem("ProfileImage");
     setTimeout(() => {
-      window.location.assign("/");
+      window.location.assign("/SignIn");
     }, 2000);
     toast.success("Logout Successfully");
   };
